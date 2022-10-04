@@ -1,0 +1,33 @@
+{
+  "name": "reactiumui",
+  "version": "0.0.1",
+  "description": "Cool UI Components Library for React (with nextJS support)",
+  "scripts": {
+    "test": "test",
+    "rollup": "rollup -c"
+  },
+  "author": "AnemonOFF",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-node-resolve": "^14.1.0",
+    "@rollup/plugin-typescript": "^8.3.3",
+    "@types/react": "^18.0.21",
+    "rollup": "^2.79.1",
+    "rollup-plugin-dts": "^4.2.2",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-terser": "^7.0.2",
+    "tslib": "^2.4.0",
+    "typescript": "^4.8.4"
+  },
+  "peerDependencies": {
+    "@stitches/react": "^1.2.8",
+    "react": "^18.2.0"
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts"
+}
