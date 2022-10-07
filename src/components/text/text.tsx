@@ -1,4 +1,4 @@
-import React, { ReactNode, useMemo, useRef } from "react";
+import React, { ReactNode, useMemo } from "react";
 import { CSS, CSSFontSize } from "../../theme/stitches.config";
 import { themedColors, ThemedColors } from "../../utils/types";
 import { TextVariantsProps, StyledText } from "./text.styles";
@@ -27,9 +27,6 @@ export type TextProps = Props & Omit<React.HTMLAttributes<unknown>, keyof Props>
 type TextElement = keyof JSX.IntrinsicElements;
 type TextElementMap = {[key in keyof JSX.IntrinsicElements]?: boolean}
 
-type ElementMap = {[key in keyof JSX.IntrinsicElements]?: boolean};
-type TextRenderableElements = Array<keyof JSX.IntrinsicElements>;
-
 const getTagChild = (tagChildren: TextElement[], propChildren: ReactNode, fontSize?: CSSFontSize) => {
     if(tagChildren.length === 0)
         return propChildren;
@@ -41,7 +38,7 @@ const getTagChild = (tagChildren: TextElement[], propChildren: ReactNode, fontSi
     );
 };
 
-const Text = React.forwardRef<HTMLElement, TextProps>(({
+export const Text = React.forwardRef<HTMLElement, TextProps>(({
     fontSize,
     children: propChildren,
     css,
@@ -99,4 +96,4 @@ const Text = React.forwardRef<HTMLElement, TextProps>(({
     );
 });
 
-export default Text;
+export default React.memo(Text);

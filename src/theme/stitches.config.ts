@@ -1,7 +1,21 @@
 import type * as StitchesTypes from "@stitches/react";
 import { createStitches } from '@stitches/react';
 import defaultTheme from "./default";
-import lightTheme from "./lightTheme";
+
+export type DefaultThemes = 'light' | 'dark';
+
+export type ReactiumTheme = {
+    name: string,
+    theme: ReturnType<typeof createTheme>
+}
+
+export const createReactiumTheme = (name: string, theme: Parameters<typeof createTheme>[0]) => {
+    const reactiumTheme: ReactiumTheme = {
+        name: name,
+        theme: createTheme(theme)
+    }
+    return reactiumTheme;
+}
 
 export const {
     styled,
@@ -17,12 +31,6 @@ export const {
     ...defaultTheme,
     theme: {
         ...defaultTheme.theme,
-        shadows: lightTheme.shadows,
-        dropShadows: lightTheme.dropShadows,
-        colors: {
-            ...defaultTheme.theme.colors,
-            ...lightTheme.colors
-        },
     },
 });
 

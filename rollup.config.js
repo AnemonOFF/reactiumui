@@ -32,7 +32,7 @@ export default [
 //  external: ["react", "@stitches/react"]
   },
   {
-    input: "dist/esm/types/index.d.ts",
+    input: "dist/esm/index.d.ts",
     output: [{ file: "dist/index.d.ts", format: "esm" }],
     plugins: [dts()],
   },

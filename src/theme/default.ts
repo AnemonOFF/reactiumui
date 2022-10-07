@@ -1,6 +1,5 @@
 import type * as StitchesTypes from "@stitches/react";
 import { defaultThemeMap as defaultStitchesThemeMap } from "@stitches/react";
-import { ConfigType } from "@stitches/react/types/config";
 import colors from "./colors";
 
 export const defaultColors = {
@@ -28,10 +27,10 @@ export const defaultColors = {
     successBorderHover: "$green700",
     successShadow: "$green500",
 
-    warning: "$orange600",
-    warningBorder: "$orange500",
-    warningBorderHover: "$orange700",
-    warningShadow: "$orange500",
+    warning: "$yellow600",
+    warningBorder: "$yellow500",
+    warningBorderHover: "$yellow700",
+    warningShadow: "$yellow500",
 
     error: "$red600",
     errorBorder: "$red500",
@@ -39,7 +38,7 @@ export const defaultColors = {
     errorShadow: "$red500",
 }
 
-export const defaultTokens: ConfigType.Theme = {
+export const defaultTokens = {
     fontWeights: {
         hairline: 100,
         thin: 200,
@@ -104,7 +103,7 @@ export const defaultTokens: ConfigType.Theme = {
     },
 }
 
-export const defaultMedia: ConfigType.Media = {
+export const defaultMedia = {
     xs: `(min-width: 650px)`,
     sm: `(min-width: 960px)`,
     md: `(min-width: 1280px)`,
@@ -124,7 +123,7 @@ export const defaultMedia: ConfigType.Media = {
     light: "(prefers-color-scheme: light)",
 };
 
-export const defaultUtils: ConfigType.Utils = {
+export const defaultUtils = {
     p: (value: StitchesTypes.PropertyValue<"padding">) => ({
         padding: value,
     }),
@@ -189,7 +188,7 @@ export const defaultUtils: ConfigType.Utils = {
     }),
 }
 
-export const defaultThemeMap: ConfigType.ThemeMap = {
+export const defaultThemeMap = {
     ...defaultStitchesThemeMap
 }
 
