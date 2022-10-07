@@ -13,3 +13,4 @@ export * from "./stitches.config";
 export { default as ReactiumThemeProvider } from "./context";
 export { default as lightTheme } from "./lightTheme";
 export { default as darkTheme } from "./darkTheme";
+export { cssTextStyle } from "./global";

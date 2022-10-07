@@ -1,5 +1,6 @@
 import React, { Fragment, useCallback, useContext, useEffect, useState } from "react";
 import darkTheme from "./darkTheme";
+import { Globals } from "./global";
 import lightTheme from "./lightTheme";
 import { createTheme, DefaultThemes } from "./stitches.config";
 
@@ -27,18 +28,19 @@ export interface ReactiumThemeProviderProps {
     customThemes?: ReactiumTheme[],
     defaultTheme?: DefaultThemes | string,
     children?: React.ReactNode,
-    ignoreUserPreference?: boolean
+    ignoreUserPreference?: boolean,
+    disableGlobalCss?: boolean
 }
 
-const ReactiumThemeProvider: React.FunctionComponent<ReactiumThemeProviderProps> = ({ customThemes, children, defaultTheme, ignoreUserPreference }) => {
+const ReactiumThemeProvider: React.FunctionComponent<ReactiumThemeProviderProps> = ({ customThemes, children, defaultTheme, ignoreUserPreference, disableGlobalCss }) => {
     const context = useContext(ReactiumThemeContext);
 
     if(context)
         return <Fragment>{children}</Fragment>
-    return <Theme children={children} customThemes={customThemes} defaultTheme={defaultTheme} ignoreUserPreference={ignoreUserPreference} />
+    return <Theme children={children} customThemes={customThemes} defaultTheme={defaultTheme} ignoreUserPreference={ignoreUserPreference} disableGlobalCss={disableGlobalCss} />
 }
 
-const Theme: React.FunctionComponent<ReactiumThemeProviderProps> = ({ children, defaultTheme, customThemes = [], ignoreUserPreference = false }) => {
+const Theme: React.FunctionComponent<ReactiumThemeProviderProps> = ({ children, defaultTheme, customThemes = [], ignoreUserPreference = false, disableGlobalCss = false }) => {
     if(customThemes.length === 0)
         customThemes.push(lightTheme, darkTheme);
     defaultTheme = defaultTheme ?? customThemes[0].name;
@@ -85,6 +87,7 @@ const Theme: React.FunctionComponent<ReactiumThemeProviderProps> = ({ children, 
 
     return (
         <ReactiumThemeContext.Provider value={{name: theme.name, theme: theme.theme, setTheme: changeTheme}}>
+            {!disableGlobalCss && <Globals />}
             {children}
             <ThemeInitScript themes={customThemes} defaultTheme={defaultTheme} ignoreUserPreference={ignoreUserPreference} />
         </ReactiumThemeContext.Provider>
