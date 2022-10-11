@@ -46,7 +46,7 @@ const GridRow = React.forwardRef<HTMLDivElement, GridRowProps>(({
             columnGap
         };
         return React.cloneElement(child, childProps);
-    }), [children, columns, fixed]);
+    }), [children, columns, fixed, gap, rowGap, columnGap]);
 
     return (
         <StyledGridRow ref={imperativeRef} css={{
@@ -60,4 +60,4 @@ const GridRow = React.forwardRef<HTMLDivElement, GridRowProps>(({
     );
 })
 
-export default GridRow;
+export default React.memo(GridRow);

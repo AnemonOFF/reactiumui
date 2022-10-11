@@ -23,7 +23,7 @@ export type GridItemProps = Props & Omit<React.HTMLAttributes<HTMLDivElement>, k
 const generateCss = (value: number | boolean | undefined, columns: number, fixed: boolean): CSS => {
     if (value === undefined)
         return {};
-    const display = value === 0 || value === false ? 'none' : 'initial';
+    const display = value === 0 || value === false ? 'none' : 'block';
     if (typeof value !== 'number') {
         return {
             display,
@@ -43,7 +43,6 @@ const generateCss = (value: number | boolean | undefined, columns: number, fixed
 }
 
 const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(({
-    all = false,
     xs,
     sm,
     md,
@@ -54,6 +53,7 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(({
     gap,
     rowGap,
     columnGap,
+    all = false,
     fixed = false,
     columns = 12,
     ...props
@@ -61,7 +61,7 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(({
 
     const imperativeRef = useImperativeRef(ref);
     if(!xs && !sm && !md && !lg && !xl)
-        all = true;
+        all = all === false ? true : all;
 
     const styledCss: CSS = useMemo(() => ({
         px: columnGap ?? gap ?? 0,
@@ -83,7 +83,7 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(({
             ...generateCss(xl, columns, fixed)
         },
         ...css
-    }), [all, xs, sm, md, lg, xl, columns, fixed, css]);
+    }), [all, xs, sm, md, lg, xl, columns, fixed, css, columnGap, rowGap, gap]);
 
     return (
         <StyledGridItem ref={imperativeRef} css={styledCss} {...props}>
