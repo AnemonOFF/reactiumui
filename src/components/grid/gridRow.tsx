@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { CSS } from "../../theme";
-import { AlignContent, AlignItems, JustifyContent } from "../../utils";
+import { AlignContent, AlignItems, FlexDirection, JustifyContent } from "../../utils";
 import useImperativeRef from "../../utils/hooks/useImperativeRef";
 import GridItem from "./gridItem";
 import { GridRowVariantsProps, StyledGridRow } from "./gridRow.styles";
@@ -14,6 +14,7 @@ interface Props {
     justify?: JustifyContent,
     alignItems?: AlignItems,
     alignContent?: AlignContent,
+    direction?: FlexDirection,
     css?: CSS
 }
 
@@ -28,6 +29,7 @@ const GridRow = React.forwardRef<HTMLDivElement, GridRowProps>(({
     rowGap,
     columnGap,
     gap,
+    direction,
     fixed = false,
     columns = 12,
     ...props
@@ -53,6 +55,7 @@ const GridRow = React.forwardRef<HTMLDivElement, GridRowProps>(({
             alignItems,
             alignContent,
             justifyContent: justify,
+            flexDirection: direction,
             ...css
         }} {...props}>
             {propedChildren}

@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import useImperativeRef from "../../utils/hooks/useImperativeRef";
 import { CSS } from "../../theme";
 import { GridItemVariantsProps, StyledGridItem } from "./gridItem.styles";
+import { AlignContent, AlignItems, Display, FlexDirection, JustifyContent } from "../../utils";
 
 interface Props {
     all?: number | boolean,
@@ -15,6 +16,11 @@ interface Props {
     gap?: number,
     rowGap?: number,
     columnGap?: number,
+    display?: Display,
+    justify?: JustifyContent,
+    alignItems?: AlignItems,
+    alignContent?: AlignContent,
+    direction?: FlexDirection,
     css?: CSS
 }
 
@@ -23,7 +29,7 @@ export type GridItemProps = Props & Omit<React.HTMLAttributes<HTMLDivElement>, k
 const generateCss = (value: number | boolean | undefined, columns: number, fixed: boolean): CSS => {
     if (value === undefined)
         return {};
-    const display = value === 0 || value === false ? 'none' : 'block';
+    const display = value === 0 || value === false ? 'none' : 'inherit';
     if (typeof value !== 'number') {
         return {
             display,
@@ -53,6 +59,11 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(({
     gap,
     rowGap,
     columnGap,
+    display,
+    justify,
+    alignContent,
+    alignItems,
+    direction,
     all = false,
     fixed = false,
     columns = 12,
@@ -63,27 +74,41 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(({
     if(!xs && !sm && !md && !lg && !xl)
         all = all === false ? true : all;
 
-    const styledCss: CSS = useMemo(() => ({
-        px: columnGap ?? gap ?? 0,
-        py: rowGap ?? gap ?? 0,
-        ...generateCss(all, columns, fixed),
-        '@xs': {
-            ...generateCss(xs, columns, fixed)
-        },
-        '@sm': {
-            ...generateCss(sm, columns, fixed)
-        },
-        '@md': {
-            ...generateCss(md, columns, fixed)
-        },
-        '@lg': {
-            ...generateCss(lg, columns, fixed)
-        },
-        '@xl': {
-            ...generateCss(xl, columns, fixed)
-        },
-        ...css
-    }), [all, xs, sm, md, lg, xl, columns, fixed, css, columnGap, rowGap, gap]);
+    const styledCss: CSS = useMemo(() => {
+        const result = {
+            px: columnGap ?? gap ?? 0,
+            py: rowGap ?? gap ?? 0,
+            display,
+            ...generateCss(all, columns, fixed),
+            '@xs': {
+                ...generateCss(xs, columns, fixed)
+            },
+            '@sm': {
+                ...generateCss(sm, columns, fixed)
+            },
+            '@md': {
+                ...generateCss(md, columns, fixed)
+            },
+            '@lg': {
+                ...generateCss(lg, columns, fixed)
+            },
+            '@xl': {
+                ...generateCss(xl, columns, fixed)
+            },
+            ...css
+        }
+        if(display === undefined || display =='inherit' || display == 'flex'){
+            if(justify)
+                result['justifyContent'] = justify;
+            if(direction)
+                result['flexDirection'] = direction;
+            if(alignContent)
+                result['alignContent'] = alignContent;
+            if(alignItems)
+                result['alignItems'] = alignItems;
+        }
+        return result;
+    }, [all, xs, sm, md, lg, xl, columns, fixed, css, columnGap, rowGap, gap, display]);
 
     return (
         <StyledGridItem ref={imperativeRef} css={styledCss} {...props}>
@@ -92,4 +117,4 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(({
     );
 })
 
-export default GridItem;
+export default React.memo(GridItem);
