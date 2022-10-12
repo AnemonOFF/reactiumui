@@ -108,7 +108,7 @@ const ThemeInitScript: React.FunctionComponent<ThemeInitScriptProps> = React.mem
 
     let script;
     if(ignoreUserPreference){
-        script = `document.documentElement.classList.add(${defaultThemeClassName});`;
+        script = `document.documentElement.classList.add('${defaultThemeClassName}');`;
     } else {
         script = `
             const reactium_defaultThemeClassName = '${defaultThemeClassName}';
@@ -142,9 +142,15 @@ const ThemeInitScript: React.FunctionComponent<ThemeInitScriptProps> = React.mem
     );
 }, () => true)
 
-export const useReactiumTheme = () => {
+export const useReactiumTheme = (): ReactiumThemeContextType => {
     const context = useContext(ReactiumThemeContext);
-    return context;
+    if(context === undefined)
+        throw Error('Context is undefined. Are you set ReactiumThemeProvider?');
+    return {
+        name: context.name,
+        setTheme: context.setTheme,
+        theme: context.theme,
+    };
 }
 
 export default ReactiumThemeProvider;

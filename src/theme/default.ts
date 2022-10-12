@@ -98,7 +98,7 @@ export const defaultTokens = {
         ...defaultColors,
         background: "$white",
         foreground: "$black",
-        text: "$gray900",
+        text: "$black",
         link: "$blue600",
     },
 }

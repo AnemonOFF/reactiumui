@@ -12,7 +12,9 @@ export const globalStyles = globalCss({
     body: {
         margin: 0,
         padding: 0,
-        minHeight: "100vh"
+        minHeight: "100vh",
+        color: '$foreground',
+        backgroundColor: '$background'
     },
     main: {
         display: 'block'
@@ -117,5 +119,5 @@ export const Globals: React.FunctionComponent = () => {
 }
 
 export const cssTextStyle = () => {
-    return <style dangerouslySetInnerHTML={{__html: getCssText()}} />
+    return <style id="stitches" dangerouslySetInnerHTML={{__html: getCssText()}} />
 }
