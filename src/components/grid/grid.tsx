@@ -72,13 +72,11 @@ const Grid = React.forwardRef<HTMLDivElement, GridProps>(({
     const styledCss: CSS = useMemo(() => ({
         flexWrap: isRowGrid ? 'nowrap' : 'wrap',
         flexDirection: isRowGrid ? 'column' : 'row',
-        my: -1 * (rowGap ?? gap ?? 0),
-        mx: -1 * (columnGap ?? gap ?? 0),
         justifyContent: justify,
         alignItems: alignItems,
         alignContent: alignContent,
         ...gridCss
-    }), [gridCss, isRowGrid, rowGap, gap, columnGap, justify, alignContent, alignItems]);
+    }), [gridCss, isRowGrid, justify, alignContent, alignItems]);
 
     return (
         <StyledGrid
