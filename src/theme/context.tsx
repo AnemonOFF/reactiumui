@@ -82,6 +82,11 @@ const Theme: React.FunctionComponent<ReactiumThemeProviderProps> = ({ children, 
                     localStorage.setItem(storageKey, 'light');
             }
         }
+        const resultInitTheme = customThemes.find(t => t.name == initTheme);
+        if(resultInitTheme)
+            setTheme(resultInitTheme);
+        else
+            initTheme = theme.name;
         changeTheme(initTheme);
     }, [])
 
