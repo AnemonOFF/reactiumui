@@ -13,6 +13,7 @@ interface Props {
     lg?: number | boolean,
     xl?: number | boolean,
     fixed?: boolean,
+    center?: boolean,
     css?: CSS
 }
 
@@ -43,6 +44,7 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(({
     css,
     all = false,
     fixed = false,
+    center = false,
     ...props
 }, ref) => {
     if(!xs && !sm && !md && !lg && !xl)
@@ -50,25 +52,30 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(({
     
     const imperativeRef = useImperativeRef(ref);
     
-    const styledCss: CSS = useMemo(() => ({
-        ...generateCss(all, fixed),
-        '@xs': {
-            ...generateCss(xs, fixed)
-        },
-        '@sm': {
-            ...generateCss(sm, fixed)
-        },
-        '@md': {
-            ...generateCss(md, fixed)
-        },
-        '@lg': {
-            ...generateCss(lg, fixed)
-        },
-        '@xl': {
-            ...generateCss(xl, fixed)
-        },
-        ...css
-    }), [all, xs, sm, md, lg, xl, css, fixed])
+    const styledCss: CSS = useMemo(() => {
+        const result = {
+            ...generateCss(all, fixed),
+            '@xs': {
+                ...generateCss(xs, fixed)
+            },
+            '@sm': {
+                ...generateCss(sm, fixed)
+            },
+            '@md': {
+                ...generateCss(md, fixed)
+            },
+            '@lg': {
+                ...generateCss(lg, fixed)
+            },
+            '@xl': {
+                ...generateCss(xl, fixed)
+            },
+            ...css
+        }
+        if(center)
+            result['mx'] = 'auto';
+        return result;
+    }, [all, xs, sm, md, lg, xl, css, fixed, center])
 
     return (
         <StyledContainer ref={imperativeRef} css={styledCss} {...props}>
