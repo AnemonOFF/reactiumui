@@ -67,9 +67,10 @@ const Theme: React.FunctionComponent<ReactiumThemeProviderProps> = ({ children, 
         const storageTheme = localStorage?.getItem(storageKey);
         initTheme = ignoreUserPreference ? initTheme : storageTheme ?? initTheme;
         if(!ignoreUserPreference &&
+            customThemes.find(t => t.name == storageTheme) === undefined &&
             window?.matchMedia !== undefined &&
             customThemes.filter(t => t.name == 'light' || t.name == 'dark').length == 2 &&
-            (storageTheme === undefined || storageTheme == 'light' || storageTheme == 'dark'))
+            (!storageTheme || storageTheme == 'light' || storageTheme == 'dark'))
         {
             if(window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 initTheme = 'dark';
@@ -118,23 +119,22 @@ const ThemeInitScript: React.FunctionComponent<ThemeInitScriptProps> = React.mem
         script = `
             const reactium_defaultThemeClassName = '${defaultThemeClassName}';
             const reactium_themesClassNames = ${JSON.stringify(themesClassNames)};
-            let reactium_storageThemeClassName;
             const reactium_storageThemeName = localStorage?.getItem('${storageKey}');
-            reactium_storageThemeClassName = reactium_themesClassNames[reactium_storageThemeName];
+            let reactium_storageThemeClassName = reactium_themesClassNames[reactium_storageThemeName];
             if(reactium_storageThemeClassName === undefined && localStorage !== undefined){
                 localStorage.setItem('${storageKey}', '${defaultTheme}');
             }
             ${themes.filter(t => t.name == 'light' || t.name == 'dark').length == 2 && `
-            if(window?.matchMedia !== undefined && (reactium_storageThemeName === undefined || reactium_storageThemeName == 'light' || reactium_storageThemeName == 'dark')) {
+            if(!reactium_storageThemeClassName && window?.matchMedia !== undefined && (!reactium_storageThemeName || reactium_storageThemeName == 'light' || reactium_storageThemeName == 'dark')) {
                 if(window.matchMedia('(prefers-color-scheme: dark)').matches){
                     reactium_storageThemeClassName = reactium_themesClassNames['dark'];
                     if(localStorage)
-                        localStorage.setItem('${storageKey}', reactium_storageThemeClassName);
+                        localStorage.setItem('${storageKey}', 'dark');
                 }
                 if(window.matchMedia('(prefers-color-scheme: light)').matches){
                     reactium_storageThemeClassName = reactium_themesClassNames['light'];
                     if(localStorage)
-                        localStorage.setItem('${storageKey}', reactium_storageThemeClassName);
+                        localStorage.setItem('${storageKey}', 'light');
                 }
             }
             `}
