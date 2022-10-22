@@ -15,6 +15,9 @@ export const NavbarLinkStyles = css({
     cursor: "pointer",
     padding: "$$navbarLinkBackgroundPadding",
     borderRadius: "$$navbarLinkBackgroundRadius",
+    "&:hover, &:active, &:focus": {
+        opacity: 0.7,
+    },
     "&::before": {
         content: "",
         position: "absolute",
@@ -33,7 +36,10 @@ export const NavbarLinkStyles = css({
         },
         active: {
             true: {
-                fontWeight: '$bold'
+                fontWeight: '$bold',
+                "&:hover, &:active, &:focus": {
+                    opacity: 1,
+                },
             }
         },
     },

@@ -7,4 +7,5 @@ export { Navbar,
     NavbarCollapse,
     NavbarCollapseItem,
     NavbarToggle,
-    NavbarLink } from "./navbar";
+    NavbarLink,
+    NavbarCollapseLink } from "./navbar";
