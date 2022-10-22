@@ -1,9 +1,10 @@
+import { hideShowOnMedia } from "../../theme";
 import { css, styled, VariantProps } from "../../theme/stitches.config";
 
 export const GridStyles = css({
     display: 'flex',
-    width: '100%'
-})
+    width: '100%',
+}, hideShowOnMedia)
 
 export const StyledGrid = styled("div", GridStyles);
 

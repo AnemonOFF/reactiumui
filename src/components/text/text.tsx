@@ -3,6 +3,7 @@ import { CSS, CSSFontSize } from "../../theme/stitches.config";
 import { themedColors, ThemedColors } from "../../utils/types";
 import { TextVariantsProps, StyledText } from "./text.styles";
 import useImperativeRef from "../../utils/hooks/useImperativeRef";
+import useThemeColor from "../../utils/hooks/useThemeColor";
 
 interface Props {
     children?: ReactNode,
@@ -19,7 +20,8 @@ interface Props {
     blockquote?: boolean,
     css?: CSS,
     fontSize?: CSSFontSize,
-    color?: ThemedColors | "default" | string
+    color?: ThemedColors | "default" | string,
+    gradient?: string[]
 }
 
 export type TextProps = Props & Omit<React.HTMLAttributes<unknown>, keyof Props> & Omit<TextVariantsProps, keyof Props | "tag">;
@@ -42,6 +44,7 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(({
     fontSize,
     children: propChildren,
     css,
+    gradient,
     h1 = false,
     h2 = false,
     h3 = false,
@@ -58,15 +61,7 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(({
 }, ref) => {
 
     const imperativeRef = useImperativeRef(ref as React.ForwardedRef<HTMLParagraphElement>);
-
-    const color = useMemo(() => {
-        if(propColor == "default")
-            return "$text";
-        if(themedColors.find((el) => el == propColor) !== undefined) {
-            return `$${propColor}`;
-        }
-        return propColor;
-    }, [propColor]);
+    const color = useThemeColor(propColor);
 
     const tags: TextElementMap = {h1, h2, h3, h4, h5, h6, b, i, span, em, blockquote};
     const validTags = Object.keys(tags).filter((tag) => tags[tag as TextElement]);
@@ -80,6 +75,15 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(({
         return getTagChild(childrenTags, propChildren, fontSize);
     }, [propChildren, fontSize, childrenTags]);
 
+    const gradientCss: CSS | undefined = useMemo(() => {
+        if(gradient == undefined || gradient.length < 2)
+            return undefined;
+        const colorsCount = gradient.length;
+        return {
+            textGradient: '45deg, ' + gradient.map((c, i) => `${c} ${i == 0 ? 0 : i / (colorsCount - 1) * 100}%`).join(', '),
+        };
+    }, [gradient])
+
     return (
         <StyledText
             ref={imperativeRef}
@@ -87,6 +91,7 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(({
             css={{
                 color,
                 fontSize,
+                ...gradientCss,
                 ...css
             }}
             {...props}

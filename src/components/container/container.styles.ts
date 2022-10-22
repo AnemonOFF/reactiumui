@@ -1,6 +1,7 @@
+import { hideShowOnMedia } from "../../theme";
 import { css, styled, VariantProps } from "../../theme/stitches.config";
 
-export const ContainerStyles = css({})
+export const ContainerStyles = css({}, hideShowOnMedia)
 
 export const StyledContainer = styled('div', ContainerStyles);
 

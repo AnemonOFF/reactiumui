@@ -1,3 +1,4 @@
+import { hideShowOnMedia } from "../../theme";
 import { css, styled, VariantProps } from "../../theme/stitches.config";
 
 export const TextStyles = css({
@@ -31,8 +32,8 @@ export const TextStyles = css({
         fontWeight: "$black",
       },
     }
-  }
-})
+  },
+}, hideShowOnMedia)
 
 export const StyledText = styled("p", TextStyles);
 
