@@ -10,6 +10,7 @@ export type AlignItems = 'center' | 'flex-start' | 'flex-end' | 'baseline' | 'st
 export type AlignContent = 'center' | 'flex-end' | 'flex-start' | 'space-around' | 'space-between' | 'space-evenly' | 'stretch';;
 export type FlexDirection = 'column' | 'row' | 'row-reverse' | 'column-reverse';
 export type Display = 'initial' | 'inherit' | 'block' | 'flex' | 'grid' | 'inline' | 'run-in' | 'flow' | 'flow-root' | 'table' | 'ruby' | 'contents' | 'none' | 'list-item' | 'inline-block' | 'inline-table' | 'inline-flex' | 'inline-grid';
+export type Overflow = 'visible' | 'hidden' | 'scroll' | 'auto' | 'inherit';
 
 export type ThemedColors = typeof themedColors[number];
 export type Breakpoint = keyof typeof defaultTokens.breakpoints;

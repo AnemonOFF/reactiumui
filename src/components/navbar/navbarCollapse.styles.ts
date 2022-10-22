@@ -8,7 +8,7 @@ export const NavbarCollapseStyles = css({
     p: '$$navbarDefaultPaddingMargin',
     m: 0,
     width: '100%',
-    height: "auto",
+    maxHeight: "$$navbarCollapseListMaxHeight",
     overflow: "auto",
     gap: "$space$xxl"
 })

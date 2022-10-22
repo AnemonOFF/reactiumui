@@ -24,11 +24,14 @@ export const NavbarStyles = css({
     $$navbarHeightCompact: "calc($$navbarHeightDefault * 0.7)",
     $$navbarHeight: "$$navbarHeightDefault",
     $$navbarBorder: "none",
-    $$navbarBorderRadius: "0 0 $radii$xl $radii$xl",
+    $$navbarBorderRadiusVar: "$radii$xl",
+    $$navbarBorderRadiusCloudVar: "0px",
+    $$navbarBorderRadius: "0 0 $$navbarBorderRadiusVar $$navbarBorderRadiusVar",
     $$navbarShadow: "$shadows$md",
     $$navbarBackground: "$colors$backgroundAlpha",
     $$navbarForeground: "$colors$foreground",
     $$navbarBackdropFilter: "saturate(180%) blur(9px)",
+    $$navbarCloudPadding: "0px",
     height: "auto",
     width: "100%",
     zIndex: "$2",
@@ -58,7 +61,9 @@ export const NavbarStyles = css({
                 left: 0,
                 px: '$$navbarDefaultPaddingMargin',
                 pt: '$$navbarDefaultPaddingMargin',
-                $$navbarBorderRadius: "$radii$xl",
+                $$navbarBorderRadius: "$$navbarBorderRadiusVar",
+                $$navbarCloudPadding: "$$navbarDefaultPaddingMargin",
+                $$navbarBorderRadiusCloudVar: "$$navbarBorderRadiusVar",
                 shadow: 'none',
                 border: 'none',
                 [`& ${StyledNavbarWrapper}`]: {
@@ -68,8 +73,8 @@ export const NavbarStyles = css({
                     ...NavbarBeforeStyles,
                 },
                 [`& ${StyledNavbarCollapseWrapper}`]: {
-                    maxHeight: "calc(100vh - 2 * $$navbarDefaultPaddingMargin)"
-                }
+                    $$navbarCollapseMaxHeight: "calc(100vh - 2 * $$navbarDefaultPaddingMargin)",
+                },
             }
         },
         compact: {

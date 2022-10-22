@@ -1,2 +1,2 @@
 export * from "./types";
-export * from "./hooks/useImperativeRef";
+export * from "./hooks";
