@@ -52,6 +52,17 @@ export const NavbarCollapseWrapperStyles = css({
             true: {
                 display: 'initial'
             }
+        },
+        hideScroll: {
+            true: {
+                [`& ${StyledNavbarCollapse}`]: {
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none',
+                    '&::-webkit-scrollbar': {
+                        display: 'none'
+                    },
+                }
+            }
         }
     },
     defaultVariants: {
