@@ -1,3 +1,4 @@
+import { hideScroll } from "../../theme";
 import { css, styled, VariantProps } from "../../theme/stitches.config";
 import { StyledNavbarCollapse } from "./navbarCollapse.styles";
 
@@ -55,13 +56,7 @@ export const NavbarCollapseWrapperStyles = css({
         },
         hideScroll: {
             true: {
-                [`& ${StyledNavbarCollapse}`]: {
-                    scrollbarWidth: 'none',
-                    msOverflowStyle: 'none',
-                    '&::-webkit-scrollbar': {
-                        display: 'none'
-                    },
-                }
+                [`& ${StyledNavbarCollapse}`]: hideScroll
             }
         }
     },

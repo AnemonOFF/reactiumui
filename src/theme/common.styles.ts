@@ -66,3 +66,19 @@ export const showOnMedia = css({
 })
 
 export const hideShowOnMedia = css(hideOnMedia, showOnMedia);
+
+export const hideScroll = {
+    scrollbarWidth: 'none',
+    msOverflowStyle: 'none',
+    '&::-webkit-scrollbar': {
+        display: 'none'
+    },
+};
+
+export const hideScrollVariant = css({
+    variants: {
+        hideScroll: {
+            true: hideScroll
+        }
+    }
+})

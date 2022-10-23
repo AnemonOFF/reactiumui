@@ -1,6 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ReactNode } from "react";
 import { CSS } from "../../theme";
+import { Position } from "../../utils";
 import useImperativeRef from "../../utils/hooks/useImperativeRef";
 import { ContainerVariantsProps, StyledContainer } from "./container.styles";
 
@@ -14,7 +15,8 @@ interface Props {
     xl?: number | boolean,
     fixed?: boolean,
     center?: boolean,
-    css?: CSS
+    css?: CSS,
+    position?: Position | 'fixed-overflow',
 }
 
 export type ContainerProps = Props & Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props> & Omit<ContainerVariantsProps, keyof Props>;
@@ -42,6 +44,7 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(({
     lg,
     xl,
     css,
+    position,
     all = false,
     fixed = false,
     center = false,
@@ -73,9 +76,34 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(({
             ...css
         }
         if(center)
-            result['mx'] = 'auto';
+            result.mx = 'auto';
+        if(position) {
+            result.position = position == 'fixed-overflow' ? 'fixed' : position;
+            if(position == 'fixed-overflow')
+                result.overflow = 'auto';
+        }
         return result;
-    }, [all, xs, sm, md, lg, xl, css, fixed, center])
+    }, [all, xs, sm, md, lg, xl, css, fixed, center, position])
+
+    useEffect(() => {
+        const changeMaxSize = () => {
+            const element = imperativeRef.current;
+            if(!element)
+                return;
+            const rect = element?.getBoundingClientRect();
+            element.style.maxHeight = `calc(100vh - ${rect.top}px)`;
+            element.style.maxWidth = `calc(100vw - ${rect.left}px)`;
+        }
+
+        if(position == 'fixed-overflow'){
+            changeMaxSize();
+            document.addEventListener('scroll', changeMaxSize, true);
+        } else {
+            document.removeEventListener('scroll', changeMaxSize, true);
+        }
+
+        return () => document.removeEventListener('scroll', changeMaxSize, true);
+    }, [position])
 
     return (
         <StyledContainer ref={imperativeRef} css={styledCss} {...props}>
