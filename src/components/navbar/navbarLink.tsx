@@ -18,7 +18,7 @@ interface Props {
     activeColor?: ThemedColors | string,
 }
 
-export type NavbarLinkProps = Props & Omit<React.HTMLAttributes<unknown>, keyof Props> & Omit<NavbarLinkVariantsProps, keyof Props>;
+export type NavbarLinkProps = Props & Omit<React.HTMLAttributes<HTMLAnchorElement>, keyof Props> & Omit<NavbarLinkVariantsProps, keyof Props>;
 
 export const NavbarLink = React.forwardRef<HTMLAnchorElement, NavbarLinkProps>(({
     css,

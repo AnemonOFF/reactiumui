@@ -12,7 +12,7 @@ interface Props {
     showOnScroll?: boolean,
 }
 
-export type NavbarItemProps = Props & Omit<React.HTMLAttributes<unknown>, keyof Props> & Omit<NavbarItemVariantsProps, keyof Props>;
+export type NavbarItemProps = Props & Omit<React.HTMLAttributes<HTMLLIElement>, keyof Props> & Omit<NavbarItemVariantsProps, keyof Props>;
 
 export const NavbarItem = React.forwardRef<HTMLLIElement, NavbarItemProps>(({
     children,

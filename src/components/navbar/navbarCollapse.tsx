@@ -13,7 +13,7 @@ interface Props {
     css?: CSS,
 }
 
-export type NavbarCollapseProps = Props & Omit<React.HTMLAttributes<unknown>, keyof Props> & Omit<NavbarCollapseWrapperVariantsProps, keyof Props>;
+export type NavbarCollapseProps = Props & Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props> & Omit<NavbarCollapseWrapperVariantsProps, keyof Props>;
 
 export const NavbarCollapse = React.forwardRef<HTMLUListElement, NavbarCollapseProps>(({
     open,

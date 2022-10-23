@@ -9,7 +9,7 @@ interface Props {
     css?: CSS,
 }
 
-export type NavbarCollapseItemProps = Props & Omit<React.HTMLAttributes<unknown>, keyof Props> & Omit<NavbarCollapseItemVariantsProps, keyof Props>;
+export type NavbarCollapseItemProps = Props & Omit<React.HTMLAttributes<HTMLLIElement>, keyof Props> & Omit<NavbarCollapseItemVariantsProps, keyof Props>;
 
 export const NavbarCollapseItem = React.forwardRef<HTMLLIElement, NavbarCollapseItemProps>(({
     children,

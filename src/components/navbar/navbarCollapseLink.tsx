@@ -12,7 +12,7 @@ interface Props {
     activeColor?: ThemedColors | string,
 }
 
-export type NavbarCollapseLinkProps = Props & Omit<React.HTMLAttributes<unknown>, keyof Props> & Omit<NavbarCollapseLinkVariantsProps, keyof Props>;
+export type NavbarCollapseLinkProps = Props & Omit<React.HTMLAttributes<HTMLAnchorElement>, keyof Props> & Omit<NavbarCollapseLinkVariantsProps, keyof Props>;
 
 export const NavbarCollapseLink = React.forwardRef<HTMLAnchorElement, NavbarCollapseLinkProps>(({
     css,

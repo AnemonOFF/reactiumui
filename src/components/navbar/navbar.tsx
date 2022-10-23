@@ -16,7 +16,7 @@ interface Props {
     hideOnScroll?: boolean,
 }
 
-export type NavbarProps = Props & Omit<React.HTMLAttributes<unknown>, keyof Props> & Omit<NavbarVariantsProps, keyof Props>;
+export type NavbarProps = Props & Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props> & Omit<NavbarVariantsProps, keyof Props>;
 
 export const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(({
     children,
