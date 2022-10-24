@@ -42,11 +42,17 @@ function getScrollData() {
     };
 }
 
-export default function useScroll(onScroll?: (x: number, y: number) => void) {
-    const [isOnTop, setIsOnTop] = useState(false);
-    const [isOnBottom, setIsOnBottom] = useState(false);
-    const [isOnLeft, setIsOnLeft] = useState(false);
-    const [isOnRight, setIsOnRight] = useState(false);
+export default function useScroll(
+    isOnTopInit: boolean = false,
+    isOnBottomInit: boolean = false,
+    isOnLeftInit: boolean = false,
+    isOnRightInit: boolean = false,
+    onScroll?: (x: number, y: number) => void
+    ) {
+    const [isOnTop, setIsOnTop] = useState(isOnTopInit);
+    const [isOnBottom, setIsOnBottom] = useState(isOnBottomInit);
+    const [isOnLeft, setIsOnLeft] = useState(isOnLeftInit);
+    const [isOnRight, setIsOnRight] = useState(isOnRightInit);
 
     const handleScroll = () => {
         const data = getScrollData();

@@ -32,7 +32,7 @@ export const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(({
     ...props
 }, ref) => {
     const imperativeRef = useImperativeRef(ref);
-    const { isOnTop } = useScroll();
+    const { isOnTop } = useScroll(true);
 
     const widthCss = useMemo(() => {
         let result = width;
