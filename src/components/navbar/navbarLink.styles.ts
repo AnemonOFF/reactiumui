@@ -8,6 +8,7 @@ export const NavbarLinkStyles = css({
     $$navbarLinkBackgroundRadius: "$radii$md",
     $$navbarLinkBackgroundColor: "$colors$white",
     outline: "none",
+    color: "$text",
     textDecoration: "none",
     background: "transparent",
     width: "100%",

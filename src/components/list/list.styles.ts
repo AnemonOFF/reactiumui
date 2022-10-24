@@ -2,6 +2,8 @@ import { hideShowOnMedia } from "../../theme";
 import { css, styled, VariantProps } from "../../theme/stitches.config";
 
 export const ListStyles = css({
+    display: 'flex',
+    flexDirection: 'column',
     m: 0,
     variants: {
         listStylePosition: {

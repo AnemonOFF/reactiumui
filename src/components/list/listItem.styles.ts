@@ -3,6 +3,16 @@ import { css, styled, VariantProps } from "../../theme/stitches.config";
 
 export const ListItemStyles = css({
     variants: {
+        defaultMarkerStyle: {
+            false: {
+                '&::marker': {
+                    color: '$foregroundAlpha',
+                }
+            }
+        }
+    },
+    defaultVariants: {
+        defaultMarkerStyle: false,
     }
 }, hideShowOnMedia)
 

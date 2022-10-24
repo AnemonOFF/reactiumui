@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { CSS } from "../../theme";
-import { ThemedColors, useImperativeRef, useThemeColor } from "../../utils";
+import { HTMLTarget, ThemedColors, useImperativeRef, useThemeColor } from "../../utils";
 import NavbarCollapseItem, { NavbarCollapseItemProps } from "./navbarCollapseItem";
 import { NavbarCollapseLinkVariantsProps, StyledNavbarCollapseLink } from "./navbarCollapseLink.styles";
 
@@ -10,6 +10,8 @@ interface Props {
     collapseItemProps?: NavbarCollapseItemProps,
     children?: React.ReactNode,
     activeColor?: ThemedColors | string,
+    href?: string,
+    target?: HTMLTarget,
 }
 
 export type NavbarCollapseLinkProps = Props & Omit<React.HTMLAttributes<HTMLAnchorElement>, keyof Props> & Omit<NavbarCollapseLinkVariantsProps, keyof Props>;
@@ -20,6 +22,8 @@ export const NavbarCollapseLink = React.forwardRef<HTMLAnchorElement, NavbarColl
     collapseItemProps,
     children,
     activeColor,
+    href,
+    target,
     ...props
 }, ref) => {
 
@@ -43,6 +47,8 @@ export const NavbarCollapseLink = React.forwardRef<HTMLAnchorElement, NavbarColl
             <StyledNavbarCollapseLink
                 ref={imperativeRef}
                 css={customCss}
+                href={href}
+                target={target}
                 {...props}
             >
                 {children}

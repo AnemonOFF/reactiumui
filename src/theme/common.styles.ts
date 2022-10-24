@@ -5,27 +5,27 @@ export const hideOnMedia = css({
         hideOnmedia: {
             xs: {
                 "@xsMax": {
-                    display: "none"
+                    display: "none !important"
                 }
             },
             sm: {
                 "@smMax": {
-                    display: "none"
+                    display: "none !important"
                 }
             },
             md: {
                 "@mdMax": {
-                    display: "none"
+                    display: "none !important"
                 }
             },
             lg: {
                 "@lgMax": {
-                    display: "none"
+                    display: "none !important"
                 }
             },
             xl: {
                 "@xlMax": {
-                    display: "none"
+                    display: "none !important"
                 }
             }
         }
@@ -38,27 +38,27 @@ export const showOnMedia = css({
         showOnmedia: {
             xs: {
                 "@xs": {
-                    display: "none"
+                    display: "none !important"
                 }
             },
             sm: {
                 "@sm": {
-                    display: "none"
+                    display: "none !important"
                 }
             },
             md: {
                 "@md": {
-                    display: "none"
+                    display: "none !important"
                 }
             },
             lg: {
                 "@lg": {
-                    display: "none"
+                    display: "none !important"
                 }
             },
             xl: {
                 "@xl": {
-                    display: "none"
+                    display: "none !important"
                 }
             }
         }

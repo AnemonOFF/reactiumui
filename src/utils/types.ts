@@ -5,6 +5,8 @@ export const breakpoints = Object.keys(defaultTokens.breakpoints);
 export const radii = Object.keys(defaultTokens.radii);
 export const space = Object.keys(defaultTokens.space);
 
+export type HTMLTarget = '_blank' | '_self' | '_parent' | '_top';
+
 export type GlobalValues = 'inherit' | 'initial' | 'unset' | 'revert' | 'revert-layer';
 export type JustifyContent = 'center' | 'flex-end' | 'flex-start' | 'space-around' | 'space-between' | 'space-evenly' | 'stretch' | GlobalValues;
 export type AlignItems = 'center' | 'flex-start' | 'flex-end' | 'baseline' | 'stretch' | GlobalValues;

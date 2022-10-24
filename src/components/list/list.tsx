@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { CSS } from "../../theme";
-import { ListStyleType, useImperativeRef } from "../../utils";
+import { AlignContent, AlignItems, FlexDirection, JustifyContent, ListStyleType, useImperativeRef } from "../../utils";
 import { ListVariantsProps, StyledList } from "./list.styles";
 import ListItem from "./listItem";
 
@@ -10,6 +10,11 @@ interface Props {
     listType?: 'ordered' | 'unordered',
     listStyleType?: ListStyleType,
     customMarkerContent?: string,
+    gap?: number | string,
+    direction?: FlexDirection,
+    alignItems?: AlignItems,
+    alignContent?: AlignContent,
+    justifyContent?: JustifyContent,
 }
 
 export type ListProps = Props & Omit<React.HTMLAttributes<unknown>, keyof Props> & Omit<ListVariantsProps, keyof Props>;
@@ -20,6 +25,11 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(({
     listStyleType,
     listType,
     customMarkerContent,
+    direction,
+    gap,
+    alignContent,
+    alignItems,
+    justifyContent,
     ...props
 }, ref) => {
 
@@ -29,14 +39,24 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(({
         const result: CSS = {
             ...css
         };
-        if(listStyleType !== undefined)
+        if (listStyleType !== undefined)
             result.listStyleType = listStyleType;
+        if (gap !== undefined)
+            result.gap = gap;
+        if (direction !== undefined)
+            result.flexDirection = direction;
+        if (alignContent !== undefined)
+            result.alignContent = alignContent;
+        if (alignItems !== undefined)
+            result.alignItems = alignItems;
+        if (justifyContent !== undefined)
+            result.justifyContent = justifyContent;
         return result;
-    }, [css, listStyleType])
+    }, [css, listStyleType, gap, direction, alignItems, alignContent, justifyContent])
 
     const propedChildren = useMemo(() => React.Children.map(children, child => {
-        if(React.isValidElement(child) && child.type === ListItem) {
-            const listItemProps = { 
+        if (React.isValidElement(child) && child.type === ListItem) {
+            const listItemProps = {
                 customMarkerContent: child.props.customMarkerContent ?? customMarkerContent
             };
             return React.cloneElement(child, listItemProps);

@@ -7,12 +7,12 @@ import { ContainerVariantsProps, StyledContainer } from "./container.styles";
 
 interface Props {
     children?: ReactNode,
-    all?: number | boolean,
-    xs?: number | boolean,
-    sm?: number | boolean,
-    md?: number | boolean,
-    lg?: number | boolean,
-    xl?: number | boolean,
+    all?: number | string | boolean,
+    xs?: number | string | boolean,
+    sm?: number | string | boolean,
+    md?: number | string | boolean,
+    lg?: number | string | boolean,
+    xl?: number | string | boolean,
     fixed?: boolean,
     center?: boolean,
     css?: CSS,
@@ -21,13 +21,13 @@ interface Props {
 
 export type ContainerProps = Props & Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props> & Omit<ContainerVariantsProps, keyof Props>;
 
-const generateCss = (value: number | boolean | undefined, fixed: boolean): CSS => {
+const generateCss = (value: number | string | boolean | undefined, fixed: boolean): CSS => {
     if (value === undefined)
         return {};
     
-    const isNumber = typeof value === 'number';
-    const display = value === 0 || value === false ? 'none' : 'block';
-    const cssValue = isNumber ? value : '100%';
+    const isBoolean = typeof value === 'boolean';
+    const display = value == 0 || value === false ? 'none' : 'block';
+    const cssValue = isBoolean ? '100%' : value;
 
     return {
         display,

@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { CSS } from "../../theme";
-import { Radii, Space, ThemedColors } from "../../utils";
+import { HTMLTarget, Radii, Space, ThemedColors } from "../../utils";
 import { useImperativeRef, useThemeColor } from "../../utils/hooks";
 import NavbarItem, { NavbarItemProps } from "./navbarItem";
 import { NavbarLinkVariantsProps, StyledNavbarLink } from "./navbarLink.styles";
@@ -16,6 +16,8 @@ interface Props {
     backgroundActiveColor?: ThemedColors | string,
     underlineWidth?: string | number,
     activeColor?: ThemedColors | string,
+    href?: string,
+    target?: HTMLTarget,
 }
 
 export type NavbarLinkProps = Props & Omit<React.HTMLAttributes<HTMLAnchorElement>, keyof Props> & Omit<NavbarLinkVariantsProps, keyof Props>;
@@ -31,6 +33,8 @@ export const NavbarLink = React.forwardRef<HTMLAnchorElement, NavbarLinkProps>((
     backgroundActiveColor,
     underlineWidth,
     activeColor,
+    href,
+    target,
     ...props
 }, ref) => {
 
@@ -66,6 +70,8 @@ export const NavbarLink = React.forwardRef<HTMLAnchorElement, NavbarLinkProps>((
             <StyledNavbarLink
                 ref={imperativeRef}
                 css={customCss}
+                href={href}
+                target={target}
                 {...props}
             >
                 {children}

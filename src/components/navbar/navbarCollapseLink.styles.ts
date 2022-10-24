@@ -4,6 +4,7 @@ import { css, styled, VariantProps } from "../../theme/stitches.config";
 export const NavbarCollapseLinkStyles = css({
     $$navbarCollapseLinkColor: "$colors$primary",
     textDecoration: "none",
+    color: "$text",
     cursor: "pointer",
     width: "100%",
     "&:hover, &:active, &:focus": {
