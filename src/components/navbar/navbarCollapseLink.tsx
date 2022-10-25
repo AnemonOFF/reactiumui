@@ -14,7 +14,7 @@ interface Props {
     target?: HTMLTarget,
 }
 
-export type NavbarCollapseLinkProps = Props & Omit<React.HTMLAttributes<HTMLAnchorElement>, keyof Props> & Omit<NavbarCollapseLinkVariantsProps, keyof Props>;
+export type NavbarCollapseLinkProps = Props & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof Props> & Omit<NavbarCollapseLinkVariantsProps, keyof Props>;
 
 export const NavbarCollapseLink = React.forwardRef<HTMLAnchorElement, NavbarCollapseLinkProps>(({
     css,

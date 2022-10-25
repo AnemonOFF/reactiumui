@@ -11,7 +11,7 @@ interface Props {
     css?: CSS
 }
 
-export type NavbarToggleProps = Props & Omit<React.HTMLAttributes<HTMLButtonElement>, keyof Props | 'children'> & Omit<NavbarToggleWrapperVariantsProps, keyof Props>;
+export type NavbarToggleProps = Props & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof Props | 'children'> & Omit<NavbarToggleWrapperVariantsProps, keyof Props>;
 
 export const NavbarToggle = React.forwardRef<HTMLButtonElement, NavbarToggleProps>(({
     isActive,
