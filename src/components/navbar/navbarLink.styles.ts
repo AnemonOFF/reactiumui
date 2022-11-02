@@ -27,7 +27,7 @@ export const NavbarLinkStyles = css({
         scale: "0"
     },
     variants: {
-        view: {
+        type: {
             color: {
             },
             background: {
@@ -46,14 +46,14 @@ export const NavbarLinkStyles = css({
     },
     compoundVariants: [
         {
-            view: "color",
+            type: "color",
             active: true,
             css: {
                 color: "$$navbarLinkColor",
             }
         },
         {
-            view: 'background',
+            type: 'background',
             active: true,
             css: {
                 color: "$$navbarLinkBackgroundColor",
@@ -61,7 +61,7 @@ export const NavbarLinkStyles = css({
             }
         },
         {
-            view: 'underline',
+            type: 'underline',
             active: true,
             css: {
                 color: "$$navbarLinkColor",
@@ -76,7 +76,7 @@ export const NavbarLinkStyles = css({
         }
     ],
     defaultVariants: {
-        view: 'color',
+        type: 'color',
         active: false
     }
 })

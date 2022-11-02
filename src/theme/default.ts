@@ -155,6 +155,8 @@ export const defaultTokens = {
         backgroundAlpha: "rgba(255, 255, 255, 0.8)",
         foreground: "$black",
         foregroundAlpha: "rgba(0, 0, 0, 0.8)",
+        accent: "$gray600",
+        accentAlpha: "rgba(136, 144, 150, 0.8)",
         text: "$black",
         link: "$blue600",
         border: "rgba(127, 127, 127, 0.5)",

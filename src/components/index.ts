@@ -10,3 +10,4 @@ export { Navbar,
     NavbarToggle,
     NavbarLink,
     NavbarCollapseLink } from "./navbar";
+export { Card } from "./card";
