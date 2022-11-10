@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { ReactNode, useMemo } from "react";
 import { CSS } from "../../theme";
 import { AlignContent, AlignItems, JustifyContent } from "../../utils";
 import useImperativeRef from "../../utils/hooks/useImperativeRef";
@@ -7,6 +7,7 @@ import GridItem from "./gridItem";
 import GridRow from "./gridRow";
 
 interface Props {
+    children?: ReactNode,
     fixed?: boolean,
     columns?: number,
     gap?: number,
@@ -17,8 +18,9 @@ interface Props {
     alignContent?: AlignContent,
     css?: CSS
 }
-
-export type GridProps = Props & Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props> & Omit<GridVariantsProps, keyof Props>;
+type HTMLProps = Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props>;
+type VariantsProps = Omit<GridVariantsProps, keyof Props>;
+export type GridProps = Props & VariantsProps & { html?: HTMLProps};
 
 const Grid = React.forwardRef<HTMLDivElement, GridProps>(({
     children,
@@ -27,6 +29,7 @@ const Grid = React.forwardRef<HTMLDivElement, GridProps>(({
     justify,
     alignItems,
     alignContent,
+    html,
     css: gridCss,
     fixed = false,
     columns = 12,
@@ -82,6 +85,7 @@ const Grid = React.forwardRef<HTMLDivElement, GridProps>(({
         <StyledGrid
             ref={imperativeRef}
             css={{...styledCss}}
+            {...html}
             {...props}
         >
             {propedChildren}

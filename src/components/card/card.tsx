@@ -9,13 +9,15 @@ interface Props {
     css?: CSS,
     color?: ThemedColors | string,
 }
-
-export type CardProps = Props & Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props> & Omit<CardVariantsProps, keyof Props>;
+type HTMLProps = Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props>;
+type VariantsProps = Omit<CardVariantsProps, keyof Props>;
+export type CardProps = Props & VariantsProps & { html?: HTMLProps};
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(({
     children,
     css,
     color,
+    html,
     ...props
 }, ref) => {
 
@@ -33,6 +35,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(({
         <StyledCard
             ref={imperativeRef}
             css={customCss}
+            {...html}
             {...props}
         >
             {children}

@@ -1,10 +1,11 @@
-import React, { useMemo } from "react";
+import React, { ReactNode, useMemo } from "react";
 import useImperativeRef from "../../utils/hooks/useImperativeRef";
 import { CSS } from "../../theme";
 import { GridItemVariantsProps, StyledGridItem } from "./gridItem.styles";
 import { AlignContent, AlignItems, Display, FlexDirection, JustifyContent } from "../../utils";
 
 interface Props {
+    children?: ReactNode,
     all?: number | boolean,
     xs?: number | boolean,
     sm?: number | boolean,
@@ -23,8 +24,9 @@ interface Props {
     direction?: FlexDirection,
     css?: CSS
 }
-
-export type GridItemProps = Props & Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props> & Omit<GridItemVariantsProps, keyof Props>;
+type HTMLProps = Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props>;
+type VariantsProps = Omit<GridItemVariantsProps, keyof Props>;
+export type GridItemProps = Props & VariantsProps & { html?: HTMLProps};
 
 const generateCss = (value: number | boolean | undefined, columns: number, fixed: boolean): CSS => {
     if (value === undefined)
@@ -64,6 +66,7 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(({
     alignContent,
     alignItems,
     direction,
+    html,
     all = false,
     fixed = false,
     columns = 12,
@@ -111,7 +114,12 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(({
     }, [all, xs, sm, md, lg, xl, columns, fixed, css, columnGap, rowGap, gap, display]);
 
     return (
-        <StyledGridItem ref={imperativeRef} css={styledCss} {...props}>
+        <StyledGridItem
+            ref={imperativeRef}
+            css={styledCss}
+            {...html}
+            {...props}
+        >
             {children}
         </StyledGridItem>
     );

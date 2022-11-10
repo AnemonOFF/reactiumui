@@ -16,8 +16,9 @@ interface Props {
     alignContent?: AlignContent,
     justifyContent?: JustifyContent,
 }
-
-export type ListProps = Props & Omit<React.HTMLAttributes<unknown>, keyof Props> & Omit<ListVariantsProps, keyof Props>;
+type HTMLProps = Omit<React.HTMLAttributes<HTMLUListElement>, keyof Props>;
+type VariantsProps = Omit<ListVariantsProps, keyof Props>;
+export type ListProps = Props & VariantsProps & { html?: HTMLProps};
 
 export const List = React.forwardRef<HTMLUListElement, ListProps>(({
     children,
@@ -30,6 +31,7 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(({
     alignContent,
     alignItems,
     justifyContent,
+    html,
     ...props
 }, ref) => {
 
@@ -69,6 +71,7 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(({
             as={listType == 'ordered' ? 'ol' : 'ul'}
             ref={imperativeRef}
             css={customCss}
+            {...html}
             {...props}
         >
             {propedChildren}

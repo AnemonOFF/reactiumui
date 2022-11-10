@@ -6,7 +6,7 @@ export const ListItemStyles = css({
         defaultMarkerStyle: {
             false: {
                 '&::marker': {
-                    color: '$foregroundAlpha',
+                    color: '$accent',
                 }
             }
         }

@@ -12,13 +12,15 @@ interface Props {
     hideOnScroll?: boolean,
     showOnScroll?: boolean,
 }
-
-export type NavbarContentProps = Props & Omit<React.HTMLAttributes<HTMLUListElement>, keyof Props> & Omit<NavbarItemListVariantsProps, keyof Props>;
+type HTMLProps = Omit<React.HTMLAttributes<HTMLUListElement>, keyof Props>;
+type VariantsProps = Omit<NavbarItemListVariantsProps, keyof Props>;
+export type NavbarContentProps = Props & VariantsProps & { html?: HTMLProps};
 
 export const NavbarContent = React.forwardRef<HTMLUListElement, NavbarContentProps>(({
     children,
     css,
     gap,
+    html,
     hideOnScroll = false,
     showOnScroll = false,
     ...props
@@ -40,6 +42,7 @@ export const NavbarContent = React.forwardRef<HTMLUListElement, NavbarContentPro
         <StyledNavbarItemList
             ref={imperativeRef}
             css={customCss}
+            {...html}
             {...props}
         >
             {children}

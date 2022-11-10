@@ -18,8 +18,9 @@ interface Props {
     css?: CSS,
     position?: Position | 'fixed-overflow',
 }
-
-export type ContainerProps = Props & Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props> & Omit<ContainerVariantsProps, keyof Props>;
+type HTMLProps = Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props>;
+type VariantsProps = Omit<ContainerVariantsProps, keyof Props>;
+export type ContainerProps = Props & VariantsProps & { html?: HTMLProps};
 
 const generateCss = (value: number | string | boolean | undefined, fixed: boolean): CSS => {
     if (value === undefined)
@@ -45,6 +46,7 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(({
     xl,
     css,
     position,
+    html,
     all = false,
     fixed = false,
     center = false,
@@ -106,7 +108,12 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(({
     }, [position])
 
     return (
-        <StyledContainer ref={imperativeRef} css={styledCss} {...props}>
+        <StyledContainer
+            ref={imperativeRef}
+            css={styledCss}
+            {...html}
+            {...props}
+        >
             {children}
         </StyledContainer>
     );

@@ -10,14 +10,16 @@ interface Props {
     onActiveChange?: (isActive: boolean) => void,
     css?: CSS
 }
-
-export type NavbarToggleProps = Props & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof Props | 'children'> & Omit<NavbarToggleWrapperVariantsProps, keyof Props>;
+type HTMLProps = Omit<React.HTMLAttributes<HTMLButtonElement>, keyof Props>;
+type VariantsProps = Omit<NavbarToggleWrapperVariantsProps, keyof Props>;
+export type NavbarToggleProps = Props & VariantsProps & { html?: HTMLProps};
 
 export const NavbarToggle = React.forwardRef<HTMLButtonElement, NavbarToggleProps>(({
     isActive,
     onClick,
     onActiveChange,
     css,
+    html,
     ...props
 }, ref) => {
     const { isOpened, setIsOpened } = useCollapse();
@@ -51,6 +53,7 @@ export const NavbarToggle = React.forwardRef<HTMLButtonElement, NavbarToggleProp
             active={isOpened}
             onClick={onToggleClick}
             css={css}
+            {...html}
             {...props}
         >
             <span className="line" />

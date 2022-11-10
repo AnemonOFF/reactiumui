@@ -15,12 +15,14 @@ interface Props {
     compactOnScroll?: boolean,
     hideOnScroll?: boolean,
 }
-
-export type NavbarProps = Props & Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props> & Omit<NavbarVariantsProps, keyof Props>;
+type HTMLProps = Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props>;
+type VariantsProps = Omit<NavbarVariantsProps, keyof Props>;
+export type NavbarProps = Props & VariantsProps & { html?: HTMLProps};
 
 export const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(({
     children,
     css,
+    html,
     type = "sticky",
     compact = false,
     square = false,
@@ -79,6 +81,7 @@ export const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(({
                 disableBlur={disableBlur}
                 disableShadow={disableShadow}
                 css={navbarCss}
+                {...html}
                 {...props}
             >
                 <StyledNavbarWrapper ref={imperativeRef} css={customCss}>

@@ -1,0 +1,12 @@
+export { default as Table } from './table';
+export type { TableProps } from './table';
+export { default as TableBody } from './tableBody';
+export type { TableBodyProps } from './tableBody';
+export { default as TableCell } from './tableCell';
+export type { TableCellProps } from './tableCell';
+export { default as TableColumn } from './tableColumn';
+export type { TableColumnProps } from './tableColumn';
+export { default as TableHeader } from './tableHeader';
+export type { TableHeaderProps } from './tableHeader';
+export { default as TableRow } from './tableRow';
+export type { TableRowProps } from './tableRow';

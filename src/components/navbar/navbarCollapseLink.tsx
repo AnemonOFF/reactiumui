@@ -13,8 +13,9 @@ interface Props {
     href?: string,
     target?: HTMLTarget,
 }
-
-export type NavbarCollapseLinkProps = Props & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof Props> & Omit<NavbarCollapseLinkVariantsProps, keyof Props>;
+type HTMLProps = Omit<React.HTMLAttributes<HTMLAnchorElement>, keyof Props>;
+type VariantsProps = Omit<NavbarCollapseLinkVariantsProps, keyof Props>;
+export type NavbarCollapseLinkProps = Props & VariantsProps & { html?: HTMLProps};
 
 export const NavbarCollapseLink = React.forwardRef<HTMLAnchorElement, NavbarCollapseLinkProps>(({
     css,
@@ -24,6 +25,7 @@ export const NavbarCollapseLink = React.forwardRef<HTMLAnchorElement, NavbarColl
     activeColor,
     href,
     target,
+    html,
     ...props
 }, ref) => {
 
@@ -49,6 +51,7 @@ export const NavbarCollapseLink = React.forwardRef<HTMLAnchorElement, NavbarColl
                 css={customCss}
                 href={href}
                 target={target}
+                {...html}
                 {...props}
             >
                 {children}

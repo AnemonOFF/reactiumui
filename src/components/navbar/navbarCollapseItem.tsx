@@ -8,18 +8,25 @@ interface Props {
     children?: ReactNode,
     css?: CSS,
 }
-
-export type NavbarCollapseItemProps = Props & Omit<React.HTMLAttributes<HTMLLIElement>, keyof Props> & Omit<NavbarCollapseItemVariantsProps, keyof Props>;
+type HTMLProps = Omit<React.HTMLAttributes<HTMLLIElement>, keyof Props>;
+type VariantsProps = Omit<NavbarCollapseItemVariantsProps, keyof Props>;
+export type NavbarCollapseItemProps = Props & VariantsProps & { html?: HTMLProps};
 
 export const NavbarCollapseItem = React.forwardRef<HTMLLIElement, NavbarCollapseItemProps>(({
     children,
     css,
+    html,
     ...props
 }, ref) => {
     const imperativeRef = useImperativeRef(ref);
 
     return (
-        <StyledNavbarCollapseItem ref={imperativeRef} css={css} {...props}>
+        <StyledNavbarCollapseItem
+            ref={imperativeRef}
+            css={css}
+            {...html}
+            {...props}
+        >
             {children}
         </StyledNavbarCollapseItem>
     );

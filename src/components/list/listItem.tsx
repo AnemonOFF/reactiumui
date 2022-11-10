@@ -9,14 +9,16 @@ interface Props {
     customMarkerContent?: string,
     markerCss?: CSS,
 }
-
-export type ListItemProps = Props & Omit<React.HTMLAttributes<HTMLLIElement>, keyof Props> & Omit<ListItemVariantsProps, keyof Props>;
+type HTMLProps = Omit<React.HTMLAttributes<HTMLLIElement>, keyof Props>;
+type VariantsProps = Omit<ListItemVariantsProps, keyof Props>;
+export type ListItemProps = Props & VariantsProps & { html?: HTMLProps};
 
 export const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(({
     children,
     css,
     customMarkerContent,
     markerCss,
+    html,
     ...props
 }, ref) => {
 
@@ -26,12 +28,17 @@ export const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(({
         const result: CSS = {
             ...css
         }
-        if (customMarkerContent !== undefined) {
+        if (customMarkerContent !== undefined && markerCss === undefined) {
             result["&::marker"] = {
                 content: customMarkerContent
             };
         }
-        if (markerCss !== undefined) {
+        else if (markerCss !== undefined && customMarkerContent === undefined) {
+            result["&::marker"] = {
+                ...markerCss
+            }
+        }
+        else if (markerCss !== undefined && customMarkerContent !== undefined) {
             result["&::marker"] = {
                 content: customMarkerContent,
                 ...markerCss
@@ -44,6 +51,7 @@ export const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(({
         <StyledListItem
             ref={imperativeRef}
             css={customCss}
+            {...html}
             {...props}
         >
             {children}

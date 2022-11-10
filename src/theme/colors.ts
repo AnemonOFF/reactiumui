@@ -12,16 +12,16 @@ export const blue = {
 };
 
 export const blueDark = {
-  blue50: "#10253E",
-  blue100: "#102C4C",
-  blue200: "#0F3158",
-  blue300: "#0D3868",
-  blue400: "#0A4281",
-  blue500: "#0952A5",
-  blue600: "#0072F5",
-  blue700: "#3694FF",
-  blue800: "#3694FF",
-  blue900: "#EAF4FF",
+  blueDark50: "#10253E",
+  blueDark100: "#102C4C",
+  blueDark200: "#0F3158",
+  blueDark300: "#0D3868",
+  blueDark400: "#0A4281",
+  blueDark500: "#0952A5",
+  blueDark600: "#0072F5",
+  blueDark700: "#3694FF",
+  blueDark800: "#3694FF",
+  blueDark900: "#EAF4FF",
 };
 
 export const cyan = {
@@ -38,16 +38,16 @@ export const cyan = {
 };
 
 export const cyanDark = {
-  cyan50: "#012A32",
-  cyan100: "#023A46",
-  cyan200: "#024B5A",
-  cyan300: "#036072",
-  cyan400: "#037086",
-  cyan500: "#048EA9",
-  cyan600: "#06B7DB",
-  cyan700: "#33D9FA",
-  cyan800: "#6FE4FB",
-  cyan900: "#EBFBFE",
+  cyanDark50: "#012A32",
+  cyanDark100: "#023A46",
+  cyanDark200: "#024B5A",
+  cyanDark300: "#036072",
+  cyanDark400: "#037086",
+  cyanDark500: "#048EA9",
+  cyanDark600: "#06B7DB",
+  cyanDark700: "#33D9FA",
+  cyanDark800: "#6FE4FB",
+  cyanDark900: "#EBFBFE",
 };
 
 export const gray = {
@@ -64,16 +64,16 @@ export const gray = {
 };
 
 export const grayDark = {
-  gray50: "#16181A",
-  gray100: "#26292B",
-  gray200: "#2B2F31",
-  gray300: "#313538",
-  gray400: "#3A3F42",
-  gray500: "#4C5155",
-  gray600: "#697177",
-  gray700: "#787F85",
-  gray800: "#9BA1A6",
-  gray900: "#ECEDEE",
+  grayDark50: "#16181A",
+  grayDark100: "#26292B",
+  grayDark200: "#2B2F31",
+  grayDark300: "#313538",
+  grayDark400: "#3A3F42",
+  grayDark500: "#4C5155",
+  grayDark600: "#697177",
+  grayDark700: "#787F85",
+  grayDark800: "#9BA1A6",
+  grayDark900: "#ECEDEE",
 };
 
 export const green = {
@@ -90,16 +90,16 @@ export const green = {
 };
 
 export const greenDark = {
-  green50: "#042F14",
-  green100: "#06381B",
-  green200: "#074A24",
-  green300: "#0A6130",
-  green400: "#0B7439",
-  green500: "#0F9549",
-  green600: "#17C964",
-  green700: "#41EC8B",
-  green800: "#78F2AD",
-  green900: "#ECFDF4",
+  greenDark50: "#042F14",
+  greenDark100: "#06381B",
+  greenDark200: "#074A24",
+  greenDark300: "#0A6130",
+  greenDark400: "#0B7439",
+  greenDark500: "#0F9549",
+  greenDark600: "#17C964",
+  greenDark700: "#41EC8B",
+  greenDark800: "#78F2AD",
+  greenDark900: "#ECFDF4",
 };
 
 export const pink = {
@@ -116,16 +116,16 @@ export const pink = {
 };
 
 export const pinkDark = {
-  pink50: "#330025",
-  pink100: "#470033",
-  pink200: "#5C0042",
-  pink300: "#750054",
-  pink400: "#8A0063",
-  pink500: "#AD007C",
-  pink600: "#FF4ECD",
-  pink700: "#FF2EC4",
-  pink800: "#FF6BD5",
-  pink900: "#FFEBF9",
+  pinkDark50: "#330025",
+  pinkDark100: "#470033",
+  pinkDark200: "#5C0042",
+  pinkDark300: "#750054",
+  pinkDark400: "#8A0063",
+  pinkDark500: "#AD007C",
+  pinkDark600: "#FF4ECD",
+  pinkDark700: "#FF2EC4",
+  pinkDark800: "#FF6BD5",
+  pinkDark900: "#FFEBF9",
 };
 
 export const purple = {
@@ -142,16 +142,16 @@ export const purple = {
 };
 
 export const purpleDark = {
-  purple50: "#1F0A33",
-  purple100: "#240C3C",
-  purple200: "#2E0F4D",
-  purple300: "#3B1362",
-  purple400: "#451773",
-  purple500: "#571D91",
-  purple600: "#7828C8",
-  purple700: "#9750DD",
-  purple800: "#B583E7",
-  purple900: "#F7ECFC",
+  purpleDark50: "#1F0A33",
+  purpleDark100: "#240C3C",
+  purpleDark200: "#2E0F4D",
+  purpleDark300: "#3B1362",
+  purpleDark400: "#451773",
+  purpleDark500: "#571D91",
+  purpleDark600: "#7828C8",
+  purpleDark700: "#9750DD",
+  purpleDark800: "#B583E7",
+  purpleDark900: "#F7ECFC",
 };
 
 export const red = {
@@ -168,16 +168,16 @@ export const red = {
 };
 
 export const redDark = {
-  red50: "#300313",
-  red100: "#300313",
-  red200: "#44041A",
-  red300: "#5C0523",
-  red400: "#6F062B",
-  red500: "#910838",
-  red600: "#F31260",
-  red700: "#F4256D",
-  red800: "#F75F94",
-  red900: "#FDD8E5",
+  redDark50: "#300313",
+  redDark100: "#300313",
+  redDark200: "#44041A",
+  redDark300: "#5C0523",
+  redDark400: "#6F062B",
+  redDark500: "#910838",
+  redDark600: "#F31260",
+  redDark700: "#F4256D",
+  redDark800: "#F75F94",
+  redDark900: "#FDD8E5",
 };
 
 export const yellow = {
@@ -194,16 +194,16 @@ export const yellow = {
 };
 
 export const yellowDark = {
-  yellow50: "#3A2503",
-  yellow100: "#442B03",
-  yellow200: "#583804",
-  yellow300: "#704705",
-  yellow400: "#845306",
-  yellow500: "#A66908",
-  yellow600: "#F5A524",
-  yellow700: "#F6AD37",
-  yellow800: "#F8C572",
-  yellow900: "#FEF7EC",
+  yellowDark50: "#3A2503",
+  yellowDark100: "#442B03",
+  yellowDark200: "#583804",
+  yellowDark300: "#704705",
+  yellowDark400: "#845306",
+  yellowDark500: "#A66908",
+  yellowDark600: "#F5A524",
+  yellowDark700: "#F6AD37",
+  yellowDark800: "#F8C572",
+  yellowDark900: "#FEF7EC",
 };
 
 export default {

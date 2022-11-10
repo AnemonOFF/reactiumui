@@ -82,3 +82,28 @@ export const hideScrollVariant = css({
         }
     }
 })
+
+export const blurBackground = {
+    "&::before": {
+        content: "",
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        background: '$backgroundAlpha',
+        backdropFilter: 'saturate(180%) blur(9px)',
+        zIndex: '-1',
+    }
+}
+
+export const blurBackgroundVariant = css({
+    variants: {
+        blur: {
+            true: {
+                background: 'transparent',
+                ...blurBackground
+            }
+        }
+    }
+})

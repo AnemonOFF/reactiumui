@@ -9,5 +9,13 @@ export { Navbar,
     NavbarCollapseItem,
     NavbarToggle,
     NavbarLink,
-    NavbarCollapseLink } from "./navbar";
+    NavbarCollapseLink
+} from "./navbar";
 export { Card } from "./card";
+export { Table,
+    TableBody,
+    TableCell,
+    TableColumn,
+    TableHeader,
+    TableRow
+} from "./table";

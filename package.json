@@ -1,6 +1,6 @@
 {
   "name": "reactiumui",
-  "version": "0.5.1", 
+  "version": "0.6.0",
   "description": "Cool UI Components Library for React (with nextJS support)",
   "scripts": {
     "test": "test",
@@ -19,6 +19,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-terser": "^7.0.2",
     "tslib": "^2.4.0",
+    "typedoc": "^0.23.20",
     "typescript": "^4.7.4"
   },
   "peerDependencies": {

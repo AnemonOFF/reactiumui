@@ -12,8 +12,9 @@ interface Props {
     gap?: number | string,
     css?: CSS,
 }
-
-export type NavbarCollapseProps = Props & Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props> & Omit<NavbarCollapseWrapperVariantsProps, keyof Props>;
+type HTMLProps = Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props>;
+type VariantsProps = Omit<NavbarCollapseWrapperVariantsProps, keyof Props>;
+export type NavbarCollapseProps = Props & VariantsProps & { html?: HTMLProps};
 
 export const NavbarCollapse = React.forwardRef<HTMLUListElement, NavbarCollapseProps>(({
     open,
@@ -22,6 +23,7 @@ export const NavbarCollapse = React.forwardRef<HTMLUListElement, NavbarCollapseP
     gap,
     css,
     fullScreen,
+    html,
     ...props
 }, ref) => {
     const { isOpened, setIsOpened } = useCollapse();
@@ -54,7 +56,7 @@ export const NavbarCollapse = React.forwardRef<HTMLUListElement, NavbarCollapseP
     }, [css, gap])
 
     return (
-        <StyledNavbarCollapseWrapper open={isOpened} fullScreen={fullScreen} {...props}>
+        <StyledNavbarCollapseWrapper open={isOpened} fullScreen={fullScreen} {...html} {...props}>
             <StyledNavbarCollapse css={customCss} ref={imperativeRef}>
                 {children}
             </StyledNavbarCollapse>
