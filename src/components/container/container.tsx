@@ -16,7 +16,8 @@ interface Props {
     fixed?: boolean,
     center?: boolean,
     css?: CSS,
-    position?: Position | 'fixed-overflow',
+    position?: Position,
+    preventOverScreen?: boolean,
 }
 type HTMLProps = Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props>;
 type VariantsProps = Omit<ContainerVariantsProps, keyof Props>;
@@ -47,6 +48,7 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(({
     css,
     position,
     html,
+    preventOverScreen = false,
     all = false,
     fixed = false,
     center = false,
@@ -80,8 +82,8 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(({
         if(center)
             result.mx = 'auto';
         if(position) {
-            result.position = position == 'fixed-overflow' ? 'fixed' : position;
-            if(position == 'fixed-overflow')
+            result.position = position;
+            if(preventOverScreen)
                 result.overflow = 'auto';
         }
         return result;
@@ -96,8 +98,8 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(({
             element.style.maxHeight = `calc(100vh - ${rect.top}px)`;
             element.style.maxWidth = `calc(100vw - ${rect.left}px)`;
         }
-
-        if(position == 'fixed-overflow'){
+        
+        if(preventOverScreen){
             changeMaxSize();
             document.addEventListener('scroll', changeMaxSize, true);
         } else {
@@ -105,7 +107,7 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(({
         }
 
         return () => document.removeEventListener('scroll', changeMaxSize, true);
-    }, [position])
+    }, [preventOverScreen, imperativeRef.current])
 
     return (
         <StyledContainer

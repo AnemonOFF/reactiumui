@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactNode, useMemo } from "react";
-import { CSS, hideOnMedia } from "../../theme";
+import { CSS } from "../../theme";
 import { useScroll } from "../../utils/hooks";
 import useImperativeRef from "../../utils/hooks/useImperativeRef";
 import { NavbarItemListVariantsProps, StyledNavbarItemList } from "./navbarItem.styles";

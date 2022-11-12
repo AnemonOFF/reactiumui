@@ -23,8 +23,9 @@ interface Props {
     color?: ThemedColors | "default" | string,
     gradient?: string[]
 }
-
-export type TextProps = Props & Omit<React.HTMLAttributes<unknown>, keyof Props> & Omit<TextVariantsProps, keyof Props | "tag">;
+type HTMLProps = Omit<React.HTMLAttributes<unknown>, keyof Props>;
+type VariantsProps = Omit<TextVariantsProps, keyof Props>;
+export type TextProps = Props & VariantsProps & { html?: HTMLProps};
 
 type TextElement = keyof JSX.IntrinsicElements;
 type TextElementMap = {[key in keyof JSX.IntrinsicElements]?: boolean}
@@ -45,6 +46,7 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(({
     children: propChildren,
     css,
     gradient,
+    html,
     h1 = false,
     h2 = false,
     h3 = false,
@@ -94,6 +96,7 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(({
                 ...gradientCss,
                 ...css
             }}
+            {...html}
             {...props}
         >
             {children}

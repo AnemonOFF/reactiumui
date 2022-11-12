@@ -6,7 +6,7 @@ import GridItem from "./gridItem";
 import { GridRowVariantsProps, StyledGridRow } from "./gridRow.styles";
 
 interface Props {
-    children?: ReactNode,
+    children: ReactNode,
     fixed?: boolean,
     columns?: number,
     gap?: number,

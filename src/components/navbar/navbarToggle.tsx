@@ -5,7 +5,7 @@ import { useCollapse } from "./collapseContext";
 import { NavbarToggleWrapperVariantsProps, StyledNavbarToggleWrapper } from "./navbarToggle.styles";
 
 interface Props {
-    isActive?: boolean,
+    active?: boolean,
     onClick?: () => void,
     onActiveChange?: (isActive: boolean) => void,
     css?: CSS
@@ -15,7 +15,7 @@ type VariantsProps = Omit<NavbarToggleWrapperVariantsProps, keyof Props>;
 export type NavbarToggleProps = Props & VariantsProps & { html?: HTMLProps};
 
 export const NavbarToggle = React.forwardRef<HTMLButtonElement, NavbarToggleProps>(({
-    isActive,
+    active,
     onClick,
     onActiveChange,
     css,
@@ -25,8 +25,8 @@ export const NavbarToggle = React.forwardRef<HTMLButtonElement, NavbarToggleProp
     const { isOpened, setIsOpened } = useCollapse();
     const imperativeRef = useImperativeRef(ref);
 
-    if ((isActive === undefined || onClick === undefined) &&
-        (isActive !== undefined && onClick !== undefined)) {
+    if ((active === undefined || onClick === undefined) &&
+        (active !== undefined && onClick !== undefined)) {
         console.warn("Component is changing an uncontrolled NavbarToggle to be controlled");
     }
 
@@ -38,9 +38,9 @@ export const NavbarToggle = React.forwardRef<HTMLButtonElement, NavbarToggleProp
     }
 
     useEffect(() => {
-        if (isActive !== undefined)
-            setIsOpened(isActive);
-    }, [isActive, setIsOpened])
+        if (active !== undefined)
+            setIsOpened(active);
+    }, [active, setIsOpened])
 
     useEffect(() => {
         if (onActiveChange)

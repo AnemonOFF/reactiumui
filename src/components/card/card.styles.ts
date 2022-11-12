@@ -2,7 +2,7 @@ import { hideScrollVariant, hideShowOnMedia } from "../../theme";
 import { css, styled, VariantProps } from "../../theme/stitches.config";
 
 export const CardStyles = css({
-    $$cardBackground: "$backgroundAlpha",
+    $$cardBackground: "$colors$backgroundAlpha",
     background: "$$cardBackground",
     borderRadius: "$radii$xl",
     variants: {
@@ -11,7 +11,7 @@ export const CardStyles = css({
                 shadow: '$md'
             },
             flat: {
-                $$cardBackground: "$accentAlpha"
+                $$cardBackground: "$colors$backgroundAccent"
             }
         },
         border: {
@@ -31,7 +31,7 @@ export const CardStyles = css({
         },
         solid: {
             true: {
-                $$cardBackground: "$background",
+                $$cardBackground: "$colors$background",
             }
         },
         isPressable: {
@@ -45,7 +45,7 @@ export const CardStyles = css({
             type: 'flat',
             solid: 'true',
             css: {
-                $$cardBackground: "$colors$accent",
+                $$cardBackground: "$colors$backgroundAccent",
             }
         }
     ],
