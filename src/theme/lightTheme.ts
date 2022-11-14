@@ -10,7 +10,7 @@ const lightTheme = createReactiumTheme('light', {
         link: "$blue600",
     },
     shadows: {
-        md: "$mdDark",
+        md: "0px 0px 25px 0px rgba(0, 0, 0, 0.15)",
     },
 });
 

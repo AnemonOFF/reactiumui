@@ -84,7 +84,9 @@ export const defaultTokens = {
         lg: "1.125rem",
         xl: "1.25rem",
         xxl: "1.5rem",
-        xxxl: "2rem"
+        '3xl': "2rem",
+        '4xl': "3rem",
+        '5xl': "5rem",
     },
     borderStyles: {},
     fonts: {},
@@ -122,9 +124,10 @@ export const defaultTokens = {
     },
     sizes: {},
     shadows: {
-        mdDark: "0px 0px 25px 0px rgba(0, 0, 0, 0.15)",
-        mdLight: "0px 0px 25px 0px rgba(255, 255, 255, 0.15)",
-        md: "$mdDark",
+        md: "0px 0px 25px 0px rgba(0, 0, 0, 0.15)",
+    },
+    dropShadows: {
+        md: "drop-shadow(0 0px 25px rgba(0, 0, 0, 0.15))",
     },
     space: {
         xxs: "0.5rem",
@@ -171,7 +174,7 @@ export const defaultTokens = {
         md: "1280px",
         lg: "1400px",
         xl: "1920px",
-    }
+    },
 }
 
 export const defaultMedia = {
@@ -276,6 +279,9 @@ export const defaultUtils = {
     }),
     defaultShadow: (value: StitchesTypes.PropertyValue<"color">) => ({
         boxShadow: `0px 0px 15px 3px ${value}`,
+    }),
+    dropShadow: (value: StitchesTypes.PropertyValue<"boxShadow">) => ({
+        filter: `$dropShadows${value}`,
     }),
 }
 

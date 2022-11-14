@@ -14,8 +14,11 @@ const darkTheme = createReactiumTheme('dark', {
         link: "$blue600",
     },
     shadows: {
-        md: "$mdLight",
+        md: "0px 0px 25px 0px rgba(255, 255, 255, 0.15)",
     },
+    dropShadows: {
+        md: "drop-shadow(0 0px 25px rgba(255, 255, 255, 0.15))",
+    }
 })
 
 export default darkTheme;

@@ -16,6 +16,7 @@ interface Props {
     b?: boolean,
     i?: boolean,
     span?: boolean,
+    p?: boolean,
     em?: boolean,
     blockquote?: boolean,
     css?: CSS,
@@ -56,6 +57,7 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(({
     b = false,
     i = false,
     span = false,
+    p = false,
     em = false,
     blockquote = false,
     color: propColor = "default",
@@ -65,7 +67,7 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(({
     const imperativeRef = useImperativeRef(ref as React.ForwardedRef<HTMLParagraphElement>);
     const color = useThemeColor(propColor);
 
-    const tags: TextElementMap = {h1, h2, h3, h4, h5, h6, b, i, span, em, blockquote};
+    const tags: TextElementMap = {h1, h2, h3, h4, h5, h6, b, i, span, p, em, blockquote};
     const validTags = Object.keys(tags).filter((tag) => tags[tag as TextElement]);
     //as (keyof JSX.IntrinsicElements)[]
 
@@ -96,6 +98,7 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(({
                 ...gradientCss,
                 ...css
             }}
+            quote={blockquote}
             {...html}
             {...props}
         >

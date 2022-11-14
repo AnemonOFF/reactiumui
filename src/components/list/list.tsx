@@ -24,7 +24,6 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(({
     children,
     css,
     listStyleType,
-    listType,
     customMarkerContent,
     direction,
     gap,
@@ -32,6 +31,7 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(({
     alignItems,
     justifyContent,
     html,
+    listType = 'ordered',
     ...props
 }, ref) => {
 
@@ -43,6 +43,8 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(({
         };
         if (listStyleType !== undefined)
             result.listStyleType = listStyleType;
+        else
+            result.listStyleType = listType == 'ordered' ? 'disc' : 'decimal';
         if (gap !== undefined)
             result.gap = gap;
         if (direction !== undefined)
