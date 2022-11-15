@@ -2,7 +2,6 @@ import { css, styled, VariantProps } from "../../theme/stitches.config";
 
 export const NavbarLinkStyles = css({
     $$navbarLinkColor: "$colors$primary",
-    $$navbarLinkBackground: "$colors$primary",
     $$navbarLinkUnderlineWidth: "100%",
     $$navbarLinkBackgroundPadding: "$space$xs",
     $$navbarLinkBackgroundRadius: "$radii$md",
@@ -23,7 +22,7 @@ export const NavbarLinkStyles = css({
         content: "",
         position: "absolute",
         zIndex: "-1",
-        background: "$$navbarLinkBackground",
+        background: "$$navbarLinkColor",
         scale: "0"
     },
     variants: {
@@ -57,7 +56,7 @@ export const NavbarLinkStyles = css({
             active: true,
             css: {
                 color: "$$navbarLinkBackgroundColor",
-                background: "$$navbarLinkBackground"
+                background: "$$navbarLinkColor"
             }
         },
         {

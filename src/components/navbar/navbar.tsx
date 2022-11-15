@@ -56,7 +56,6 @@ export const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(({
         }
         if (compactOnScroll && !isOnTop) {
             result['$$navbarHeight'] = "$$navbarHeightCompact";
-            result['$$navbarBorderRadius'] = "$radii$md";
         }
         if (hideOnScroll && !isOnTop) {
             result.transform = 'translateY(calc(-$$navbarHeight - 30px))';

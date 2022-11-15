@@ -69,13 +69,10 @@ export default function useScroll(
     };
 
     useEffect(() => {
+        handleScroll();
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, [handleScroll])
-
-    useEffect(() => {
-        handleScroll();
-    }, [])
 
     return {
         isOnTop,

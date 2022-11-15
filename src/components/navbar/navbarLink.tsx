@@ -12,7 +12,6 @@ interface Props {
     children?: React.ReactNode,
     backgroundRadius?: Radii | string | number,
     backgroundPadding?: Space | string | number,
-    backgroundColor?: ThemedColors | string,
     backgroundActiveColor?: ThemedColors | string,
     underlineWidth?: string | number,
     activeColor?: ThemedColors | string,
@@ -30,7 +29,6 @@ export const NavbarLink = React.forwardRef<HTMLAnchorElement, NavbarLinkProps>((
     children,
     backgroundRadius,
     backgroundPadding,
-    backgroundColor,
     backgroundActiveColor,
     underlineWidth,
     activeColor,
@@ -43,7 +41,6 @@ export const NavbarLink = React.forwardRef<HTMLAnchorElement, NavbarLinkProps>((
     const imperativeRef = useImperativeRef(ref);
     const activeThemeColor = useThemeColor(activeColor);
     const backgroundActiveThemeColor = useThemeColor(backgroundActiveColor);
-    const themeBackground = useThemeColor(backgroundColor);
 
     const customCss = useMemo(() => {
         const result: CSS = {
@@ -52,9 +49,7 @@ export const NavbarLink = React.forwardRef<HTMLAnchorElement, NavbarLinkProps>((
         if(backgroundActiveThemeColor !== undefined)
             result["$$navbarLinkBackgroundColor"] = backgroundActiveThemeColor;
         if(activeThemeColor !== undefined)
-            result["$$navbarLinkActiveColor"] = activeThemeColor;
-        if(themeBackground !== undefined)
-            result["$$navbarLinkBackground"] = themeBackground;
+            result["$$navbarLinkColor"] = activeThemeColor;
         if(backgroundRadius !== undefined)
             result["$$navbarLinkBackgroundRadius"] = backgroundRadius;
         if(backgroundPadding !== undefined)
@@ -62,7 +57,7 @@ export const NavbarLink = React.forwardRef<HTMLAnchorElement, NavbarLinkProps>((
         if(underlineWidth !== undefined)
             result["$$navbarLinkUnderlineWidth"] = underlineWidth;
         return result;
-    }, [css, activeThemeColor, themeBackground, themeBackground, backgroundRadius, backgroundPadding, underlineWidth]);
+    }, [css, activeThemeColor, backgroundRadius, backgroundPadding, underlineWidth]);
 
     return (
         <NavbarItem

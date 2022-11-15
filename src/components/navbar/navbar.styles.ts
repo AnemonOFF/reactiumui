@@ -80,7 +80,6 @@ export const NavbarStyles = css({
         compact: {
             true: {
                 $$navbarHeight: "$$navbarHeightCompact",
-                $$navbarBorderRadius: "$radii$md",
             }
         },
         square: {
