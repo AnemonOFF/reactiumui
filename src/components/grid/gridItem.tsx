@@ -12,7 +12,7 @@ interface Props {
     md?: number | boolean,
     lg?: number | boolean,
     xl?: number | boolean,
-    fixed?: boolean,
+    fixed?: boolean | 'max',
     columns?: number,
     gap?: number,
     rowGap?: number,
@@ -28,7 +28,7 @@ type HTMLProps = Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props>;
 type VariantsProps = Omit<GridItemVariantsProps, keyof Props>;
 export type GridItemProps = Props & VariantsProps & { html?: HTMLProps};
 
-const generateCss = (value: number | boolean | undefined, columns: number, fixed: boolean): CSS => {
+const generateCss = (value: number | boolean | undefined, columns: number, fixed: boolean | 'max'): CSS => {
     if (value === undefined)
         return {};
     const display = value === 0 || value === false ? 'none' : 'inherit';
@@ -42,12 +42,24 @@ const generateCss = (value: number | boolean | undefined, columns: number, fixed
     }
     const procentWidth = 100 / columns * value;
     const width = fixed ? value : (procentWidth > 100 ? '100%' : procentWidth < 0 ? '0' : `${procentWidth}%`);
-    return {
+    type ResultType = {
+        display: string,
+        flexBasis: string | number,
+        flexGrow: number,
+        maxWidth?: string | number,
+        width?: string | number
+    }
+    const res: ResultType = {
         display,
         flexBasis: width,
-        maxWidth: width,
         flexGrow: 0,
     };
+    if(fixed == 'max')
+        res.maxWidth = width;
+    else
+        res.width = width;
+
+    return res;
 }
 
 const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(({

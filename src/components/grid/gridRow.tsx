@@ -7,7 +7,7 @@ import { GridRowVariantsProps, StyledGridRow } from "./gridRow.styles";
 
 interface Props {
     children: ReactNode,
-    fixed?: boolean,
+    fixed?: boolean | 'max',
     columns?: number,
     gap?: number,
     rowGap?: number,

@@ -8,7 +8,7 @@ import GridRow from "./gridRow";
 
 interface Props {
     children: ReactNode,
-    fixed?: boolean,
+    fixed?: boolean | 'max',
     columns?: number,
     gap?: number,
     rowGap?: number,
