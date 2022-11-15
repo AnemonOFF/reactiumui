@@ -18,7 +18,7 @@ interface Props {
     span?: boolean,
     p?: boolean,
     em?: boolean,
-    blockquote?: boolean,
+    blockquote?: boolean | 'clear',
     css?: CSS,
     fontSize?: CSSFontSize,
     color?: ThemedColors | "default" | string,
@@ -67,7 +67,7 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(({
     const imperativeRef = useImperativeRef(ref as React.ForwardedRef<HTMLParagraphElement>);
     const color = useThemeColor(propColor);
 
-    const tags: TextElementMap = {h1, h2, h3, h4, h5, h6, b, i, span, p, em, blockquote};
+    const tags: TextElementMap = {h1, h2, h3, h4, h5, h6, b, i, span, p, em, blockquote: (blockquote != false ? true : false)};
     const validTags = Object.keys(tags).filter((tag) => tags[tag as TextElement]);
     //as (keyof JSX.IntrinsicElements)[]
 

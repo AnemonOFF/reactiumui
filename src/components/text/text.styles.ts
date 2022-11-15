@@ -59,6 +59,14 @@ export const TextStyles = css({
           bottom: 10,
           right: 10,
         }
+      },
+      clear: {
+        position: 'relative',
+        background: '$backgroundAccent',
+        m: 0,
+        p: '$xl',
+        width: 'fit-content',
+        borderRadius: '$xl',
       }
     }
   },
