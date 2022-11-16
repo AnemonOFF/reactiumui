@@ -29,18 +29,19 @@ export interface ReactiumThemeProviderProps {
     defaultTheme?: DefaultThemes | string,
     children?: React.ReactNode,
     ignoreUserPreference?: boolean,
-    disableGlobalCss?: boolean
+    disableGlobalCss?: boolean,
+    scrollbar?: boolean
 }
 
-const ReactiumThemeProvider: React.FunctionComponent<ReactiumThemeProviderProps> = ({ customThemes, children, defaultTheme, ignoreUserPreference, disableGlobalCss }) => {
+const ReactiumThemeProvider: React.FunctionComponent<ReactiumThemeProviderProps> = ({ customThemes, children, defaultTheme, ignoreUserPreference, disableGlobalCss, scrollbar }) => {
     const context = useContext(ReactiumThemeContext);
 
     if(context)
         return <Fragment>{children}</Fragment>
-    return <Theme children={children} customThemes={customThemes} defaultTheme={defaultTheme} ignoreUserPreference={ignoreUserPreference} disableGlobalCss={disableGlobalCss} />
+    return <Theme children={children} customThemes={customThemes} defaultTheme={defaultTheme} ignoreUserPreference={ignoreUserPreference} disableGlobalCss={disableGlobalCss} scrollbar={scrollbar} />
 }
 
-const Theme: React.FunctionComponent<ReactiumThemeProviderProps> = ({ children, defaultTheme, customThemes = [], ignoreUserPreference = false, disableGlobalCss = false }) => {
+const Theme: React.FunctionComponent<ReactiumThemeProviderProps> = ({ children, defaultTheme, customThemes = [], ignoreUserPreference = false, disableGlobalCss = false, scrollbar = false }) => {
     if(customThemes.length === 0)
         customThemes.push(lightTheme, darkTheme);
     defaultTheme = defaultTheme ?? customThemes[0].name;
@@ -61,6 +62,32 @@ const Theme: React.FunctionComponent<ReactiumThemeProviderProps> = ({ children, 
         }
         setTheme(newTheme);
     }, [theme, customThemes, setTheme])
+
+    const setScrollbarStyles = useCallback(() => {
+        if (isServer)
+            return;
+        const style = document.createElement('style');
+        style.innerHTML = `
+        *::-webkit-scrollbar,
+        *::-webkit-scrollbar-thumb {
+          width: 9px;
+          border-radius: 5px;
+          background-clip: padding-box;
+          border: 2px solid transparent;
+        }
+        
+        *::-webkit-scrollbar-thumb {        
+          box-shadow: inset 0 0 0 5px #697177;
+        }
+        
+        *::-webkit-scrollbar:hover {
+            cursor: pointer;
+        }`;
+        document.getElementsByTagName('head')[0].appendChild(style);
+        return () => {
+            document.getElementsByTagName('head')[0].removeChild(style);
+        }
+    }, [])
 
     useEffect(() => {
         let initTheme = theme.name;
@@ -89,6 +116,8 @@ const Theme: React.FunctionComponent<ReactiumThemeProviderProps> = ({ children, 
         else
             initTheme = theme.name;
         changeTheme(initTheme);
+        if(scrollbar)
+            setScrollbarStyles();
     }, [])
 
     return (
