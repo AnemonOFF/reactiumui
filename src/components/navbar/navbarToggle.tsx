@@ -14,7 +14,7 @@ type HTMLProps = Omit<React.HTMLAttributes<HTMLButtonElement>, keyof Props>;
 type VariantsProps = Omit<NavbarToggleWrapperVariantsProps, keyof Props>;
 export type NavbarToggleProps = Props & VariantsProps & { html?: HTMLProps};
 
-export const NavbarToggle = React.forwardRef<HTMLButtonElement, NavbarToggleProps>(({
+const NavbarToggle = React.forwardRef<HTMLButtonElement, NavbarToggleProps>(({
     active,
     onClick,
     onActiveChange,

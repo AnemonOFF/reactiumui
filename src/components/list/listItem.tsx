@@ -13,7 +13,7 @@ type HTMLProps = Omit<React.HTMLAttributes<HTMLLIElement>, keyof Props>;
 type VariantsProps = Omit<ListItemVariantsProps, keyof Props>;
 export type ListItemProps = Props & VariantsProps & { html?: HTMLProps};
 
-export const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(({
+const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(({
     children,
     css,
     customMarkerContent,

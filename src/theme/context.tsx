@@ -78,10 +78,6 @@ const Theme: React.FunctionComponent<ReactiumThemeProviderProps> = ({ children, 
         
         *::-webkit-scrollbar-thumb {        
           box-shadow: inset 0 0 0 5px #697177;
-        }
-        
-        *::-webkit-scrollbar:hover {
-            cursor: pointer;
         }`;
         document.getElementsByTagName('head')[0].appendChild(style);
         return () => {

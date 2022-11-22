@@ -20,7 +20,7 @@ type HTMLProps = Omit<React.HTMLAttributes<HTMLUListElement>, keyof Props>;
 type VariantsProps = Omit<ListVariantsProps, keyof Props>;
 export type ListProps = Props & VariantsProps & { html?: HTMLProps};
 
-export const List = React.forwardRef<HTMLUListElement, ListProps>(({
+const List = React.forwardRef<HTMLUListElement, ListProps>(({
     children,
     css,
     listStyleType,

@@ -16,7 +16,7 @@ type HTMLProps = Omit<React.HTMLAttributes<HTMLUListElement>, keyof Props>;
 type VariantsProps = Omit<NavbarItemListVariantsProps, keyof Props>;
 export type NavbarContentProps = Props & VariantsProps & { html?: HTMLProps};
 
-export const NavbarContent = React.forwardRef<HTMLUListElement, NavbarContentProps>(({
+const NavbarContent = React.forwardRef<HTMLUListElement, NavbarContentProps>(({
     children,
     css,
     gap,

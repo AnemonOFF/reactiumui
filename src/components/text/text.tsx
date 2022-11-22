@@ -42,7 +42,7 @@ const getTagChild = (tagChildren: TextElement[], propChildren: ReactNode, fontSi
     );
 };
 
-export const Text = React.forwardRef<HTMLElement, TextProps>(({
+const Text = React.forwardRef<HTMLElement, TextProps>(({
     fontSize,
     children: propChildren,
     css,

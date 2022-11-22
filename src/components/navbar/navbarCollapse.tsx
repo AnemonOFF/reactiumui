@@ -16,7 +16,7 @@ type HTMLProps = Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props>;
 type VariantsProps = Omit<NavbarCollapseWrapperVariantsProps, keyof Props>;
 export type NavbarCollapseProps = Props & VariantsProps & { html?: HTMLProps};
 
-export const NavbarCollapse = React.forwardRef<HTMLUListElement, NavbarCollapseProps>(({
+const NavbarCollapse = React.forwardRef<HTMLUListElement, NavbarCollapseProps>(({
     open,
     onOpenChange,
     children,

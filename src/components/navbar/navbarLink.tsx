@@ -22,7 +22,7 @@ type HTMLProps = Omit<React.HTMLAttributes<HTMLAnchorElement>, keyof Props>;
 type VariantsProps = Omit<NavbarLinkVariantsProps, keyof Props>;
 export type NavbarLinkProps = Props & VariantsProps & { html?: HTMLProps};
 
-export const NavbarLink = React.forwardRef<HTMLAnchorElement, NavbarLinkProps>(({
+const NavbarLink = React.forwardRef<HTMLAnchorElement, NavbarLinkProps>(({
     css,
     itemCss,
     navbarItemProps,

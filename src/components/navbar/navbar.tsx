@@ -6,6 +6,9 @@ import { useScroll } from "../../utils/hooks";
 import useImperativeRef from "../../utils/hooks/useImperativeRef";
 import CollapseProvider from "./collapseContext";
 import { NavbarVariantsProps, StyledNavbar } from "./navbar.styles";
+import NavbarCollapse from "./navbarCollapse";
+import NavbarCollapseLink from "./navbarCollapseLink";
+import NavbarLink, { NavbarLinkProps } from "./navbarLink";
 import { StyledNavbarWrapper } from "./navbarWrapper.styles";
 
 interface Props {
@@ -19,7 +22,26 @@ type HTMLProps = Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props>;
 type VariantsProps = Omit<NavbarVariantsProps, keyof Props>;
 export type NavbarProps = Props & VariantsProps & { html?: HTMLProps};
 
-export const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(({
+const getNavbarLinks = (children: ReactNode) => {
+    let links: NavbarLinkProps[] = [];
+    React.Children.forEach(children, child => {
+        if(!React.isValidElement(child))
+            return;
+        if(child.type === NavbarLink)
+            links.push(child.props);
+        else {
+            const childChildren: ReactNode | undefined = child.props.children;
+            if(childChildren === undefined)
+                return;
+            
+            const childLinks = getNavbarLinks(childChildren);
+            links = links.concat(childLinks);
+        }
+    });
+    return links;
+}
+
+const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(({
     children,
     css,
     html,
@@ -35,6 +57,31 @@ export const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(({
 }, ref) => {
     const imperativeRef = useImperativeRef(ref);
     const { isOnTop } = useScroll(true);
+
+    const isCollapseProvided = useMemo(() => {
+        let result = false;
+        React.Children.forEach(children, child => {
+
+            if(React.isValidElement(child) && child.type === NavbarCollapse)
+                result = true;
+        });
+        return result;
+    }, [children])
+
+    const collapse = useMemo(() => {
+        if(isCollapseProvided)
+            return undefined;
+        const links = getNavbarLinks(children)
+            .map((link, i) => <NavbarCollapseLink
+                            key={i}
+                            href={link.href}
+                            target={link.target}
+                            active={link.active}
+                            activeColor={link.activeColor}
+                            children={link.children}
+                        />);
+        return links;
+    }, [isCollapseProvided, children])
 
     const widthCss = useMemo(() => {
         let result = width;
@@ -84,6 +131,11 @@ export const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(({
                 {...props}
             >
                 <StyledNavbarWrapper ref={imperativeRef} css={customCss}>
+                    {!isCollapseProvided &&
+                    <NavbarCollapse>
+                        {collapse}
+                    </NavbarCollapse>
+                    }
                     {children}
                 </StyledNavbarWrapper>
             </StyledNavbar>
