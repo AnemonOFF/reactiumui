@@ -3,9 +3,10 @@ import { ReactNode } from "react";
 import { StyledTable, TableVariantsProps } from "./table.styles";
 import React from "react";
 import { useImperativeRef } from "../../utils/hooks";
+import TableContext from "./tableContext";
 
 interface Props {
-    children?: ReactNode,
+    children: ReactNode,
     css?: CSS,
 }
 
@@ -23,14 +24,16 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
     const imperativeRef = useImperativeRef(ref);
 
     return (
-        <StyledTable
-            ref={imperativeRef}
-            css={css}
-            {...html}
-            {...props}
-        >
-            {children}
-        </StyledTable>
+        <TableContext>
+            <StyledTable
+                ref={imperativeRef}
+                css={css}
+                {...html}
+                {...props}
+            >
+                {children}
+            </StyledTable>
+        </TableContext>
     );
 })
 

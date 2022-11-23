@@ -6,12 +6,13 @@ import { StyledTableColumn, TableColumnVariantsProps } from "./tableColumn.style
 
 interface Props {
     children?: ReactNode,
+    key?: string,
+    comparer?: (a: ReactNode, b: ReactNode) => number,
     css?: CSS,
 }
 type HTMLProps = Omit<React.HTMLAttributes<HTMLTableCellElement>, keyof Props>;
 type VariantsProps = Omit<TableColumnVariantsProps, keyof Props>;
 export type TableColumnProps = Props & VariantsProps & { html?: HTMLProps};
-
 
 const TableColumn = React.forwardRef<HTMLTableCellElement, TableColumnProps>(({
     children,
