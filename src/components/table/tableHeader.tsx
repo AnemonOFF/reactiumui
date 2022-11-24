@@ -28,7 +28,7 @@ const TableHeader = React.forwardRef<HTMLTableSectionElement, TableHeaderProps>(
     const imperativeRef = useImperativeRef(ref);
 
     const onColumnClick = useCallback((column: ReactElement, index: number) => {
-        const key = column.props.key ?? index;
+        const key = column.props.uid ?? index;
         if(sortColumn?.key === key && sortColumn?.direction === 'descending') {
             setSort(undefined);
             setSortColumn(undefined);
@@ -44,13 +44,13 @@ const TableHeader = React.forwardRef<HTMLTableSectionElement, TableHeaderProps>(
                     throw new Error('TableRow children must be of type TableCell');
                 const aCellChildren = aCell.props.children;
                 const bCellChildren = bCell.props.children;
-                if(column.props.comparer)
-                    return column.props.comparer(aCellChildren, bCellChildren);
-                if(aCellChildren === bCellChildren)
+                let result: number;
+                if(Boolean(column.props.sort) && typeof column.props.sort === 'function')
+                    result = column.props.sort(aCellChildren, bCellChildren);
+                else if(aCellChildren === bCellChildren)
                     return 0;
-                return aCellChildren < bCellChildren
-                    ? (direction == 'ascending' ? -1 : 1)
-                    : (direction == 'ascending' ? 1 : -1);
+                else result = aCellChildren < bCellChildren ? -1 : 1;
+                return direction == 'ascending' ? result : (-1) * result;
             }).map(r => r.element)
         ));
         setSortColumn({
@@ -64,12 +64,17 @@ const TableHeader = React.forwardRef<HTMLTableSectionElement, TableHeaderProps>(
             if(!React.isValidElement(child) || child.type !== TableColumn)
                 throw new Error('TableHeader children must be valid react elements of TableColumn type');
             const childProps = {
+                uid: child.props.uid ?? index,
+                html: {
+                    onClick: (e: React.MouseEvent<HTMLTableCellElement>) => {
+                        if(Boolean(child.props.sort))
+                            onColumnClick(child, index);
+                        if(child.props.html?.onClick)
+                            child.props.html.onClick(e);
+                    },
+                    ...child.props.html
+                },
                 ...child.props,
-                onClick: (e: React.MouseEvent<HTMLTableCellElement>) => {
-                    onColumnClick(child, index);
-                    if(child.props.onClick)
-                        child.props.onClick(e);
-                }
             };
             return React.cloneElement(child, childProps);
         })
