@@ -5,6 +5,7 @@ import { useImperativeRef } from "../../utils/hooks";
 import { StyledTableBody, TableBodyVariantsProps } from "./tableBody.styles";
 import TableRow from "./tableRow";
 import { RowData, useTableContext } from "./tableContext";
+import { StyledTableRow } from "./tableRow.styles";
 
 interface Props {
     children?: ReactNode,
@@ -44,10 +45,18 @@ const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(({
             return row;
         }) ?? [];
 
+        let sorted: React.ReactElement<any, string | React.JSXElementConstructor<any>>[];
         if(sort === undefined)
-            return rows as React.ReactElement<any, string | React.JSXElementConstructor<any>>[];
-        return sort(rows as RowData[]);
-    }, [children, sort])
+            sorted =  rows as React.ReactElement<any, string | React.JSXElementConstructor<any>>[];
+        else
+            sorted = sort(rows as RowData[]);
+        if(spaceBetweenRows) {
+            const len = rows.length;
+            for(let i = 0; i < len - 1; i++)
+                sorted.splice(1 + i * 2, 0, <StyledTableRow css={{height: spaceBetweenRows}} />);
+        }
+        return sorted;
+    }, [children, sort, spaceBetweenRows])
 
     return (
         <StyledTableBody
