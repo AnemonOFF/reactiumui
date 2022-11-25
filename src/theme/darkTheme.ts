@@ -3,6 +3,8 @@ import { createReactiumTheme } from "./stitches.config";
 const darkTheme = createReactiumTheme('dark', {
     colors: {
         background: "$black",
+        primaryAccent: "$blueDark200",
+        primaryAccentAlpha: "rgba(16, 44, 76, 0.8)",
         backgroundAlpha: "rgba(0, 0, 0, 0.8)",
         backgroundAccent: "$grayDark200",
         backgroundAccentAlpha: "rgba(43, 47, 49, 0.8)",
@@ -11,6 +13,7 @@ const darkTheme = createReactiumTheme('dark', {
         foregroundAccent: "$gray200",
         foregroundAccentAlpha: "rgba(230, 232, 235, 0.8)",
         text: "$white",
+        disableText: "$grayDark500",
         link: "$blue600",
     },
     shadows: {

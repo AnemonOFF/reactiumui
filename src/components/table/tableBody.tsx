@@ -25,21 +25,28 @@ const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(({
     const { sort } = useTableContext();
     const imperativeRef = useImperativeRef(ref);
 
-    const rows = useMemo(() => {
-        if(sort === undefined)
-            return children;
-
-        const rowsDatas = React.Children.map(children, child => {
+    children = useMemo(() => {
+        const rows = React.Children.map(children, (child, index) => {
             if(!React.isValidElement(child) || child.type !== TableRow)
                 throw new Error('Table children must be valid react element of TableRow type');
             
+            const childProps = {
+                uid: child.props.uid ?? index,
+                ...child.props,
+            }
+            const clone = React.cloneElement(child, childProps);
+            if(sort === undefined)
+                return clone;
+
             const row: RowData = {
-                element: child,
+                element: clone,
             };
             return row;
         }) ?? [];
-        
-        return sort(rowsDatas);
+
+        if(sort === undefined)
+            return rows as React.ReactElement<any, string | React.JSXElementConstructor<any>>[];
+        return sort(rows as RowData[]);
     }, [children, sort])
 
     return (
@@ -49,7 +56,7 @@ const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(({
             {...html}
             {...props}
         >
-            {rows}
+            {children}
         </StyledTableBody>
     );
 })

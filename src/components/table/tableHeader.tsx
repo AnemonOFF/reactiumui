@@ -24,7 +24,7 @@ const TableHeader = React.forwardRef<HTMLTableSectionElement, TableHeaderProps>(
     html,
     ...props
 }, ref) => {
-    const { setSort, sortColumn, setSortColumn } = useTableContext();
+    const { setSort, sortColumn, setSortColumn, hideCheckboxColumn } = useTableContext();
     const imperativeRef = useImperativeRef(ref);
 
     const onColumnClick = useCallback((column: ReactElement, index: number) => {
@@ -88,6 +88,11 @@ const TableHeader = React.forwardRef<HTMLTableSectionElement, TableHeaderProps>(
             {...props}
         >
             <StyledTableRow>
+                {!hideCheckboxColumn &&
+                <TableColumn>
+                    {/* TODO: Create general input button */}
+                </TableColumn>
+                }
                 {children}
             </StyledTableRow>
             <StyledTableRow css={{height: spaceToBody}} />

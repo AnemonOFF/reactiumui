@@ -8,6 +8,8 @@ export const defaultColors = {
     ...colors,
 
     primary: "$blue600",
+    primaryAccent: "$blue200",
+    primaryAccentAlpha: "rgba(225, 239, 255, 0.8)",
     primaryBorder: "$blue500",
     primaryBorderHover: "$blue700",
     primaryShadow: "$blue500",
@@ -36,6 +38,24 @@ export const defaultColors = {
     errorBorder: "$red500",
     errorBorderHover: "$red700",
     errorShadow: "$red500",
+
+    background: "$white",
+    backgroundAlpha: "rgba(255, 255, 255, 0.8)",
+    backgroundAccent: "$gray200",
+    backgroundAccentAlpha: "rgba(230, 232, 235, 0.8)",
+
+    foreground: "$black",
+    foregroundAlpha: "rgba(0, 0, 0, 0.8)",
+    foregroundAccent: "$grayDark200",
+    foregroundAccentAlpha: "rgba(43, 47, 49, 0.8)",
+
+    accent: "$gray700",
+    accentAlpha: "rgba(126, 134, 140, 0.8)",
+
+    text: "$black",
+    disableText: "$gray500",
+    link: "$blue600",
+    border: "rgba(127, 127, 127, 0.5)",
 }
 
 export const defaultTokens = {
@@ -154,19 +174,6 @@ export const defaultTokens = {
     },
     colors: {
         ...defaultColors,
-        background: "$white",
-        backgroundAlpha: "rgba(255, 255, 255, 0.8)",
-        backgroundAccent: "$gray200",
-        backgroundAccentAlpha: "rgba(230, 232, 235, 0.8)",
-        foreground: "$black",
-        foregroundAlpha: "rgba(0, 0, 0, 0.8)",
-        foregroundAccent: "$grayDark200",
-        foregroundAccentAlpha: "rgba(43, 47, 49, 0.8)",
-        accent: "$gray700",
-        accentAlpha: "rgba(126, 134, 140, 0.8)",
-        text: "$black",
-        link: "$blue600",
-        border: "rgba(127, 127, 127, 0.5)",
     },
     breakpoints: {
         xs: "650px",

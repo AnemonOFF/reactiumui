@@ -42,7 +42,7 @@ export const TableColumnStyles = css({
                     opacity: 0,
                 },
                 [`&:hover ${StyledSortIconWrapper}`]: {
-                    opacity: 0.7,
+                    opacity: 0.8,
                 }
             }
         }

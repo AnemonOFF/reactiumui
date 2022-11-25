@@ -7,6 +7,7 @@ export const TableStyles = css({
     $$tableZebraColor: 'inherit',
     $$tableHoverEvenColor: '$$tableZebraColor',
     $$tableHoverOddColor: 'inherit',
+    $$tableHoverCursor: 'unset',
     borderSpacing: 0,
     borderRadius: '$xl',
     variants: {
@@ -42,6 +43,11 @@ export const TableStyles = css({
                 $$tableHoverEvenColor: '$colors$backgroundAccent',
                 $$tableHoverOddColor: '$colors$backgroundAccent',
             },
+        },
+        clickable: {
+            true: {
+                $$tableHoverCursor: 'pointer',
+            }
         },
         zebra: {
             true: {
