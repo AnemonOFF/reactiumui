@@ -10,6 +10,7 @@ interface Props {
     hideCheckboxColumn?: boolean,
     select?: SelectType,
     selectedUids?: string[],
+    resizableColumns?: boolean,
     defaultSelectedUids?: string[],
     onSelectChange?: (selectedUids: string[]) => void,
     css?: CSS,
@@ -26,6 +27,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
     selectedUids,
     defaultSelectedUids,
     onSelectChange,
+    resizableColumns = false,
     css,
     html,
     ...props
@@ -43,6 +45,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
 
     return (
         <TableContext
+            isResizableColumns={resizableColumns}
             selectedUids={selectedUids}
             onSelectChange={onSelectChange}
             defaultSelectedUids={defaultSelectedUids}

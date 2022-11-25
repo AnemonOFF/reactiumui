@@ -20,6 +20,7 @@ export type TableContextType = {
     hideCheckboxColumn: boolean,
     disabledKeys: string[],
     setDisableKey: (uid: string, disable: boolean) => void,
+    isResizableColumns: boolean,
     selectType?: SelectType,
     sort?: SortFunc,
     sortColumn?: SortColumn,
@@ -33,6 +34,7 @@ const defaultContext: TableContextType = {
     hideCheckboxColumn: true,
     disabledKeys: [],
     setDisableKey: () => {},
+    isResizableColumns: false,
 };
 
 export const TableContext = React.createContext<TableContextType>(defaultContext);
@@ -41,6 +43,7 @@ export const useTableContext = () => useContext(TableContext);
 export type TableContextProviderProps = {
     children: ReactNode,
     hideCheckboxColumn: boolean,
+    isResizableColumns: boolean,
     selectedUids?: string[],
     onSelectChange?: (selectedUids: string[]) => void,
     selectType?: SelectType,
@@ -52,6 +55,7 @@ const TableContextProvider: React.FunctionComponent<TableContextProviderProps> =
     defaultSelectedUids,
     selectedUids,
     onSelectChange,
+    isResizableColumns,
     hideCheckboxColumn: propHideCheckbox,
     selectType: propSelectType,
 }) => {
@@ -105,7 +109,8 @@ const TableContextProvider: React.FunctionComponent<TableContextProviderProps> =
         hideCheckboxColumn,
         disabledKeys,
         setDisableKey,
-    }), [sort, sortColumn, selectType, selectedRows, hideCheckboxColumn, disabledKeys]);
+        isResizableColumns,
+    }), [sort, sortColumn, selectType, selectedRows, hideCheckboxColumn, disabledKeys, isResizableColumns]);
 
     return (
         <TableContext.Provider value={value}>

@@ -33,6 +33,7 @@ const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(({
             
             const childProps = {
                 uid: child.props.uid ?? index,
+                key: child.props.uid ?? index,
                 ...child.props,
             }
             const clone = React.cloneElement(child, childProps);

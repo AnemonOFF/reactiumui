@@ -15,8 +15,27 @@ export const SortIconWrapperStyles = css({
 
 export const StyledSortIconWrapper = styled('div', SortIconWrapperStyles);
 
+export const TableColumnResizerStyles = css({
+    position: 'absolute',
+    right: -2,
+    top: 10,
+    bottom: 10,
+    width: 4,
+    borderRadius: 2,
+    background: '$primary',
+    cursor: 'w-resize',
+    opacity: 0,
+    zIndex: '$1',
+    '&:hover': {
+        opacity: 1,
+    },
+})
+
+export const StyledTableColumnResizer = styled('div', TableColumnResizerStyles);
+
 export const TableColumnStyles = css({
     background: '$backgroundAccent',
+    position: 'relative', 
     color: '$accent',
     p: '$md',
     "&:first-child": {
@@ -57,3 +76,4 @@ export const StyledTableColumn = styled('th', TableColumnStyles);
 export type TableColumnVariantsProps = VariantProps<typeof StyledTableColumn>;
 export type TableColumnContentVariantsProps = VariantProps<typeof StyledTableColumnContent>;
 export type SortIconWrapperVariantsProps = VariantProps<typeof StyledSortIconWrapper>;
+export type TableColumnResizerVariantsProps = VariantProps<typeof StyledTableColumnResizer>;
