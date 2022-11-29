@@ -23,7 +23,7 @@ export const TableColumnResizerStyles = css({
     width: 4,
     borderRadius: 2,
     background: '$primary',
-    cursor: 'w-resize',
+    cursor: 'ew-resize',
     opacity: 0,
     zIndex: '$1',
     '&:hover': {

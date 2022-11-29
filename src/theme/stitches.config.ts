@@ -52,5 +52,6 @@ export type SizesType = StitchesConfigType["theme"]["sizes"];
 export type SpacesType = StitchesConfigType["theme"]["space"];
 export type TransitionsType = StitchesConfigType["theme"]["transitions"];
 export type ZIndicesType = StitchesConfigType["theme"]["zIndices"];
+export type BreakpointsType = StitchesConfigType["theme"]["breakpoints"];
 
 export type CSSFontSize = CSS["fontSize"];

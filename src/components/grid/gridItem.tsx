@@ -1,8 +1,8 @@
-import React, { ReactNode, useMemo } from "react";
+import React, { ReactNode, useCallback, useMemo } from "react";
 import useImperativeRef from "../../utils/hooks/useImperativeRef";
 import { CSS } from "../../theme";
 import { GridItemVariantsProps, StyledGridItem } from "./gridItem.styles";
-import { AlignContent, AlignItems, Display, FlexDirection, JustifyContent } from "../../utils";
+import { useGridContext } from "./gridContext";
 
 interface Props {
     children?: ReactNode,
@@ -13,53 +13,19 @@ interface Props {
     lg?: number | boolean,
     xl?: number | boolean,
     fixed?: boolean | 'max',
-    columns?: number,
-    gap?: number,
-    rowGap?: number,
-    columnGap?: number,
-    display?: Display,
-    justify?: JustifyContent,
-    alignItems?: AlignItems,
-    alignContent?: AlignContent,
-    direction?: FlexDirection,
+    uid?: string,
     css?: CSS
 }
 type HTMLProps = Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props>;
 type VariantsProps = Omit<GridItemVariantsProps, keyof Props>;
 export type GridItemProps = Props & VariantsProps & { html?: HTMLProps};
 
-const generateCss = (value: number | boolean | undefined, columns: number, fixed: boolean | 'max'): CSS => {
-    if (value === undefined)
-        return {};
-    const display = value === 0 || value === false ? 'none' : 'inherit';
-    if (typeof value !== 'number') {
-        return {
-            display,
-            flexBasis: '0',
-            maxWidth: value ? '100%' : 0,
-            flexGrow: value ? 1 : 0,
-        };
-    }
-    const procentWidth = 100 / columns * value;
-    const width = fixed ? value : (procentWidth > 100 ? '100%' : procentWidth < 0 ? '0' : `${procentWidth}%`);
-    type ResultType = {
-        display: string,
-        flexBasis: string | number,
-        flexGrow: number,
-        maxWidth?: string | number,
-        width?: string | number
-    }
-    const res: ResultType = {
-        display,
-        flexBasis: width,
-        flexGrow: 0,
-    };
-    if(fixed == 'max')
-        res.maxWidth = width;
-    else
-        res.width = width;
-
-    return res;
+type GenerateCSSResultType = {
+    display: string,
+    flexBasis: string | number,
+    flexGrow: number,
+    maxWidth?: string | number,
+    width?: string | number
 }
 
 const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(({
@@ -70,60 +36,98 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(({
     xl,
     children,
     css,
-    gap,
-    rowGap,
-    columnGap,
-    display,
-    justify,
-    alignContent,
-    alignItems,
-    direction,
     html,
+    // uid setting in grid or gridRow components, so it wont be undefined
+    uid,
     all = false,
     fixed = false,
-    columns = 12,
     ...props
 }, ref) => {
+    const { gridColumns, rows, gridColumnGap, gridRowGap } = useGridContext();
 
-    const imperativeRef = useImperativeRef(ref);
     if(!xs && !sm && !md && !lg && !xl)
         all = all === false ? true : all;
 
+    const row = useMemo(() => {
+        const result = rows.find(r => r.itemsUids.find(i => i === uid) !== undefined)
+        // console.log(uid, result);
+        // if (result === undefined && fixed !== false)
+        //     console.warn('You are using fixed GridItem without GridRow parent. This may cause unexpected behavior');
+        return result;
+    }, [rows])
+
+    const columns = useMemo(() => (
+        row !== undefined ? row.columns : gridColumns
+    ), [gridColumns, row])
+
+    const imperativeRef = useImperativeRef(ref);
+    
+    const generateCss = useCallback((value: number | boolean | undefined, fixedWidth?: number) => {
+        if (value === undefined)
+            return {};
+        const display = value === 0 || value === false ? 'none' : 'inherit';
+        let result: GenerateCSSResultType = {
+            display,
+            flexBasis: 0,
+            flexGrow: 0,
+        }
+        if (typeof value !== 'number') {
+            result.flexGrow = value ? 1 : 0;
+            result.maxWidth = value ? '100%' : 0;
+            if (fixed === true)
+                result.width = '100%';
+            return result;
+        }
+        if (fixed !== false) {
+            result.flexBasis = value;
+            if(fixed === 'max')
+                result.maxWidth = value;
+            else
+                result.width = value;
+            return result;
+        }
+        if(row === undefined) {
+            let procentWidth = 100 / columns * value;
+            if (procentWidth > 100) procentWidth = 100;
+            if (procentWidth < 0) procentWidth = 0;
+            const width = `${procentWidth}%`;
+            result.flexBasis = width;
+            result.width = width;
+            return result;
+        }
+        let procentWidth = 100 / columns * value;
+        if (procentWidth > 100) procentWidth = 100;
+        if (procentWidth < 0) procentWidth = 0;
+        const width = fixedWidth ? `calc(${procentWidth}% - ${value / columns * fixedWidth}px)` : `${procentWidth}%`;
+        result.flexBasis = width;
+        result.width = width;
+        return result;
+    }, [columns, row, fixed])
+
     const styledCss: CSS = useMemo(() => {
         const result = {
-            px: columnGap ?? gap ?? 0,
-            py: rowGap ?? gap ?? 0,
-            display,
-            ...generateCss(all, columns, fixed),
+            px: row?.columnGap ?? gridColumnGap,
+            py: gridRowGap,
+            ...generateCss(all, row?.fixedWidth['all']),
             '@xs': {
-                ...generateCss(xs, columns, fixed)
+                ...generateCss(xs, row?.fixedWidth['xs'])
             },
             '@sm': {
-                ...generateCss(sm, columns, fixed)
+                ...generateCss(sm, row?.fixedWidth['sm'])
             },
             '@md': {
-                ...generateCss(md, columns, fixed)
+                ...generateCss(md, row?.fixedWidth['md'])
             },
             '@lg': {
-                ...generateCss(lg, columns, fixed)
+                ...generateCss(lg, row?.fixedWidth['lg'])
             },
             '@xl': {
-                ...generateCss(xl, columns, fixed)
+                ...generateCss(xl, row?.fixedWidth['xl'])
             },
             ...css
         }
-        if(display === undefined || display =='inherit' || display == 'flex'){
-            if(justify)
-                result['justifyContent'] = justify;
-            if(direction)
-                result['flexDirection'] = direction;
-            if(alignContent)
-                result['alignContent'] = alignContent;
-            if(alignItems)
-                result['alignItems'] = alignItems;
-        }
         return result;
-    }, [all, xs, sm, md, lg, xl, columns, fixed, css, columnGap, rowGap, gap, display]);
+    }, [all, xs, sm, md, lg, xl, css, row, gridColumnGap, gridRowGap]);
 
     return (
         <StyledGridItem
