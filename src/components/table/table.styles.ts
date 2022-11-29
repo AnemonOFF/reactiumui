@@ -10,12 +10,12 @@ export const TableStyles = css({
     $$tableHoverCursor: 'unset',
     width: '100%',
     borderSpacing: 0,
-    borderRadius: '$xl',
+    borderRadius: '$md',
     variants: {
         type: {
             default: {
                 $$tableRadius: 0,
-                $$tableHeaderRadius: '$radii$xl',
+                $$tableHeaderRadius: '$radii$md',
             },
             square: {
                 $$tableRadius: 0,
@@ -51,7 +51,7 @@ export const TableStyles = css({
 
 export const TableWrapperStyles = css({
     display: 'inline-block',
-    borderRadius: '$xl',
+    borderRadius: '$md',
     overflow: 'auto',
     variants: {
         bordered: {

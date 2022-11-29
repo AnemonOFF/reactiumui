@@ -4,7 +4,7 @@ import { css, styled, VariantProps } from "../../theme/stitches.config";
 export const CardStyles = css({
     $$cardBackground: "$colors$backgroundAlpha",
     background: "$$cardBackground",
-    borderRadius: "$radii$xl",
+    borderRadius: "$md",
     variants: {
         type: {
             cloud: {

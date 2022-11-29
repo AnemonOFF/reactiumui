@@ -14,6 +14,7 @@ import { StyledNavbarWrapper } from "./navbarWrapper.styles";
 interface Props {
     children?: ReactNode,
     css?: CSS,
+    wrapperCss?: CSS,
     width?: NavbarWidth | string | number,
     compactOnScroll?: boolean,
     hideOnScroll?: boolean,
@@ -44,6 +45,7 @@ const getNavbarLinks = (children: ReactNode) => {
 const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(({
     children,
     css,
+    wrapperCss,
     html,
     type = "sticky",
     compact = false,
@@ -95,7 +97,7 @@ const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(({
     }, [width])
 
     const navbarCss: CSS = useMemo(() => {
-        const result: CSS = {};
+        const result: CSS = {...wrapperCss};
         if (type == 'sticky' && isOnTop) {
             result.background = 'transparent';
             result.shadow = 'none';
@@ -108,7 +110,7 @@ const Navbar = React.forwardRef<HTMLDivElement, NavbarProps>(({
             result.transform = 'translateY(calc(-$$navbarHeight - 30px))';
         }
         return result;
-    }, [isOnTop, type, compactOnScroll, hideOnScroll]);
+    }, [isOnTop, type, compactOnScroll, hideOnScroll, wrapperCss]);
 
     const customCss: CSS = useMemo(() => {
         const result = {
