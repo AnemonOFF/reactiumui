@@ -8,6 +8,7 @@ export const TableStyles = css({
     $$tableHoverEvenColor: '$$tableZebraColor',
     $$tableHoverOddColor: 'inherit',
     $$tableHoverCursor: 'unset',
+    width: '100%',
     borderSpacing: 0,
     borderRadius: '$xl',
     variants: {
@@ -49,8 +50,8 @@ export const TableStyles = css({
 }, hideShowOnMedia, hideScrollVariant, blurBackgroundVariant)
 
 export const TableWrapperStyles = css({
+    display: 'inline-block',
     borderRadius: '$xl',
-    maxWidth: 'max-content',
     overflow: 'auto',
     variants: {
         bordered: {

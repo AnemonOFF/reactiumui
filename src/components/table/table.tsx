@@ -17,6 +17,7 @@ interface Props {
     onLoadMore?: (rowsPerPage: number, page: number) => Promise<{ rows: ReactNode, totalRowsCount: number }>,
     totalRows?: number,
     css?: CSS,
+    wrapperCss?: CSS,
 }
 
 type HTMLProps = Omit<React.HTMLAttributes<HTMLTableElement>, keyof Props>;
@@ -33,6 +34,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
     onSelectChange,
     resizableColumns = false,
     css,
+    wrapperCss,
     html,
     rowsPerPage,
     totalRows,
@@ -67,6 +69,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
             <StyledTableWrapper
                 bordered={bordered}
                 cloud={cloud}
+                css={wrapperCss}
             >
                 <StyledTable
                     ref={imperativeRef}
