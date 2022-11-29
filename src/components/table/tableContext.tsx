@@ -21,6 +21,13 @@ export type TableContextType = {
     disabledKeys: string[],
     setDisableKey: (uid: string, disable: boolean) => void,
     isResizableColumns: boolean,
+    page: number,
+    setPage: (page: number) => void,
+    setRowsPerPage: (count: number) => void,
+    isLoading: boolean,
+    loadedPageRows?: ReactNode,
+    rowsPerPage?: number,
+    totalRows?: number,
     selectType?: SelectType,
     sort?: SortFunc,
     sortColumn?: SortColumn,
@@ -35,6 +42,10 @@ const defaultContext: TableContextType = {
     disabledKeys: [],
     setDisableKey: () => {},
     isResizableColumns: false,
+    page: 1,
+    setPage: () => {},
+    setRowsPerPage: () => {},
+    isLoading: true,
 };
 
 export const TableContext = React.createContext<TableContextType>(defaultContext);
@@ -44,6 +55,9 @@ export type TableContextProviderProps = {
     children: ReactNode,
     hideCheckboxColumn: boolean,
     isResizableColumns: boolean,
+    rowsPerPage?: number,
+    totalRows?: number,
+    onLoadMore?: (rowsPerPage: number, page: number) => Promise<{ rows: ReactNode, totalRowsCount: number }>,
     selectedUids?: string[],
     onSelectChange?: (selectedUids: string[]) => void,
     selectType?: SelectType,
@@ -56,6 +70,9 @@ const TableContextProvider: React.FunctionComponent<TableContextProviderProps> =
     selectedUids,
     onSelectChange,
     isResizableColumns,
+    rowsPerPage: propRowsPerPage,
+    totalRows: propTotalRows,
+    onLoadMore,
     hideCheckboxColumn: propHideCheckbox,
     selectType: propSelectType,
 }) => {
@@ -65,6 +82,11 @@ const TableContextProvider: React.FunctionComponent<TableContextProviderProps> =
     const [selectedRows, setSelectedRows] = useState<string[]>(defaultSelectedUids ?? []);
     const [disabledKeys, setDisabledKeys] = useState<string[]>([]);
     const [hideCheckboxColumn, setHideCheckboxColumn] = useState<boolean>(propHideCheckbox);
+    const [page, setPage] = useState<number>(1);
+    const [loadedPageRows, setLoadedPageRows] = useState<ReactNode>();
+    const [totalRows, setTotalRows] = useState<number | undefined>(propTotalRows);
+    const [rowsPerPage, setRowsPerPage] = useState<number | undefined>(propRowsPerPage);
+    const [isLoading, setIsLoading] = useState<boolean>(onLoadMore !== undefined ? true : false);
 
     useEffect(() => {
         setSelectType(propSelectType);
@@ -78,6 +100,21 @@ const TableContextProvider: React.FunctionComponent<TableContextProviderProps> =
         if(selectedUids)
             setSelectedRows(selectedUids);
     }, [selectedUids])
+
+    useEffect(() => {
+        if(!onLoadMore)
+            return undefined;
+        if(!rowsPerPage)
+            throw new Error('Since you are using onLoadMore to paginate table, rowsPerPage prop is required');
+        setIsLoading(true);
+        onLoadMore(rowsPerPage, page)
+            .then(data => {
+                setTotalRows(data.totalRowsCount);
+                setLoadedPageRows(data.rows);
+                setIsLoading(false);
+            })
+            .catch(console.error);
+    }, [page, rowsPerPage, onLoadMore])
 
     const toggleRowSelect = useCallback((uid: string) => {
         if(onSelectChange !== undefined)
@@ -110,7 +147,14 @@ const TableContextProvider: React.FunctionComponent<TableContextProviderProps> =
         disabledKeys,
         setDisableKey,
         isResizableColumns,
-    }), [sort, sortColumn, selectType, selectedRows, hideCheckboxColumn, disabledKeys, isResizableColumns]);
+        page,
+        setPage,
+        rowsPerPage,
+        totalRows,
+        loadedPageRows,
+        setRowsPerPage,
+        isLoading
+    }), [sort, sortColumn, selectType, selectedRows, hideCheckboxColumn, disabledKeys, isResizableColumns, page, rowsPerPage, totalRows, loadedPageRows, isLoading]);
 
     return (
         <TableContext.Provider value={value}>

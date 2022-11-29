@@ -1,6 +1,6 @@
 import { CSS } from "../../theme";
 import { ReactNode, useMemo } from "react";
-import { StyledTable, TableVariantsProps } from "./table.styles";
+import { StyledTable, StyledTableWrapper, TableVariantsProps, TableWrapperVariantsProps } from "./table.styles";
 import React from "react";
 import { useImperativeRef } from "../../utils/hooks";
 import TableContext, { SelectType } from "./tableContext";
@@ -13,12 +13,16 @@ interface Props {
     resizableColumns?: boolean,
     defaultSelectedUids?: string[],
     onSelectChange?: (selectedUids: string[]) => void,
+    rowsPerPage?: number,
+    onLoadMore?: (rowsPerPage: number, page: number) => Promise<{ rows: ReactNode, totalRowsCount: number }>,
+    totalRows?: number,
     css?: CSS,
 }
 
 type HTMLProps = Omit<React.HTMLAttributes<HTMLTableElement>, keyof Props>;
 type VariantsProps = Omit<TableVariantsProps, keyof Props | 'clickable'>;
-export type TableProps = Props & VariantsProps & { html?: HTMLProps};
+type WrapperVarinatsProps = Omit<TableWrapperVariantsProps, keyof Props>;
+export type TableProps = Props & VariantsProps & WrapperVarinatsProps & { html?: HTMLProps};
 
 const Table = React.forwardRef<HTMLTableElement, TableProps>(({
     children,
@@ -30,6 +34,11 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
     resizableColumns = false,
     css,
     html,
+    rowsPerPage,
+    totalRows,
+    onLoadMore,
+    bordered,
+    cloud,
     ...props
 }, ref) => {
 
@@ -51,16 +60,24 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
             defaultSelectedUids={defaultSelectedUids}
             hideCheckboxColumn={select === 'multiple' ? hideCheckboxColumn : true}
             selectType={select}
+            rowsPerPage={rowsPerPage}
+            totalRows={totalRows}
+            onLoadMore={onLoadMore}
         >
-            <StyledTable
-                ref={imperativeRef}
-                css={css}
-                clickable={select !== undefined}
-                {...html}
-                {...customProps}
+            <StyledTableWrapper
+                bordered={bordered}
+                cloud={cloud}
             >
-                {children}
-            </StyledTable>
+                <StyledTable
+                    ref={imperativeRef}
+                    css={css}
+                    clickable={select !== undefined}
+                    {...html}
+                    {...customProps}
+                >
+                    {children}
+                </StyledTable>
+            </StyledTableWrapper>
         </TableContext>
     );
 })

@@ -23,11 +23,14 @@ const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(({
     html,
     ...props
 }, ref) => {
-    const { sort } = useTableContext();
+    const { page, sort, rowsPerPage, loadedPageRows } = useTableContext();
     const imperativeRef = useImperativeRef(ref);
 
     children = useMemo(() => {
-        const rows = React.Children.map(children, (child, index) => {
+        let paginatedChildren = loadedPageRows;
+        if(!paginatedChildren)
+            paginatedChildren = rowsPerPage ? React.Children.toArray(children).slice(rowsPerPage * (page - 1), rowsPerPage * page) : children;
+        const rows = React.Children.map(paginatedChildren, (child, index) => {
             if(!React.isValidElement(child) || child.type !== TableRow)
                 throw new Error('Table children must be valid react element of TableRow type');
             
@@ -54,10 +57,10 @@ const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(({
         if(spaceBetweenRows) {
             const len = rows.length;
             for(let i = 0; i < len - 1; i++)
-                sorted.splice(1 + i * 2, 0, <StyledTableRow css={{height: spaceBetweenRows}} />);
+                sorted.splice(1 + i * 2, 0, <StyledTableRow key={`sbr${i}`} css={{height: spaceBetweenRows}} />);
         }
         return sorted;
-    }, [children, sort, spaceBetweenRows])
+    }, [children, sort, spaceBetweenRows, rowsPerPage, page, loadedPageRows])
 
     return (
         <StyledTableBody

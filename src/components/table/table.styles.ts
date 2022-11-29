@@ -26,18 +26,6 @@ export const TableStyles = css({
                 $$tableHeaderRadius: '$radii$xl',
             }
         },
-        cloud: {
-            true: {
-                shadow: '$md',
-                p: '$xs',
-            }
-        },
-        bordered: {
-            true: {
-                p: '$xs',
-                border: '1px solid $colors$border',
-            }
-        },
         hoverable: {
             true: {
                 $$tableHoverEvenColor: '$colors$backgroundAccent',
@@ -57,10 +45,31 @@ export const TableStyles = css({
     },
     defaultVariants: {
         type: 'default',
-        cloud: false,
     }
 }, hideShowOnMedia, hideScrollVariant, blurBackgroundVariant)
 
+export const TableWrapperStyles = css({
+    borderRadius: '$xl',
+    maxWidth: 'max-content',
+    overflow: 'auto',
+    variants: {
+        bordered: {
+            true: {
+                p: '$xs',
+                border: '1px solid $colors$border',
+            }
+        },
+        cloud: {
+            true: {
+                shadow: '$md',
+                p: '$xs',
+            }
+        },
+    }
+})
+
 export const StyledTable = styled('table', TableStyles);
+export const StyledTableWrapper = styled('div', TableWrapperStyles);
 
 export type TableVariantsProps = VariantProps<typeof StyledTable>;
+export type TableWrapperVariantsProps = VariantProps<typeof StyledTableWrapper>;

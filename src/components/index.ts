@@ -17,5 +17,7 @@ export { Table,
     TableCell,
     TableColumn,
     TableHeader,
-    TableRow
+    TableRow,
+    TableFooter,
+    TablePagination,
 } from "./table";

@@ -10,3 +10,7 @@ export { default as TableHeader } from './tableHeader';
 export type { TableHeaderProps } from './tableHeader';
 export { default as TableRow } from './tableRow';
 export type { TableRowProps } from './tableRow';
+export { default as TableFooter } from './tableFooter';
+export type { TableFooterProps } from './tableFooter';
+export { default as TablePagination } from './tablePagination';
+export type { TablePaginationProps } from './tablePagination';
