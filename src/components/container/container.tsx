@@ -33,7 +33,7 @@ const generateCss = (value: number | string | boolean | undefined, fixed: boolea
 
     return {
         display,
-        width: fixed ? cssValue : 'initial',
+        width: fixed ? cssValue : '100%',
         maxWidth: cssValue
     };
 }
@@ -94,7 +94,7 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(({
             const element = imperativeRef.current;
             if(!element)
                 return;
-            const rect = element?.getBoundingClientRect();
+            const rect = element.getBoundingClientRect();
             element.style.maxHeight = `calc(100vh - ${rect.top}px)`;
             element.style.maxWidth = `calc(100vw - ${rect.left}px)`;
         }
@@ -102,11 +102,16 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(({
         if(preventOverScreen){
             changeMaxSize();
             document.addEventListener('scroll', changeMaxSize, true);
+            window.addEventListener('resize', changeMaxSize);
         } else {
             document.removeEventListener('scroll', changeMaxSize, true);
+            window.removeEventListener('resize', changeMaxSize);
         }
 
-        return () => document.removeEventListener('scroll', changeMaxSize, true);
+        return () => {
+            document.removeEventListener('scroll', changeMaxSize, true);
+            window.removeEventListener('resize', changeMaxSize);
+        }
     }, [preventOverScreen, imperativeRef.current])
 
     return (
