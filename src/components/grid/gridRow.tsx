@@ -19,7 +19,7 @@ interface Props {
 }
 type HTMLProps = Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props>;
 type VariantsProps = Omit<GridRowVariantsProps, keyof Props>;
-export type GridRowProps = Props & VariantsProps & { html?: HTMLProps};
+export type GridRowProps = Props & VariantsProps & { html?: HTMLProps };
 
 const GridRow = React.forwardRef<HTMLDivElement, GridRowProps>(({
     children,
@@ -40,17 +40,19 @@ const GridRow = React.forwardRef<HTMLDivElement, GridRowProps>(({
 
     const { itemsUids, fixedData, propedChildren } = useMemo(() => {
         const itemsUids: string[] = [];
-        const fixedData: {[breakpoint: string]: number} = {};
+        const fixedData: { [breakpoint: string]: number } = {};
         const propedChildren = React.Children.map(children, (child, index) => {
             if (!React.isValidElement(child) || child.type !== GridItem)
                 throw Error('GridRow child can be only GridItem type');
-            
+
             const itemUid = child.props.uid ?? `${uid}r${index}`;
             const itemFixed = child.props.fixed ?? fixed;
             itemsUids.push(itemUid);
-            Object.keys(child.props)
-                .filter(p => ['all', ...breakpoints].includes(p))
-                .forEach(p => fixedData[p] = (fixedData[p] === undefined ? 0 : fixedData[p]) + child.props[p]);
+            if (itemFixed !== false) {
+                Object.keys(child.props)
+                    .filter(p => ['all', ...breakpoints].includes(p))
+                    .forEach(p => fixedData[p] = (fixedData[p] === undefined ? 0 : fixedData[p]) + child.props[p]);
+            }
             const childProps = {
                 uid: itemUid,
                 fixed: itemFixed,
@@ -70,7 +72,6 @@ const GridRow = React.forwardRef<HTMLDivElement, GridRowProps>(({
             columnGap: columnGap!,
         });
     }, [itemsUids, fixedData, columns, uid, columnGap])
-    console.log('rerender')
 
     return (
         <StyledGridRow
