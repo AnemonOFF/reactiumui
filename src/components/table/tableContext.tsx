@@ -123,13 +123,14 @@ const TableContextProvider: React.FunctionComponent<TableContextProviderProps> =
                 onSelectChange(selectedRows.find(ruid => ruid === uid) === undefined ? [uid, ...selectedRows] : selectedRows.filter(ruid => ruid !== uid));
             else if (selectType === 'single')
                 onSelectChange(selectedRows.find(ruid => ruid === uid) === undefined ? [uid] : []);
-            return;
+            if(selectedUids !== undefined)
+                return;
         }
         if(selectType === 'multiple')
             setSelectedRows(prev => prev.find(ruid => ruid === uid) === undefined ? [uid, ...prev] : prev.filter(ruid => ruid !== uid));
         else if (selectType === 'single')
             setSelectedRows(prev => prev.find(ruid => ruid === uid) === undefined ? [uid] : []);
-    }, [selectType, onSelectChange, selectedRows]);
+    }, [selectType, onSelectChange, selectedRows, selectedUids]);
 
     const setDisableKey = useCallback((uid: string, disable: boolean) => {
         setDisabledKeys(prev => disable ? [uid, ...prev] : prev.filter(ruid => ruid !== uid));
