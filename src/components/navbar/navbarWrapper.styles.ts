@@ -9,6 +9,7 @@ export const NavbarWrapperStyles = css({
     alignItems: "center",
     position: "relative",
     height: "$$navbarHeight",
+    zIndex: '501',
 })
 
 export const StyledNavbarWrapper = styled("div", NavbarWrapperStyles);

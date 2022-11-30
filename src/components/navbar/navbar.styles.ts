@@ -14,7 +14,7 @@ export const NavbarBeforeStyles = {
         background: '$$navbarBackground',
         backdropFilter: '$$navbarBackdropFilter',
         borderRadius: "$$navbarBorderRadius",
-        zIndex: '-1',
+        zIndex: '$5'
     }
 }
 
@@ -34,17 +34,17 @@ export const NavbarStyles = css({
     $$navbarCloudPadding: "0px",
     height: "auto",
     width: "100%",
-    zIndex: "$2",
+    zIndex: "501",
     shadow: '$$navbarShadow',
     borderBottom: "$$navbarBorder",
     borderRadius: "$$navbarBorderRadius",
     variants: {
         type: {
             static: {
-                position: 'static',
+                position: 'relative',
                 ...NavbarBeforeStyles,
                 [`& ${StyledNavbarWrapper}`]: {
-                    zIndex: "$2",
+                    zIndex: "501",
                 }
             },
             sticky: {
@@ -84,7 +84,7 @@ export const NavbarStyles = css({
         },
         square: {
             true: {
-                $$navbarBorderRadius: "0",
+                $$navbarBorderRadius: "0 !important",
             }
         },
         disableBlur: {

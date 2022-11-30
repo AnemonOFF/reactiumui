@@ -10,7 +10,11 @@ export const NavbarCollapseStyles = css({
     width: '100%',
     maxHeight: "$$navbarCollapseListMaxHeight",
     overflow: "auto",
-    gap: "$space$xxl"
+    gap: "$space$xxl",
+    zIndex: '$5',
+    '& *': {
+        zIndex: '$5',
+    }
 })
 
 export const StyledNavbarCollapse = styled("ul", NavbarCollapseStyles);

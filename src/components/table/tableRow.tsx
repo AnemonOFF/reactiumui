@@ -13,7 +13,7 @@ interface Props {
     css?: CSS,
 }
 type HTMLProps = Omit<React.HTMLAttributes<HTMLTableRowElement>, keyof Props>;
-type VariantsProps = Omit<TableRowVariantsProps, keyof Props | 'disable'>;
+type VariantsProps = Omit<TableRowVariantsProps, keyof Props | 'disable' | 'checked'>;
 export type TableRowProps = Props & VariantsProps & { html?: HTMLProps};
 
 const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(({

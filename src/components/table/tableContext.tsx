@@ -1,4 +1,5 @@
 import React, { ReactElement, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { OnLoadMoreEvent } from "./table";
 
 export type RowData = {
     element: ReactElement,
@@ -57,7 +58,7 @@ export type TableContextProviderProps = {
     isResizableColumns: boolean,
     rowsPerPage?: number,
     totalRows?: number,
-    onLoadMore?: (rowsPerPage: number, page: number) => Promise<{ rows: ReactNode, totalRowsCount: number }>,
+    onLoadMore?: OnLoadMoreEvent,
     selectedUids?: string[],
     onSelectChange?: (selectedUids: string[]) => void,
     selectType?: SelectType,

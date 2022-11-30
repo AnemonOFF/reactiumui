@@ -69,7 +69,8 @@ export const NavbarLinkStyles = css({
                     bottom: 0,
                     height: 2,
                     width: "$$navbarLinkUnderlineWidth",
-                    left: "calc((100% - $$navbarLinkUnderlineWidth)/2)"
+                    left: "calc((100% - $$navbarLinkUnderlineWidth)/2)",
+                    zIndex: '501',
                 }
             }
         }

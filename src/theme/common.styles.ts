@@ -91,9 +91,8 @@ export const blurBackground = {
         left: 0,
         width: '100%',
         height: '100%',
-        background: '$backgroundAlpha',
+        background: '$colors$backgroundAlpha',
         backdropFilter: 'saturate(180%) blur(9px)',
-        zIndex: '-1',
     }
 }
 

@@ -1,9 +1,9 @@
-import { hideScrollVariant, hideShowOnMedia } from "../../theme";
+import { hideShowOnMedia } from "../../theme";
 import { css, styled, VariantProps } from "../../theme/stitches.config";
 
 export const TableFooterStyles = css({
 
-}, hideShowOnMedia, hideScrollVariant)
+}, hideShowOnMedia)
 
 export const StyledTableFooter = styled('tfoot', TableFooterStyles);
 

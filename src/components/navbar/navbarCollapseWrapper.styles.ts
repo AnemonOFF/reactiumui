@@ -17,9 +17,9 @@ export const NavbarCollapseWrapperStyles = css({
     height: "auto",
     maxHeight: "$$navbarCollapseMaxHeight",
     shadow: '$$navbarShadow',
-    zIndex: '$min',
     borderBottom: "$$navbarBorder",
     borderRadius: "$$navbarBorderRadius",
+    zIndex: 499,
     "&::before": {
         content: "",
         position: 'absolute',
@@ -30,7 +30,7 @@ export const NavbarCollapseWrapperStyles = css({
         background: '$$navbarBackground',
         backdropFilter: '$$navbarBackdropFilter',
         borderRadius: "$$navbarBorderRadius",
-        zIndex: '-1',
+        zIndex: '498',
     },
     variants: {
         fullScreen: {

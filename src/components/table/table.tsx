@@ -5,6 +5,8 @@ import React from "react";
 import { useImperativeRef } from "../../utils/hooks";
 import TableContext, { SelectType } from "./tableContext";
 
+export type OnLoadMoreEvent = (rowsPerPage: number, page: number) => Promise<{ rows: ReactNode, totalRowsCount: number }>;
+
 interface Props {
     children: ReactNode,
     hideCheckboxColumn?: boolean,
@@ -14,7 +16,7 @@ interface Props {
     defaultSelectedUids?: string[],
     onSelectChange?: (selectedUids: string[]) => void,
     rowsPerPage?: number,
-    onLoadMore?: (rowsPerPage: number, page: number) => Promise<{ rows: ReactNode, totalRowsCount: number }>,
+    onLoadMore?: OnLoadMoreEvent,
     totalRows?: number,
     css?: CSS,
     wrapperCss?: CSS,
@@ -41,6 +43,8 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
     onLoadMore,
     bordered,
     cloud,
+    blur,
+    type,
     ...props
 }, ref) => {
 
@@ -70,6 +74,8 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
                 bordered={bordered}
                 cloud={cloud}
                 css={wrapperCss}
+                blur={blur}
+                type={type}
             >
                 <StyledTable
                     ref={imperativeRef}

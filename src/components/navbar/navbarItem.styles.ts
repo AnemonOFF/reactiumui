@@ -10,7 +10,8 @@ export const NavbarItemListStyles = css({
     height: "100%",
     listStyle: "none",
     listStyleType: "none",
-    gap: "$space$xxl"
+    gap: "$space$xxl",
+    zIndex: '501',
 }, hideShowOnMedia)
 
 export const NavbarItemStyles = css({
