@@ -71,6 +71,7 @@ const Theme: React.FunctionComponent<ReactiumThemeProviderProps> = ({ children, 
         *::-webkit-scrollbar,
         *::-webkit-scrollbar-thumb {
           width: 9px;
+          height: 9px;
           border-radius: 5px;
           background-clip: padding-box;
           border: 2px solid transparent;

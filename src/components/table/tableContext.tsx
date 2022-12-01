@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, { ReactElement, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { OnLoadMoreEvent } from "./table";
 
 export type RowData = {
@@ -26,6 +26,7 @@ export type TableContextType = {
     setPage: (page: number) => void,
     setRowsPerPage: (count: number) => void,
     isLoading: boolean,
+    fixedHeaderRef?: React.RefObject<HTMLTableSectionElement>,
     isInfinityScroll?: boolean,
     loadedPageRows?: ReactNode,
     rowsPerPage?: number,
@@ -95,6 +96,7 @@ const TableContextProvider: React.FunctionComponent<TableContextProviderProps> =
     const [loadedPageRows, setLoadedPageRows] = useState<ReactNode[]>();
     const [rowsPerPage, setRowsPerPage] = useState<number | undefined>(propRowsPerPage);
     const [isLoading, setIsLoading] = useState<boolean>(onLoadMore !== undefined ? true : false);
+    const fixedHeaderRef = useRef<HTMLTableSectionElement>(null);
 
     useEffect(() => {
         setSelectType(propSelectType);
@@ -166,6 +168,7 @@ const TableContextProvider: React.FunctionComponent<TableContextProviderProps> =
         loadedPageRows,
         setRowsPerPage,
         isLoading,
+        fixedHeaderRef,
         isInfinityScroll: infinityScroll,
     }), [sort, sortColumn, selectType, selectedRows, hideCheckboxColumn, disabledKeys, isResizableColumns, page, rowsPerPage, totalRows, loadedPageRows, isLoading, infinityScroll]);
 

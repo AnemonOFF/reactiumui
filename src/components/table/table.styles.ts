@@ -3,7 +3,6 @@ import { css, styled, VariantProps } from "../../theme/stitches.config";
 
 export const TableStyles = css({
     position: 'relative',
-    width: '100%',
     borderSpacing: 0,
     borderRadius: '$$tableHeaderRadius',
     zIndex: '$2',
@@ -13,6 +12,11 @@ export const TableStyles = css({
                 $$tableHoverEvenColor: '$colors$backgroundAccent !important',
                 $$tableHoverOddColor: '$colors$backgroundAccent',
             },
+        },
+        fullWidth: {
+            true: {
+                width: '100%',
+            }
         },
         clickable: {
             true: {
@@ -54,6 +58,11 @@ export const TableWrapperStyles = css({
             circle: {
                 $$tableRadius: '$radii$xl',
                 $$tableHeaderRadius: '$radii$xl',
+            }
+        },
+        fullWidth: {
+            false: {
+                maxWidth: 'max-content',
             }
         },
         bordered: {

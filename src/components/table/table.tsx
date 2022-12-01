@@ -18,17 +18,19 @@ interface Props {
     rowsPerPage?: number,
     onLoadMore?: OnLoadMoreEvent,
     infinityScrollHeight?: number,
+    fixHeader?: boolean,
     totalRows?: number,
     initialPage?: number,
     page?: number,
     onPageChange?: (page: number) => void,
+    fullWidth?: boolean,
     css?: CSS,
     wrapperCss?: CSS,
 }
 
 type HTMLProps = Omit<React.HTMLAttributes<HTMLTableElement>, keyof Props>;
-type VariantsProps = Omit<TableVariantsProps, keyof Props | 'clickable'>;
-type WrapperVarinatsProps = Omit<TableWrapperVariantsProps, keyof Props>;
+type VariantsProps = Omit<TableVariantsProps, keyof Props | 'clickable' | 'fullWidth'>;
+type WrapperVarinatsProps = Omit<TableWrapperVariantsProps, keyof Props | 'fullWidth'>;
 export type TableProps = Props & VariantsProps & WrapperVarinatsProps & { html?: HTMLProps};
 
 const Table = React.forwardRef<HTMLTableElement, TableProps>(({
@@ -46,11 +48,13 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
     totalRows: propTotalRows,
     onLoadMore,
     infinityScrollHeight,
+    fixHeader = false,
     bordered,
     cloud,
     blur,
     type,
     initialPage = 1,
+    fullWidth = false,
     page: propPage,
     onPageChange,
     ...props
@@ -120,12 +124,14 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
                 css={wrapperCss}
                 blur={blur}
                 type={type}
+                fullWidth={fullWidth}
                 ref={wrapperRef}
             >
                 <StyledTable
                     ref={imperativeRef}
                     css={css}
                     clickable={select !== undefined}
+                    fullWidth={fullWidth}
                     {...html}
                     {...customProps}
                 >

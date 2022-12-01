@@ -17,7 +17,7 @@ export const StyledSortIconWrapper = styled('div', SortIconWrapperStyles);
 
 export const TableColumnResizerStyles = css({
     position: 'absolute',
-    right: -2,
+    right: 0,
     top: 10,
     bottom: 10,
     width: 4,
