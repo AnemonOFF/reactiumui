@@ -1,11 +1,11 @@
 import { CSS } from "../../theme";
-import { ReactNode, useMemo } from "react";
+import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { StyledTable, StyledTableWrapper, TableVariantsProps, TableWrapperVariantsProps } from "./table.styles";
 import React from "react";
-import { useImperativeRef } from "../../utils/hooks";
+import { useImperativeRef, useScroll } from "../../utils/hooks";
 import TableContext, { SelectType } from "./tableContext";
 
-export type OnLoadMoreEvent = (rowsPerPage: number, page: number) => Promise<{ rows: ReactNode, totalRowsCount: number }>;
+export type OnLoadMoreEvent = (rowsPerPage: number, page: number) => Promise<{ rows: ReactNode[], totalRowsCount: number }>;
 
 interface Props {
     children: ReactNode,
@@ -17,6 +17,7 @@ interface Props {
     onSelectChange?: (selectedUids: string[]) => void,
     rowsPerPage?: number,
     onLoadMore?: OnLoadMoreEvent,
+    infinityScrollHeight?: number,
     totalRows?: number,
     css?: CSS,
     wrapperCss?: CSS,
@@ -41,14 +42,22 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
     rowsPerPage,
     totalRows,
     onLoadMore,
+    infinityScrollHeight,
     bordered,
     cloud,
     blur,
     type,
     ...props
 }, ref) => {
-
+    const [page, setPage] = useState<number>(1);
+    const wrapperRef = useRef<HTMLDivElement>(null);
+    const { isOnBottom } = useScroll(false, false, false, false, undefined, wrapperRef);
     const imperativeRef = useImperativeRef(ref);
+
+    useEffect(() => {
+        if(infinityScrollHeight && isOnBottom)
+            setPage(prev => prev + 1);
+    }, [isOnBottom, infinityScrollHeight])
 
     const customProps = useMemo(() => {
         const result: typeof props =  {
@@ -57,6 +66,12 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
         }
         return result;
     }, [props, select])
+
+    if(infinityScrollHeight !== undefined) {
+        wrapperCss = wrapperCss === undefined ? {} : wrapperCss;
+        wrapperCss.maxHeight = infinityScrollHeight;
+        wrapperCss.overflow = 'auto';
+    }
 
     return (
         <TableContext
@@ -69,6 +84,9 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
             rowsPerPage={rowsPerPage}
             totalRows={totalRows}
             onLoadMore={onLoadMore}
+            page={page}
+            setPage={setPage}
+            infinityScroll={infinityScrollHeight !== undefined}
         >
             <StyledTableWrapper
                 bordered={bordered}
@@ -76,6 +94,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
                 css={wrapperCss}
                 blur={blur}
                 type={type}
+                ref={wrapperRef}
             >
                 <StyledTable
                     ref={imperativeRef}

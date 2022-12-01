@@ -26,6 +26,7 @@ export type TableContextType = {
     setPage: (page: number) => void,
     setRowsPerPage: (count: number) => void,
     isLoading: boolean,
+    isInfinityScroll?: boolean,
     loadedPageRows?: ReactNode,
     rowsPerPage?: number,
     totalRows?: number,
@@ -56,9 +57,12 @@ export type TableContextProviderProps = {
     children: ReactNode,
     hideCheckboxColumn: boolean,
     isResizableColumns: boolean,
+    page: number,
+    setPage: (page: number) => void,
     rowsPerPage?: number,
     totalRows?: number,
     onLoadMore?: OnLoadMoreEvent,
+    infinityScroll?: boolean,
     selectedUids?: string[],
     onSelectChange?: (selectedUids: string[]) => void,
     selectType?: SelectType,
@@ -71,9 +75,12 @@ const TableContextProvider: React.FunctionComponent<TableContextProviderProps> =
     selectedUids,
     onSelectChange,
     isResizableColumns,
+    page,
+    setPage,
     rowsPerPage: propRowsPerPage,
     totalRows: propTotalRows,
     onLoadMore,
+    infinityScroll,
     hideCheckboxColumn: propHideCheckbox,
     selectType: propSelectType,
 }) => {
@@ -83,8 +90,7 @@ const TableContextProvider: React.FunctionComponent<TableContextProviderProps> =
     const [selectedRows, setSelectedRows] = useState<string[]>(defaultSelectedUids ?? []);
     const [disabledKeys, setDisabledKeys] = useState<string[]>([]);
     const [hideCheckboxColumn, setHideCheckboxColumn] = useState<boolean>(propHideCheckbox);
-    const [page, setPage] = useState<number>(1);
-    const [loadedPageRows, setLoadedPageRows] = useState<ReactNode>();
+    const [loadedPageRows, setLoadedPageRows] = useState<ReactNode[]>();
     const [totalRows, setTotalRows] = useState<number | undefined>(propTotalRows);
     const [rowsPerPage, setRowsPerPage] = useState<number | undefined>(propRowsPerPage);
     const [isLoading, setIsLoading] = useState<boolean>(onLoadMore !== undefined ? true : false);
@@ -111,11 +117,14 @@ const TableContextProvider: React.FunctionComponent<TableContextProviderProps> =
         onLoadMore(rowsPerPage, page)
             .then(data => {
                 setTotalRows(data.totalRowsCount);
-                setLoadedPageRows(data.rows);
+                setLoadedPageRows(old => {
+                    old = old ?? [];
+                    return infinityScroll ? [...old, ...data.rows] : data.rows;
+                });
                 setIsLoading(false);
             })
             .catch(console.error);
-    }, [page, rowsPerPage, onLoadMore])
+    }, [page, rowsPerPage, onLoadMore, infinityScroll])
 
     const toggleRowSelect = useCallback((uid: string) => {
         if(onSelectChange !== undefined)
@@ -155,8 +164,9 @@ const TableContextProvider: React.FunctionComponent<TableContextProviderProps> =
         totalRows,
         loadedPageRows,
         setRowsPerPage,
-        isLoading
-    }), [sort, sortColumn, selectType, selectedRows, hideCheckboxColumn, disabledKeys, isResizableColumns, page, rowsPerPage, totalRows, loadedPageRows, isLoading]);
+        isLoading,
+        isInfinityScroll: infinityScroll,
+    }), [sort, sortColumn, selectType, selectedRows, hideCheckboxColumn, disabledKeys, isResizableColumns, page, rowsPerPage, totalRows, loadedPageRows, isLoading, infinityScroll]);
 
     return (
         <TableContext.Provider value={value}>

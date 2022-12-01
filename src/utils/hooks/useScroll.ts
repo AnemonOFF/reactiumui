@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+
+const inaccuracy = 5;
 
 function getScrollData() {
     const { scrollX, scrollY } = window;
@@ -27,10 +29,10 @@ function getScrollData() {
         document.documentElement.offsetWidth
     );
 
-    const isOnTop = scrollY < 5;
-    const isOnBottom = scrollY > maxY - windowHeight - 5;
-    const isOnLeft = scrollX < 5;
-    const isOnRight = scrollX > maxX - windowWidth - 5;
+    const isOnTop = scrollY < inaccuracy;
+    const isOnBottom = scrollY > maxY - windowHeight - inaccuracy;
+    const isOnLeft = scrollX < inaccuracy;
+    const isOnRight = scrollX > maxX - windowWidth - inaccuracy;
 
     return {
         scrollX,
@@ -42,12 +44,35 @@ function getScrollData() {
     };
 }
 
+function getCustomElementScrollData(customElement: React.RefObject<HTMLElement>) {
+    const element = customElement.current!;
+    const scrollY = element.scrollTop;
+    const scrollX = element.scrollLeft;
+    const elementHeight = element.clientHeight;
+    const elementWidth = element.clientWidth;
+
+    const isOnTop = scrollY < inaccuracy;
+    const isOnBottom = scrollY > element.scrollHeight - elementHeight - inaccuracy;
+    const isOnLeft = scrollX < inaccuracy;
+    const isOnRight = scrollX > element.scrollWidth - elementWidth - inaccuracy;
+
+    return {
+        scrollX,
+        scrollY,
+        isOnTop,
+        isOnBottom,
+        isOnLeft,
+        isOnRight,
+    }
+}
+
 export default function useScroll(
     isOnTopInit: boolean = false,
     isOnBottomInit: boolean = false,
     isOnLeftInit: boolean = false,
     isOnRightInit: boolean = false,
-    onScroll?: (x: number, y: number) => void
+    onScroll?: (x: number, y: number) => void,
+    customElement?: React.RefObject<HTMLElement>,
     ) {
     const [isOnTop, setIsOnTop] = useState(isOnTopInit);
     const [isOnBottom, setIsOnBottom] = useState(isOnBottomInit);
@@ -55,7 +80,7 @@ export default function useScroll(
     const [isOnRight, setIsOnRight] = useState(isOnRightInit);
 
     const handleScroll = () => {
-        const data = getScrollData();
+        const data = customElement ? getCustomElementScrollData(customElement) : getScrollData();
         if(onScroll)
             onScroll(data.scrollX, data.scrollY);
         if (isOnTop != data.isOnTop)
@@ -70,6 +95,14 @@ export default function useScroll(
 
     useEffect(() => {
         handleScroll();
+        if(customElement) {
+            const element = customElement.current;
+            if(element === null)
+                throw new Error("Current of ref, provided in useScroll hook, is null");
+            element.addEventListener("scroll", handleScroll);
+            return () => element.removeEventListener("scroll", handleScroll);
+        }
+        
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, [handleScroll])
