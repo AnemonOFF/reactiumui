@@ -59,8 +59,9 @@ export type TableContextProviderProps = {
     isResizableColumns: boolean,
     page: number,
     setPage: (page: number) => void,
-    rowsPerPage?: number,
+    setTotalRows: (totalRows: number) => void,
     totalRows?: number,
+    rowsPerPage?: number,
     onLoadMore?: OnLoadMoreEvent,
     infinityScroll?: boolean,
     selectedUids?: string[],
@@ -78,7 +79,8 @@ const TableContextProvider: React.FunctionComponent<TableContextProviderProps> =
     page,
     setPage,
     rowsPerPage: propRowsPerPage,
-    totalRows: propTotalRows,
+    totalRows,
+    setTotalRows,
     onLoadMore,
     infinityScroll,
     hideCheckboxColumn: propHideCheckbox,
@@ -91,7 +93,6 @@ const TableContextProvider: React.FunctionComponent<TableContextProviderProps> =
     const [disabledKeys, setDisabledKeys] = useState<string[]>([]);
     const [hideCheckboxColumn, setHideCheckboxColumn] = useState<boolean>(propHideCheckbox);
     const [loadedPageRows, setLoadedPageRows] = useState<ReactNode[]>();
-    const [totalRows, setTotalRows] = useState<number | undefined>(propTotalRows);
     const [rowsPerPage, setRowsPerPage] = useState<number | undefined>(propRowsPerPage);
     const [isLoading, setIsLoading] = useState<boolean>(onLoadMore !== undefined ? true : false);
 
@@ -110,7 +111,7 @@ const TableContextProvider: React.FunctionComponent<TableContextProviderProps> =
 
     useEffect(() => {
         if(!onLoadMore)
-            return undefined;
+            return;
         if(!rowsPerPage)
             throw new Error('Since you are using onLoadMore to paginate table, rowsPerPage prop is required');
         setIsLoading(true);
@@ -124,7 +125,7 @@ const TableContextProvider: React.FunctionComponent<TableContextProviderProps> =
                 setIsLoading(false);
             })
             .catch(console.error);
-    }, [page, rowsPerPage, onLoadMore, infinityScroll])
+    }, [page])
 
     const toggleRowSelect = useCallback((uid: string) => {
         if(onSelectChange !== undefined)

@@ -1,6 +1,6 @@
 {
   "name": "reactiumui",
-  "version": "0.8.6",
+  "version": "0.8.7",
   "description": "Cool UI Components Library for React (with nextJS support)",
   "scripts": {
     "test": "test",

@@ -28,7 +28,7 @@ const TablePagination = React.forwardRef<HTMLDivElement, TablePaginationProps>((
         return <tr><td><Text span color="warning">Loading...</Text></td></tr>
 
     if(!rowsPerPage || !totalRows)
-            throw new Error('To use TablePagination, you must set rowsPerPage and totalRows props to table component');
+        throw new Error('To use TablePagination, you must set rowsPerPage and totalRows props to table component');
 
     const totalPages = Math.ceil(totalRows / rowsPerPage);
 

@@ -1,5 +1,5 @@
 import { CSS } from "../../theme";
-import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { StyledTable, StyledTableWrapper, TableVariantsProps, TableWrapperVariantsProps } from "./table.styles";
 import React from "react";
 import { useImperativeRef, useScroll } from "../../utils/hooks";
@@ -19,6 +19,9 @@ interface Props {
     onLoadMore?: OnLoadMoreEvent,
     infinityScrollHeight?: number,
     totalRows?: number,
+    initialPage?: number,
+    page?: number,
+    onPageChange?: (page: number) => void,
     css?: CSS,
     wrapperCss?: CSS,
 }
@@ -40,23 +43,45 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
     wrapperCss,
     html,
     rowsPerPage,
-    totalRows,
+    totalRows: propTotalRows,
     onLoadMore,
     infinityScrollHeight,
     bordered,
     cloud,
     blur,
     type,
+    initialPage = 1,
+    page: propPage,
+    onPageChange,
     ...props
 }, ref) => {
-    const [page, setPage] = useState<number>(1);
+    const [page, setPage] = useState<number>(initialPage);
+    const [totalRows, setTotalRows] = useState<number | undefined>(propTotalRows);
     const wrapperRef = useRef<HTMLDivElement>(null);
     const { isOnBottom } = useScroll(false, false, false, false, undefined, wrapperRef);
     const imperativeRef = useImperativeRef(ref);
 
     useEffect(() => {
-        if(infinityScrollHeight && isOnBottom)
-            setPage(prev => prev + 1);
+        if(propPage !== undefined)
+            setPage(propPage);
+    }, [propPage])
+
+    const contextSetPage = useCallback((page: number) => {
+        if(onPageChange)
+            onPageChange(page);
+        else
+            setPage(page);
+    }, [onPageChange])
+
+    useEffect(() => {
+        if(infinityScrollHeight && isOnBottom) {
+            if(!rowsPerPage)
+                throw new Error('Since you are using onLoadMore to paginate table, rowsPerPage prop is required');
+            if(totalRows && page >= Math.ceil(totalRows / rowsPerPage)) {
+                return;
+            }
+            contextSetPage(page + 1);
+        }
     }, [isOnBottom, infinityScrollHeight])
 
     const customProps = useMemo(() => {
@@ -83,9 +108,10 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
             selectType={select}
             rowsPerPage={rowsPerPage}
             totalRows={totalRows}
+            setTotalRows={setTotalRows}
             onLoadMore={onLoadMore}
             page={page}
-            setPage={setPage}
+            setPage={contextSetPage}
             infinityScroll={infinityScrollHeight !== undefined}
         >
             <StyledTableWrapper
