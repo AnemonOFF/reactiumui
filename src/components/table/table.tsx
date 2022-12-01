@@ -69,7 +69,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
     const contextSetPage = useCallback((page: number) => {
         if(onPageChange)
             onPageChange(page);
-        else
+        if(page === undefined)
             setPage(page);
     }, [onPageChange])
 
