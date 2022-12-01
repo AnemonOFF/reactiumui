@@ -10,7 +10,7 @@ export const TableStyles = css({
     variants: {
         hoverable: {
             true: {
-                $$tableHoverEvenColor: '$colors$backgroundAccent',
+                $$tableHoverEvenColor: '$colors$backgroundAccent !important',
                 $$tableHoverOddColor: '$colors$backgroundAccent',
             },
         },
@@ -22,6 +22,7 @@ export const TableStyles = css({
         zebra: {
             true: {
                 $$tableZebraColor: '$colors$backgroundAccentAlpha',
+                $$tableHoverEvenColor: '$colors$backgroundAccentAlpha',
             }
         }
     },
@@ -31,7 +32,7 @@ export const TableWrapperStyles = css({
     $$tableRadius: 0,
     $$tableHeaderRadius: 0,
     $$tableZebraColor: 'inherit',
-    $$tableHoverEvenColor: '$$tableZebraColor',
+    $$tableHoverEvenColor: 'inherit',
     $$tableHoverOddColor: 'inherit',
     $$tableHoverCursor: 'unset',
     position:'relative',

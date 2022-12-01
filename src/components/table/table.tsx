@@ -66,12 +66,12 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(({
             setPage(propPage);
     }, [propPage])
 
-    const contextSetPage = useCallback((page: number) => {
+    const contextSetPage = useCallback((newPage: number) => {
         if(onPageChange)
-            onPageChange(page);
-        if(page === undefined)
-            setPage(page);
-    }, [onPageChange])
+            onPageChange(newPage);
+        if(propPage === undefined)
+            setPage(newPage);
+    }, [onPageChange, propPage])
 
     useEffect(() => {
         if(infinityScrollHeight && isOnBottom) {
