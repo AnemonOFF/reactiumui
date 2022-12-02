@@ -21,3 +21,4 @@ export { Table,
     TableFooter,
     TablePagination,
 } from "./table";
+export { Drawer } from "./drawer";
