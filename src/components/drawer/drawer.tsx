@@ -1,12 +1,14 @@
 import { CSS } from "../../theme";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { useImperativeRef } from "../../utils";
 import { DrawerVariantsProps, DrawerWrapperVariantsProps, StyledDrawer, StyledDrawerWrapper } from "./drawer.styles";
 
 interface Props {
     isOpen: boolean,
+    size?: number,
     disableWrapper?: boolean,
+    onWrapperClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void,
     children?: React.ReactNode,
     css?: CSS,
     wrapperCss?: CSS,
@@ -24,11 +26,25 @@ const Drawer =  React.forwardRef<HTMLDivElement, DrawerProps>(({
     html,
     css,
     wrapperCss,
+    onWrapperClick,
+    size,
     disableWrapper = false,
     ...props
 }, ref) => {
     const [DOMContainer, setDOMContainer] = useState<HTMLDivElement>();
     const imperativeRef = useImperativeRef(ref);
+
+    const wrapperClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        e.stopPropagation();
+        if(onWrapperClick)
+            onWrapperClick(e);
+    }
+
+    const clickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        e.stopPropagation();
+        if(html?.onClick)
+            html.onClick(e);
+    }
 
     useEffect(() => {
         if(DOMContainer)
@@ -44,14 +60,21 @@ const Drawer =  React.forwardRef<HTMLDivElement, DrawerProps>(({
         setDOMContainer(container);
     }, [])
 
+    const customCss = useMemo(() => {
+        const result = {...css};
+        if(size !== undefined)
+            result['$$drawerSize'] = `${size}px`;
+        return result;
+    }, [css, size])
+
     if(!DOMContainer || !isOpen)
         return null;
     
     const drawer = (
         <StyledDrawer
             ref={imperativeRef}
-            onClick={(e) => {e.stopPropagation();}}
-            css={css}
+            onClick={clickHandler}
+            css={customCss}
             {...props}
             {...html}
         >
@@ -66,6 +89,7 @@ const Drawer =  React.forwardRef<HTMLDivElement, DrawerProps>(({
         <StyledDrawerWrapper
             css={wrapperCss}
             disableBlur={disableBlur}
+            onClick={wrapperClickHandler}
         >
             {drawer}
         </StyledDrawerWrapper>,

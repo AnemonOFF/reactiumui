@@ -1,32 +1,52 @@
-import { blurBackground, blurBackgroundVariant } from "../../theme";
+import { blurBackground } from "../../theme";
 import { css, styled, VariantProps } from "../../theme/stitches.config";
 
 export const DrawerStyles = css({
     $$drawerBorderRadius: '$radii$xl',
     $$drawerBorder: 'none',
     $$drawerShadow: '$shadows$md',
-    position: 'absolute',
+    $$drawerOffset: 0,
+    $$drawerSize: '378px',
+    position: 'fixed',
     background: '$background',
     shadow: '$$drawerShadow',
-    width: 736,
     zIndex: '$max',
     variants: {
         type: {
             default: {
-                top: 0,
-                right: 0,
-                bottom: 0,
-                borderLeft: '$$drawerBorder',
-                borderTopLeftRadius: '$$drawerBorderRadius',
-                borderBottomLeftRadius: '$$drawerBorderRadius',
+                $$drawerOffset: 0,
             },
             cloud: {
-                top: '$md',
-                right: '$md',
-                bottom: '$md',
+                $$drawerOffset: '$space$md',
                 border: '$$drawerBorder',
                 borderRadius: '$$drawerBorderRadius',
             }
+        },
+        placement: {
+            top: {
+                top: '$$drawerOffset',
+                left: '$$drawerOffset',
+                right: '$$drawerOffset',
+                height: '$$drawerSize',
+            },
+            bottom: {
+                bottom: '$$drawerOffset',
+                left: '$$drawerOffset',
+                right: '$$drawerOffset',
+                height: '$$drawerSize',
+            },
+            right: {
+                top: '$$drawerOffset',
+                bottom: '$$drawerOffset',
+                right: '$$drawerOffset',
+                width: '$$drawerSize',
+            },
+            left: {
+                top: '$$drawerOffset',
+                bottom: '$$drawerOffset',
+                left: '$$drawerOffset',
+                width: '$$drawerSize',
+            },
         },
         disableShadow: {
             true: {
@@ -44,8 +64,47 @@ export const DrawerStyles = css({
             }
         }
     },
+    compoundVariants: [
+        {
+            placement: 'top',
+            type: 'default',
+            css: {
+                borderBottom: '$$drawerBorder',
+                borderBottomLeftRadius: '$$drawerBorderRadius',
+                borderBottomRightRadius: '$$drawerBorderRadius',
+            }
+        },
+        {
+            placement: 'bottom',
+            type: 'default',
+            css: {
+                borderTop: '$$drawerBorder',
+                borderTopLeftRadius: '$$drawerBorderRadius',
+                borderTopRightRadius: '$$drawerBorderRadius',
+            }
+        },
+        {
+            placement: 'left',
+            type: 'default',
+            css: {
+                borderRight: '$$drawerBorder',
+                borderTopRightRadius: '$$drawerBorderRadius',
+                borderBottomRightRadius: '$$drawerBorderRadius',
+            }
+        },
+        {
+            placement: 'right',
+            type: 'default',
+            css: {
+                borderLeft: '$$drawerBorder',
+                borderBottomLeftRadius: '$$drawerBorderRadius',
+                borderTopLeftRadius: '$$drawerBorderRadius',
+            }
+        },
+    ],
     defaultVariants: {
         type: 'default',
+        placement: 'right',
         disableShadow: false,
         border: false,
         square: false,
