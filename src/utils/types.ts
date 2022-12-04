@@ -4,6 +4,9 @@ export const themedColors = ["background", "foreground", "primary", "secondary",
 export const breakpoints = Object.keys(defaultTokens.breakpoints);
 export const radii = Object.keys(defaultTokens.radii);
 export const space = Object.keys(defaultTokens.space);
+export const borderWidth = Object.keys(defaultTokens.borderWidths);
+export const fontSize = Object.keys(defaultTokens.fontSizes);
+export const fontWeight = Object.keys(defaultTokens.fontWeights);
 
 export type HTMLTarget = '_blank' | '_self' | '_parent' | '_top';
 
@@ -21,5 +24,8 @@ export type ThemedColors = typeof themedColors[number];
 export type Breakpoint = keyof typeof defaultTokens.breakpoints;
 export type Radii = keyof typeof defaultTokens.radii;
 export type Space = keyof typeof defaultTokens.space;
+export type BorderWidth = keyof typeof defaultTokens.borderWidths;
+export type FontSize = keyof typeof defaultTokens.fontSizes;
+export type FontWeight = keyof typeof defaultTokens.fontWeights;
 
 export type NavbarWidth = Breakpoint | 'full';

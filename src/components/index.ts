@@ -22,3 +22,4 @@ export { Table,
     TablePagination,
 } from "./table";
 export { Drawer } from "./drawer";
+export { Button } from "./button";
