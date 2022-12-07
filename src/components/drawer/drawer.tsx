@@ -7,6 +7,7 @@ import { DrawerVariantsProps, DrawerWrapperVariantsProps, StyledDrawer, StyledDr
 interface Props {
     isOpen: boolean,
     size?: number,
+    insideContainer?: boolean,
     disableWrapper?: boolean,
     onWrapperClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void,
     children?: React.ReactNode,
@@ -15,8 +16,8 @@ interface Props {
 }
 
 type HTMLProps = Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props>;
-type VariantsProps = Omit<DrawerVariantsProps, keyof Props>;
-type WrapperVariantsProps = Omit<DrawerWrapperVariantsProps, keyof Props>;
+type VariantsProps = Omit<DrawerVariantsProps, keyof Props | 'position'>;
+type WrapperVariantsProps = Omit<DrawerWrapperVariantsProps, keyof Props | 'position'>;
 export type DrawerProps = Props & VariantsProps & WrapperVariantsProps & { html?: HTMLProps};
 
 const Drawer =  React.forwardRef<HTMLDivElement, DrawerProps>(({
@@ -28,6 +29,7 @@ const Drawer =  React.forwardRef<HTMLDivElement, DrawerProps>(({
     wrapperCss,
     onWrapperClick,
     size,
+    insideContainer = false,
     disableWrapper = false,
     ...props
 }, ref) => {
@@ -75,6 +77,7 @@ const Drawer =  React.forwardRef<HTMLDivElement, DrawerProps>(({
             ref={imperativeRef}
             onClick={clickHandler}
             css={customCss}
+            position={insideContainer ? 'absolute' : 'fixed'}
             {...props}
             {...html}
         >
@@ -83,17 +86,19 @@ const Drawer =  React.forwardRef<HTMLDivElement, DrawerProps>(({
     );
 
     if(disableWrapper)
-        return createPortal(drawer, DOMContainer);
+        return insideContainer ? drawer : createPortal(drawer, DOMContainer);
     
-    return createPortal(
+    const wrapper = (
         <StyledDrawerWrapper
             css={wrapperCss}
             disableBlur={disableBlur}
             onClick={wrapperClickHandler}
+            position={insideContainer ? 'absolute' : 'fixed'}
         >
             {drawer}
-        </StyledDrawerWrapper>,
-        DOMContainer);
+        </StyledDrawerWrapper>
+    );
+    return insideContainer ? wrapper : createPortal(wrapper, DOMContainer);
 })
 
 export default React.memo(Drawer);

@@ -7,11 +7,18 @@ export const DrawerStyles = css({
     $$drawerShadow: '$shadows$md',
     $$drawerOffset: 0,
     $$drawerSize: '378px',
-    position: 'fixed',
     background: '$background',
     shadow: '$$drawerShadow',
     zIndex: '$max',
     variants: {
+        position: {
+            fixed: {
+                position: 'fixed',
+            },
+            absolute: {
+                position: 'absolute',
+            },
+        },
         type: {
             default: {
                 $$drawerOffset: 0,
@@ -108,6 +115,7 @@ export const DrawerStyles = css({
         disableShadow: false,
         border: false,
         square: false,
+        position: 'fixed',
     }
 })
 
@@ -119,6 +127,14 @@ export const DrawerWrapperStyled = css({
     right: 0,
     zIndex: '$max',
     variants: {
+        position: {
+            fixed: {
+                position: 'fixed',
+            },
+            absolute: {
+                position: 'absolute',
+            },
+        },
         disableBlur: {
             false: {
                 ...blurBackground,
@@ -130,6 +146,7 @@ export const DrawerWrapperStyled = css({
     },
     defaultVariants: {
         disableBlur: false,
+        position: 'fixed',
     }
 })
 
