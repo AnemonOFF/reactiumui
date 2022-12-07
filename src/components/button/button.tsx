@@ -1,11 +1,15 @@
 import React, { useMemo } from "react";
 import { CSS } from "../../theme";
 import { borderWidth, BorderWidth, fontSize, FontSize, fontWeight, FontWeight, space, Space, ThemedColors, useImperativeRef, useThemeColor } from "../../utils";
-import { ButtonVariantsProps, StyledButton } from "./button.styles";
+import { ButtonVariantsProps, StyledButton, StyledButtonContent, StyledButtonIcon } from "./button.styles";
 
 interface Props {
     children?: React.ReactNode,
     color?: ThemedColors | "default" | string,
+    icon?: React.ReactNode,
+    rightIcon?: React.ReactNode,
+    iconSize?: number | string,
+    rightIconSize?: number | string,
     gradient?: string[],
     size?: Space | number | string,
     fontSize?: FontSize | number | string,
@@ -23,6 +27,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     html,
     css,
     type,
+    icon,
+    rightIcon,
+    iconSize,
+    rightIconSize,
     color: propColor,
     gradient: propGradient,
     size: propSize,
@@ -56,11 +64,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
         if(propSize) {
             if(space.find(el => el === propSize) !== undefined) {
                 const spaceIndex = space.indexOf(propSize as string);
-                result.p = `${spaceIndex > 0 ? `$${space[spaceIndex - 1]}` : '0px'} $${propSize}`
+                result['$$buttonXSpace'] = `$space$${propSize}`;
+                result['$$buttonYSpace'] = spaceIndex > 0 ? `$space$${space[spaceIndex - 1]}` : '0px';
             }
             else {
                 const cssPropSize = typeof propSize === 'number' ? `${propSize}px` : propSize;
-                result.p = `calc(${cssPropSize} / 2) ${cssPropSize}`;
+                result['$$buttonXSpace'] = cssPropSize;
+                result['$$buttonYSpace'] = `calc(${cssPropSize} / 2)`;
             }
         }
         if(propFontSize) {
@@ -84,6 +94,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
         return result;
     }, [css, color, propSize, propFontSize, propBorderWidth, propFontWeight, propGradient])
 
+    const customIconCss = iconSize ? {'$$buttonIconSize': typeof iconSize == 'number' ? `${iconSize}px` : iconSize} : {};
+    const customRightIconCss = rightIconSize ? {'$$buttonRightIconSize': typeof rightIconSize == 'number' ? `${rightIconSize}px` : rightIconSize} : {};
+
     return (
         <StyledButton
             ref={imperativeRef}
@@ -92,7 +105,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
             {...html}
             {...props}
         >
-            {children}
+            {icon && <StyledButtonIcon css={customIconCss}>{icon}</StyledButtonIcon>}
+            <StyledButtonContent>
+                {children}
+            </StyledButtonContent>
+            {rightIcon && <StyledButtonIcon css={customRightIconCss}>{rightIcon}</StyledButtonIcon>}
         </StyledButton>
     )
 })

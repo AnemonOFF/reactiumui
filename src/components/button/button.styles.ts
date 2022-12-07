@@ -8,16 +8,20 @@ export const ButtonStyles = css({
     $$buttonTextColor: '$colors$text',
     $$buttonAccentColor: '$colors$accent',
     $$buttonBorderWidth: '1px',
+    $$buttonXSpace: '$space$xs',
+    $$buttonYSpace: '$space$xxs',
     position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
     m: 0,
-    p: '$xxs $xs',
+    p: '$$buttonYSpace $$buttonXSpace',
     cursor: 'pointer',
     borderRadius: '$$buttonBorderRadius',
+    color: '$$buttonTextColor',
     variants: {
         type: {
             border: {
                 border: '$$buttonBorderWidth solid $$buttonBorderColor',
-                color: '$$buttonTextColor',
                 background: 'transparent',
                 '&:hover': {
                     borderColor: '$$buttonSolidColor',
@@ -37,7 +41,7 @@ export const ButtonStyles = css({
                 },
                 background: 'transparent',
                 border: '$$buttonBorderWidth solid transparent',
-                color: '$white',
+                '$$buttonTextColor': '$colors$white !important',
                 '&:hover::before': {
                     opacity: 0.8,
                 },
@@ -45,7 +49,6 @@ export const ButtonStyles = css({
             light: {
                 background: 'transparent',
                 border: '$$buttonBorderWidth solid transparent',
-                color: '$$buttonTextColor',
                 '&:hover': {
                     opacity: 0.8,
                 }
@@ -66,7 +69,6 @@ export const ButtonStyles = css({
                 },
                 background: 'transparent',
                 border: '$$buttonBorderWidth solid transparent',
-                color: '$$buttonTextColor',
                 '&:hover::before': {
                     opacity: 0.2,
                 },
@@ -86,14 +88,12 @@ export const ButtonStyles = css({
                 },
                 background: 'transparent',
                 border: '$$buttonBorderWidth solid transparent',
-                color: '$$buttonTextColor',
                 '&:hover::before': {
                     opacity: 0.3,
                 },
             },
             ghost: {
                 border: '$$buttonBorderWidth solid $$buttonBorderColor',
-                color: '$$buttonTextColor',
                 background: 'transparent',
                 '&:hover': {
                     borderColor: '$$buttonSolidColor',
@@ -119,6 +119,33 @@ export const ButtonStyles = css({
     }
 }, hideShowOnMedia)
 
+export const ButtonContentStyles = css({
+
+})
+
+export const ButtonIconStyled = css({
+    $$buttonIconSize: '20px',
+    $$buttonRightIconSize: '20px',
+    display: 'flex',
+    alignItems: 'center',
+    '&:first-child': {
+        mr: '$$buttonXSpace',
+    },
+    '&:first-child > svg': {
+        size: '$$buttonIconSize',
+    },
+    '&:last-child': {
+        ml: '$$buttonXSpace',
+    },
+    '&:last-child > svg': {
+        size: '$$buttonRightIconSize',
+    },
+})
+
 export const StyledButton = styled('button', ButtonStyles);
+export const StyledButtonContent = styled('div', ButtonContentStyles);
+export const StyledButtonIcon = styled('div', ButtonIconStyled);
 
 export type ButtonVariantsProps = VariantProps<typeof StyledButton>;
+export type ButtonContentVariantsProps = VariantProps<typeof StyledButtonContent>;
+export type ButtonIconVariantsProps = VariantProps<typeof StyledButtonIcon>;
