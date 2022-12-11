@@ -1,7 +1,7 @@
 import { CSS } from "../../theme";
 import React, { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
-import { useImperativeRef } from "../../utils";
+import { useBodyOverflow, useImperativeRef } from "../../utils";
 import { DrawerVariantsProps, DrawerWrapperVariantsProps, StyledDrawer, StyledDrawerWrapper } from "./drawer.styles";
 
 interface Props {
@@ -35,6 +35,7 @@ const Drawer =  React.forwardRef<HTMLDivElement, DrawerProps>(({
 }, ref) => {
     const [DOMContainer, setDOMContainer] = useState<HTMLDivElement>();
     const imperativeRef = useImperativeRef(ref);
+    const setBodyOverflow = useBodyOverflow();
 
     const wrapperClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation();
@@ -47,6 +48,13 @@ const Drawer =  React.forwardRef<HTMLDivElement, DrawerProps>(({
         if(html?.onClick)
             html.onClick(e);
     }
+
+    useEffect(() => {
+        if(isOpen)
+            setBodyOverflow('hidden');
+        else
+            setBodyOverflow(undefined);
+    }, [isOpen])
 
     useEffect(() => {
         if(DOMContainer)
