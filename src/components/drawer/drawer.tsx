@@ -50,11 +50,11 @@ const Drawer =  React.forwardRef<HTMLDivElement, DrawerProps>(({
     }
 
     useEffect(() => {
-        if(isOpen)
+        if(isOpen && !insideContainer)
             setBodyOverflow('hidden');
         else
             setBodyOverflow(undefined);
-    }, [isOpen])
+    }, [isOpen, insideContainer])
 
     useEffect(() => {
         if(DOMContainer)
