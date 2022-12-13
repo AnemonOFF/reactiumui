@@ -2,38 +2,39 @@ import { hideShowOnMedia } from "../../theme";
 import { css, styled, VariantProps } from "../../theme/stitches.config";
 
 export const CheckboxStyles = css({
-    height: 21,
-    width: 21,
+    $$checkboxColor: '$colors$primary',
+    $$checkboxSecondaryColor: '$$checkboxColor',
+    $$checkboxSize: '21px',
+    $$checkboxRadius: '$radii$xs',
+    size: '$$checkboxSize',
     outline: 'none',
-    display: 'inline-block',
-    verticalAlign: 'top',
     position: 'relative',
     m: 0,
     cursor: 'pointer',
     border: '1px solid $colors$border',
-    borderRadius: '$xs',
+    borderRadius: '$$checkboxRadius',
     background: '$background',
     appearance: 'none',
-    '&:after': {
+    '&::after': {
         content: '',
-        width: 5,
-        height: 9,
-        border: '2px solid $colors$white',
+        width: 'calc(5 / 21 * $$checkboxSize)',
+        height: 'calc(9 / 21 * $$checkboxSize)',
+        border: 'calc(2 / 21 * $$checkboxSize) solid $colors$white',
         borderTop: 0,
         borderLeft: 0,
         display: 'block',
         position: 'absolute',
-        left: 7,
-        top: 4,
+        left: '50%',
+        top: '50%',
         opacity: 0,
-        transform: 'rotate(20deg)',
+        transform: 'translate(-50%, -50%) rotate(20deg)',
     },
     '&:checked': {
-        background: '$primary',
-        borderColor: '$primary',
-        '&:after': {
+        background: '$$checkboxColor',
+        borderColor: '$$checkboxSecondaryColor',
+        '&::after': {
             opacity: 1,
-            transform: 'rotate(43deg)',
+            transform: 'translate(-50%, -50%) rotate(43deg)',
         }
     },
     '&:disabled': {
@@ -42,19 +43,65 @@ export const CheckboxStyles = css({
         cursor: 'not-allowed',
     },
     '&:hover:not(:checked):not(:disabled)': {
-        borderColor: '$primary',
+        borderColor: '$$checkboxSecondaryColor',
     },
     '&:focus': {
-        boxShadow: '0 0 0 2px $colors$primaryAccent',
+        boxShadow: '0 0 2px 1px $$checkboxSecondaryColor',
+    },
+    variants: {
+        square: {
+            true: {
+                $$checkboxRadius: '0',
+            }
+        },
+        round: {
+            true: {
+                $$checkboxRadius: '$radii$rounded',
+            }
+        },
+        indeterminate: {
+            true: {
+                background: '$$checkboxColor',
+                borderColor: '$$checkboxSecondaryColor',
+                '&::after': {
+                    width: '50%',
+                    height: 'calc(2 / 21 * $$checkboxSize)',
+                    border: 'none',
+                    background: '$white',
+                    transform: 'translate(-50%, -50%)',
+                    opacity: 1,
+                },
+                '&:checked::after': {
+                    transform: 'translate(-50%, -50%)',
+                }
+            }
+        },
+        icon: {
+            true: {
+                background: 'transparent !important',
+                border: 'none !important',
+                boxShadow: 'none !important',
+                '&::after': {
+                    opacity: '0 !important',
+                },
+            }
+        }
+    },
+    defaultVariants: {
+        indeterminate: false,
+        icon: false,
+        round: false,
+        square: false
     }
 }, hideShowOnMedia)
 
 export const LabelStyles = css({
     fontSize: '$md',
-    display: 'inline-block',
-    verticalAlign: 'top',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '$xs',
     cursor: 'pointer',
-    ml: 4,
+    position: 'relative',
     variants: {
         disabled: {
             true: {
@@ -63,12 +110,23 @@ export const LabelStyles = css({
         },
     },
     defaultVariants: {
-        disabled: 'false',
+        disabled: false,
     }
+})
+
+export const CheckboxIconStyles = css({
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    '& > svg': {
+        size: '21px',
+    },
 })
 
 export const StyledCheckbox = styled('input', CheckboxStyles);
 export const StyledLabel = styled('label', LabelStyles);
+export const StyledCheckboxIcon = styled('div', CheckboxIconStyles);
 
 export type CheckboxVariantsProps = VariantProps<typeof StyledCheckbox>;
 export type LabelVariantsProps = VariantProps<typeof StyledLabel>;
+export type CheckboxIconVariantsProps = VariantProps<typeof StyledCheckboxIcon>;
