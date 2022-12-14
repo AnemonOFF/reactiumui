@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { CSS } from "../../theme";
 import { space, Space, ThemedColors, useImperativeRef, useThemeColor } from "../../utils";
-import { CheckboxVariantsProps, StyledCheckbox, StyledCheckboxIcon, StyledLabel } from "./checkbox.styles";
+import { RadioVariantsProps, StyledRadio, StyledRadioIcon, StyledLabel } from "./radio.styles";
 
 interface Props {
     children?: React.ReactNode,
@@ -20,10 +20,10 @@ interface Props {
     css?: CSS,
 }
 type HTMLProps = Omit<React.HTMLAttributes<HTMLInputElement>, keyof Props | 'type'>;
-type VariantsProps = Omit<CheckboxVariantsProps, keyof Props | 'icon'>;
-export type CheckboxProps = Props & VariantsProps & { html?: HTMLProps};
+type VariantsProps = Omit<RadioVariantsProps, keyof Props | 'icon'>;
+export type RadioProps = Props & VariantsProps & { html?: HTMLProps};
 
-const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(({
+const Radio = React.forwardRef<HTMLInputElement, RadioProps>(({
     children,
     css,
     labelCss,
@@ -73,11 +73,11 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(({
     const customCss = useMemo(() => {
         const result = {...css};
         if(cssColor)
-            result['$$checkboxColor'] = cssColor;
+            result['$$radioColor'] = cssColor;
         if(propGradient && propGradient.length > 1)
-            result['$$checkboxSecondaryColor'] = '$colors$accent';
+            result['$$radioSecondaryColor'] = '$colors$accent';
         if(size !== undefined) {
-            result['$$checkboxSize'] = size;
+            result['$$radioSize'] = size;
         }
         return result;
     }, [css, size, cssColor, propGradient])
@@ -116,8 +116,8 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(({
 
     return (
         <StyledLabel disabled={disabled} css={labelCustomCss}>
-            <StyledCheckbox
-                type={"checkbox"}
+            <StyledRadio
+                type={"radio"}
                 ref={imperativeRef}
                 css={customCss}
                 disabled={disabled}
@@ -128,10 +128,10 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(({
                 {...html}
                 {...props}
             />
-            {renderIcon !== undefined && <StyledCheckboxIcon css={iconCss}>{renderIcon}</StyledCheckboxIcon>}
+            {renderIcon !== undefined && <StyledRadioIcon css={iconCss}>{renderIcon}</StyledRadioIcon>}
             {children}
         </StyledLabel>
     )
 })
 
-export default React.memo(Checkbox);
+export default React.memo(Radio);

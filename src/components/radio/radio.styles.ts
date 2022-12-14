@@ -1,39 +1,38 @@
 import { hideShowOnMedia } from "../../theme";
 import { css, styled, VariantProps } from "../../theme/stitches.config";
 
-export const CheckboxStyles = css({
-    $$checkboxColor: '$colors$primary',
-    $$checkboxSecondaryColor: '$$checkboxColor',
-    $$checkboxSize: '21px',
-    size: '$$checkboxSize',
+export const RadioStyles = css({
+    $$radioColor: '$colors$primary',
+    $$radioSecondaryColor: '$$radioColor',
+    $$radioSize: '21px',
+    size: '$$radioSize',
     outline: 'none',
     position: 'relative',
     m: 0,
     cursor: 'pointer',
     border: '1px solid $colors$border',
-    borderRadius: '$xs',
+    borderRadius: '$rounded',
     background: '$background',
     appearance: 'none',
     '&::after': {
         content: '',
-        width: 'calc(5 / 21 * $$checkboxSize)',
-        height: 'calc(9 / 21 * $$checkboxSize)',
-        border: 'calc(2 / 21 * $$checkboxSize) solid $colors$white',
-        borderTop: 0,
-        borderLeft: 0,
+        width: 'calc(19 / 21 * $$radioSize)',
+        height: 'calc(19 / 21 * $$radioSize)',
+        borderRadius: '$rounded',
+        background: '$white',
         display: 'block',
         position: 'absolute',
         left: '50%',
         top: '50%',
         opacity: 0,
-        transform: 'translate(-50%, -50%) rotate(20deg)',
+        transform: 'translate(-50%, -50%) scale(.7)',
     },
     '&:checked': {
-        background: '$$checkboxColor',
-        borderColor: '$$checkboxSecondaryColor',
+        background: '$$radioColor',
+        borderColor: '$$radioSecondaryColor',
         '&::after': {
             opacity: 1,
-            transform: 'translate(-50%, -50%) rotate(43deg)',
+            transform: 'translate(-50%, -50%) scale(.5)',
         }
     },
     '&:disabled': {
@@ -42,15 +41,15 @@ export const CheckboxStyles = css({
         cursor: 'not-allowed',
     },
     '&:hover:not(:checked):not(:disabled)': {
-        borderColor: '$$checkboxSecondaryColor',
+        borderColor: '$$radioSecondaryColor',
     },
     '&:focus': {
-        boxShadow: '0 0 2px 1px $$checkboxSecondaryColor',
+        boxShadow: '0 0 2px 1px $$radioSecondaryColor',
     },
     variants: {
         square: {
             true: {
-                borderRadius: '$square',
+                borderRadius: '$squared',
             }
         },
         round: {
@@ -60,11 +59,11 @@ export const CheckboxStyles = css({
         },
         indeterminate: {
             true: {
-                background: '$$checkboxColor',
-                borderColor: '$$checkboxSecondaryColor',
+                background: '$$radioColor',
+                borderColor: '$$radioSecondaryColor',
                 '&::after': {
                     width: '50%',
-                    height: 'calc(2 / 21 * $$checkboxSize)',
+                    height: 'calc(2 / 21 * $$radioSize)',
                     border: 'none',
                     background: '$white',
                     transform: 'translate(-50%, -50%)',
@@ -113,7 +112,7 @@ export const LabelStyles = css({
     }
 })
 
-export const CheckboxIconStyles = css({
+export const RadioIconStyles = css({
     position: 'absolute',
     top: 0,
     left: 0,
@@ -122,10 +121,10 @@ export const CheckboxIconStyles = css({
     },
 })
 
-export const StyledCheckbox = styled('input', CheckboxStyles);
+export const StyledRadio = styled('input', RadioStyles);
 export const StyledLabel = styled('label', LabelStyles);
-export const StyledCheckboxIcon = styled('div', CheckboxIconStyles);
+export const StyledRadioIcon = styled('div', RadioIconStyles);
 
-export type CheckboxVariantsProps = VariantProps<typeof StyledCheckbox>;
+export type RadioVariantsProps = VariantProps<typeof StyledRadio>;
 export type LabelVariantsProps = VariantProps<typeof StyledLabel>;
-export type CheckboxIconVariantsProps = VariantProps<typeof StyledCheckboxIcon>;
+export type RadioIconVariantsProps = VariantProps<typeof StyledRadioIcon>;
