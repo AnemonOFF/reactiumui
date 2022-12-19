@@ -4,7 +4,7 @@ import { css, styled, VariantProps } from "../../theme/stitches.config";
 export const RadioStyles = css({
     $$radioColor: '$colors$primary',
     $$radioSecondaryColor: '$$radioColor',
-    $$radioSize: '21px',
+    $$radioSize: '20px',
     size: '$$radioSize',
     outline: 'none',
     position: 'relative',
@@ -16,10 +16,10 @@ export const RadioStyles = css({
     appearance: 'none',
     '&::after': {
         content: '',
-        width: 'calc(19 / 21 * $$radioSize)',
-        height: 'calc(19 / 21 * $$radioSize)',
+        width: 'calc(16 / 20 * $$radioSize)',
+        height: 'calc(16 / 20 * $$radioSize)',
         borderRadius: '$rounded',
-        background: '$white',
+        background: '$background',
         display: 'block',
         position: 'absolute',
         left: '50%',
@@ -49,12 +49,18 @@ export const RadioStyles = css({
     variants: {
         square: {
             true: {
-                borderRadius: '$squared',
+                borderRadius: '$square',
+                '&::after': {
+                    borderRadius: '$square',
+                },
             }
         },
-        round: {
+        roundness: {
             true: {
-                borderRadius: '$rounded',
+                borderRadius: '$xs',
+                '&::after': {
+                    borderRadius: '$xs',
+                },
             }
         },
         indeterminate: {
@@ -88,7 +94,7 @@ export const RadioStyles = css({
     defaultVariants: {
         indeterminate: false,
         icon: false,
-        round: false,
+        roundness: false,
         square: false
     }
 }, hideShowOnMedia)

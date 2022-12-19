@@ -4,7 +4,7 @@ import { css, styled, VariantProps } from "../../theme/stitches.config";
 export const CheckboxStyles = css({
     $$checkboxColor: '$colors$primary',
     $$checkboxSecondaryColor: '$$checkboxColor',
-    $$checkboxSize: '21px',
+    $$checkboxSize: '20px',
     size: '$$checkboxSize',
     outline: 'none',
     position: 'relative',
@@ -16,9 +16,9 @@ export const CheckboxStyles = css({
     appearance: 'none',
     '&::after': {
         content: '',
-        width: 'calc(5 / 21 * $$checkboxSize)',
-        height: 'calc(9 / 21 * $$checkboxSize)',
-        border: 'calc(2 / 21 * $$checkboxSize) solid $colors$white',
+        width: 'calc(5 / 20 * $$checkboxSize)',
+        height: 'calc(9 / 20 * $$checkboxSize)',
+        border: 'calc(2 / 20 * $$checkboxSize) solid $colors$white',
         borderTop: 0,
         borderLeft: 0,
         display: 'block',
