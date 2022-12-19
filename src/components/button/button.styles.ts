@@ -111,11 +111,18 @@ export const ButtonStyles = css({
             round: {
                 $$buttonBorderRadius: '$radii$pill',
             }
+        },
+        compact: {
+            true: {
+                $$buttonYSpace: '4px',
+                $$buttonXSpace: '11px',
+            }
         }
     },
     defaultVariants: {
         type: 'solid',
         roundness: 'default',
+        compact: false,
     }
 }, hideShowOnMedia)
 

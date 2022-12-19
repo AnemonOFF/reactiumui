@@ -26,3 +26,4 @@ export { Button } from "./button";
 export { Group } from "./group";
 export { Checkbox } from "./checkbox";
 export { Radio } from "./radio";
+export { Input } from "./input";

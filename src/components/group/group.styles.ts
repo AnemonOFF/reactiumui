@@ -9,7 +9,7 @@ export const GroupStyles = css({
         borderStartEndRadius: 0,
         borderEndEndRadius: 0,
         marginInlineEnd: 'calc(0px - $$groupBorderWidth)',
-        '&:hover': {
+        '&:hover, &:focus': {
             zIndex: '2',
         },
     },
