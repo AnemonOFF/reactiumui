@@ -1,6 +1,6 @@
 import { defaultTokens } from "../theme/default";
 
-export const themedColors = ["background", "foreground", "primary", "secondary", "success", "warning", "error", "text", "link"] as const;
+export const themedColors = Object.keys(defaultTokens.colors);
 export const breakpoints = Object.keys(defaultTokens.breakpoints);
 export const radii = Object.keys(defaultTokens.radii);
 export const space = Object.keys(defaultTokens.space);
@@ -20,7 +20,7 @@ export type Overflow = 'visible' | 'hidden' | 'scroll' | 'auto' | GlobalValues
 export type Position = 'relative' | 'absolute' | 'fixed' | 'sticky' | 'static' | GlobalValues;
 export type ListStyleType = 'disc' | 'circle' | 'square' | 'decimal' | 'decimal-leading-zero' | 'georgian' | 'trad-chinese-informal' | 'kannada' | 'lower-roman' | 'upper-roman' | 'lower-greek' | 'lower-latin' | 'upper-latin' | 'arabic-indic' | 'ethiopic-numeric' | 'none' | GlobalValues;
 
-export type ThemedColors = typeof themedColors[number];
+export type ThemedColors = keyof typeof defaultTokens.colors;
 export type Breakpoint = keyof typeof defaultTokens.breakpoints;
 export type Radii = keyof typeof defaultTokens.radii;
 export type Space = keyof typeof defaultTokens.space;

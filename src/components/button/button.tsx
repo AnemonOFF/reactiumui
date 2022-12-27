@@ -77,7 +77,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
             if(fontSize.find(el => el === propFontSize) !== undefined)
                 result.fontSize = `$${propFontSize}`;
             else
-                result.fonSize = typeof propFontSize === 'number' ? `${propFontSize}px` : propFontSize;
+                result.fontSize = typeof propFontSize === 'number' ? `${propFontSize}px` : propFontSize;
         }
         if(propFontWeight) {
             if(fontWeight.find(el => el === propFontWeight) !== undefined)
