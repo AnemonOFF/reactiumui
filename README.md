@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/AnemonOFF/reactiumui/main/logo.png" alt="reactiumui">
+<img src="https://raw.githubusercontent.com/AnemonOFF/reactiumui/master/icon.png" alt="reactiumui">
 <h1 align="center">Reactium UI</h1>
 </p>
 <p align="center">
