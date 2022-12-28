@@ -27,3 +27,4 @@ export { Group } from "./group";
 export { Checkbox } from "./checkbox";
 export { Radio } from "./radio";
 export { Input } from "./input";
+export { Modal } from "./modal";

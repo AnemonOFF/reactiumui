@@ -2,25 +2,28 @@ import { CSS } from "../../theme";
 import React, { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { useBodyOverflow, useImperativeRef } from "../../utils";
-import { DrawerVariantsProps, DrawerWrapperVariantsProps, StyledDrawer, StyledDrawerWrapper } from "./drawer.styles";
+import { ModalVariantsProps, ModalWrapperVariantsProps, StyledModal, StyledModalWrapper } from "./modal.styles";
 
 interface Props {
+    children?: React.ReactNode,
     isOpen: boolean,
-    size?: number,
+    width?: number | string,
+    height?: number | string,
+    x?: string | number,
+    y?: string | number,
     insideContainer?: boolean,
     disableWrapper?: boolean,
     onWrapperClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void,
-    children?: React.ReactNode,
     css?: CSS,
     wrapperCss?: CSS,
 }
 
 type HTMLProps = Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props>;
-type VariantsProps = Omit<DrawerVariantsProps, keyof Props | 'position'>;
-type WrapperVariantsProps = Omit<DrawerWrapperVariantsProps, keyof Props | 'position'>;
-export type DrawerProps = Props & VariantsProps & WrapperVariantsProps & { html?: HTMLProps};
+type VariantsProps = Omit<ModalVariantsProps, keyof Props | 'position'>;
+type WrapperVariantsProps = Omit<ModalWrapperVariantsProps, keyof Props | 'position'>;
+export type ModalProps = Props & VariantsProps & WrapperVariantsProps & { html?: HTMLProps};
 
-const Drawer =  React.forwardRef<HTMLDivElement, DrawerProps>(({
+const Modal =  React.forwardRef<HTMLDivElement, ModalProps>(({
     isOpen,
     children,
     disableBlur,
@@ -28,7 +31,11 @@ const Drawer =  React.forwardRef<HTMLDivElement, DrawerProps>(({
     css,
     wrapperCss,
     onWrapperClick,
-    size,
+    width,
+    height,
+    x,
+    y,
+    placement,
     insideContainer = false,
     disableWrapper = false,
     ...props
@@ -60,10 +67,10 @@ const Drawer =  React.forwardRef<HTMLDivElement, DrawerProps>(({
         if(DOMContainer)
             return;
         
-        let container = document.querySelector<HTMLDivElement>("#reactiumui__drawerContainer");
+        let container = document.querySelector<HTMLDivElement>("#reactiumui__modalContainer");
         if(!container) {
             const div = document.createElement("div");
-            div.id = "reactiumui__drawerContainer";
+            div.id = "reactiumui__modalContainer";
             document.body.appendChild(div);
             container = div;
         }
@@ -72,41 +79,48 @@ const Drawer =  React.forwardRef<HTMLDivElement, DrawerProps>(({
 
     const customCss = useMemo(() => {
         const result = {...css};
-        if(size !== undefined)
-            result['$$drawerSize'] = `${size}px`;
+        if(width !== undefined)
+            result.width = typeof width === 'number' ? `${width}px` : width;
+        if(height !== undefined)
+            result.height = typeof height === 'number' ? `${height}px` : height;
+        if(x !== undefined)
+            result.left = x;
+        if(y !== undefined)
+            result.top = y;
         return result;
-    }, [css, size])
+    }, [css, x, y])
 
     if(!DOMContainer || !isOpen)
         return null;
     
-    const drawer = (
-        <StyledDrawer
+    const modal = (
+        <StyledModal
             ref={imperativeRef}
             onClick={clickHandler}
             css={customCss}
             position={insideContainer ? 'absolute' : 'fixed'}
+            placement={x !== undefined || y !== undefined ? undefined : placement ?? 'center'}
             {...props}
             {...html}
         >
             {children}
-        </StyledDrawer>
+        </StyledModal>
     );
 
     if(disableWrapper)
-        return insideContainer ? drawer : createPortal(drawer, DOMContainer);
+        return insideContainer ? modal : createPortal(modal, DOMContainer);
     
     const wrapper = (
-        <StyledDrawerWrapper
+        <StyledModalWrapper
             css={wrapperCss}
             disableBlur={disableBlur}
             onClick={wrapperClickHandler}
             position={insideContainer ? 'absolute' : 'fixed'}
         >
-            {drawer}
-        </StyledDrawerWrapper>
+            {modal}
+        </StyledModalWrapper>
     );
     return insideContainer ? wrapper : createPortal(wrapper, DOMContainer);
 })
 
-export default React.memo(Drawer);
+export default React.memo(Modal);

@@ -131,8 +131,8 @@ export const ButtonContentStyles = css({
 })
 
 export const ButtonIconStyled = css({
-    $$buttonIconSize: '20px',
-    $$buttonRightIconSize: '20px',
+    $$buttonIconSize: '18px',
+    $$buttonRightIconSize: '18px',
     display: 'flex',
     alignItems: 'center',
     '&:first-child': {
@@ -147,6 +147,15 @@ export const ButtonIconStyled = css({
     '&:last-child > svg': {
         size: '$$buttonRightIconSize',
     },
+    variants: {
+        disableMargin: {
+            true: {
+                '&:first-child:not(:last-child), &:last-child:not(:first-child)': {
+                    m: 0,
+                }
+            }
+        }
+    }
 })
 
 export const StyledButton = styled('button', ButtonStyles);

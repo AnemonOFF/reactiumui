@@ -29,7 +29,7 @@ export const InputStyles = css({
 export const StyledInput = styled('input', InputStyles);
 
 export const InputAddonStyles = css({
-    $$inputIconSize: '20px',
+    $$inputIconSize: '18px',
     display: 'flex',
     alignItems: 'center',
     px: '$$inputXSpace',
@@ -54,7 +54,6 @@ export const InputGroupStyles = css({
     m: 0,
     p: 0,
     border: '$$inputBorderWidth solid $border',
-    borderRadius: '$xs',
     width: 'unset',
     '& > :first-child': {
         borderTopLeftRadius: '$xs',
@@ -64,6 +63,22 @@ export const InputGroupStyles = css({
         borderTopRightRadius: '$xs',
         borderBottomRightRadius: '$xs',
     },
+    variants: {
+        roundness: {
+            default: {
+                borderRadius: '$xs',
+            },
+            square: {
+                borderRadius: 0,
+            },
+            round: {
+                borderRadius: '$radii$pill',
+            }
+        }
+    },
+    defaultVariants: {
+        roundness: 'default',
+    }
 })
 
 export const StyledInputGroup = styled('div', InputGroupStyles);

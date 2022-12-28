@@ -15,6 +15,7 @@ interface Props {
     fontSize?: FontSize | number | string,
     fontWeight?: FontWeight | number,
     borderWidth?: BorderWidth | number | string,
+    roundness?: 'default' | 'square' | 'round',
     placeholder?: string,
     css?: CSS,
 }
@@ -31,6 +32,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({
     label,
     size: propSize,
     iconSize,
+    roundness,
     fontSize: propFontSize,
     borderWidth: propBorderWidth,
     fontWeight: propFontWeight,
@@ -103,7 +105,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({
     return (
         <StyledInputLabel focused={isFocused} css={labelCss}>
             {!!label && <div>{label}</div>}
-            <StyledInputGroup>
+            <StyledInputGroup roundness={roundness}>
                 {!!prefix && <StyledInputAddon css={customIconCss}>{prefix}</StyledInputAddon>}
                 <StyledInput
                     ref={imperativeRef}

@@ -105,11 +105,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
             {...html}
             {...props}
         >
-            {icon && <StyledButtonIcon css={customIconCss}>{icon}</StyledButtonIcon>}
+            {icon && <StyledButtonIcon css={customIconCss} disableMargin={children === undefined}>{icon}</StyledButtonIcon>}
             <StyledButtonContent>
                 {children}
             </StyledButtonContent>
-            {rightIcon && <StyledButtonIcon css={customRightIconCss}>{rightIcon}</StyledButtonIcon>}
+            {rightIcon && <StyledButtonIcon css={customRightIconCss} disableMargin={children === undefined}>{rightIcon}</StyledButtonIcon>}
         </StyledButton>
     )
 })
