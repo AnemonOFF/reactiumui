@@ -15,6 +15,7 @@ interface Props {
     fontSize?: FontSize | number | string,
     fontWeight?: FontWeight | number,
     borderWidth?: BorderWidth | number | string,
+    onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
     css?: CSS,
 }
 
@@ -31,6 +32,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     rightIcon,
     iconSize,
     rightIconSize,
+    onClick,
     color: propColor,
     gradient: propGradient,
     size: propSize,
@@ -102,6 +104,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
             ref={imperativeRef}
             css={customCss}
             type={type}
+            onClick={onClick}
             {...html}
             {...props}
         >

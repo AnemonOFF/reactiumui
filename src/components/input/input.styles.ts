@@ -6,7 +6,7 @@ export const InputStyles = css({
     fontSize: '$$inputFontSize',
     fontWeight: '$$inputFontWeight',
     variants: {
-        type: {
+        variants: {
             default: {
                 color: '$$inputTextColor',
                 background: '$background',
@@ -22,7 +22,7 @@ export const InputStyles = css({
     },
     defaultVariants: {
         compact: false,
-        type: 'default',
+        variants: 'default',
     }
 }, hideShowOnMedia)
 

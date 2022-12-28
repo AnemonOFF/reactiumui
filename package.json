@@ -1,14 +1,39 @@
 {
   "name": "reactiumui",
-  "version": "0.11.0",
-  "description": "Cool UI Components Library for React (with nextJS support)",
+  "version": "1.0.0-beta.1.1",
+  "description": "⚡Fast and customizable UI Components Library for React (with nextJS support)",
+  "keywords": [
+    "reactium",
+    "reactiumui",
+    "react",
+    "components",
+    "typescript",
+    "ui",
+    "js",
+    "ssr",
+    "nextjs",
+    "ts",
+    "cssinjs",
+    "ui-components",
+    "stitches"
+  ],
+  "author": {
+    "name": "AnemonOFF",
+    "email": "anemon7778@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AnemonOFF/reactiumui"
+  },
+  "bugs": {
+    "url": "https://github.com/AnemonOFF/reactiumui/issues/new"
+  },
   "scripts": {
     "test": "test",
     "rollup": "rollup -c",
     "tsc": "tsc"
   },
-  "author": "AnemonOFF",
-  "license": "ISC",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-node-resolve": "^14.1.0",

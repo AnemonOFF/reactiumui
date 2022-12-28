@@ -17,6 +17,9 @@ interface Props {
     borderWidth?: BorderWidth | number | string,
     roundness?: 'default' | 'square' | 'round',
     placeholder?: string,
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    type?: React.HTMLInputTypeAttribute,
+    value?: string | number | readonly string[],
     css?: CSS,
 }
 type HTMLProps = Omit<React.HTMLAttributes<HTMLInputElement>, keyof Props>;
@@ -33,6 +36,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({
     size: propSize,
     iconSize,
     roundness,
+    onChange,
+    type,
+    value,
     fontSize: propFontSize,
     borderWidth: propBorderWidth,
     fontWeight: propFontWeight,
@@ -113,6 +119,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({
                     placeholder={placeholder}
                     onFocus={onFocus}
                     onBlur={onBlur}
+                    onChange={onChange}
+                    type={type}
+                    value={value}
                     {...html}
                     {...props}
                 >
