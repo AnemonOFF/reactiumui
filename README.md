@@ -14,7 +14,7 @@
 > NOTE: This project is still in development and might have unexpectable bugs. If you encounter a bug please report
 
 ## Documentation
-You can get docs on our site: https://rectiumui.org/docs
+You can get docs on our site: https://reactiumui.vercel.app/docs
 
 ## Fast start
 
@@ -44,5 +44,10 @@ You can get docs on our site: https://rectiumui.org/docs
 	 const MyComponent = () => <Button>Press Me</Button>
 	 export default MyComponent;
 	```
+
+## Contact
+Telegram: https://t.me/anemonoff
+EMail: anemon.bis@gmail.com
+
 ## License
 [License](https://github.com/AnemonOFF/BMLogger/blob/main/LICENSE)
