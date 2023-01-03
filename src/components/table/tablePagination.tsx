@@ -53,7 +53,7 @@ const TablePagination = React.forwardRef<HTMLDivElement, TablePaginationProps>((
                         {page > 2 && <Button type={"border"} onClick={onPageClick} value={1}>1</Button>}
                         {page > 3 && <Button type={"border"} onClick={onPageClick} value={Math.round(page / 2)}>{Math.round(page / 2)}</Button>}
                         {page > 1 && <Button type={"border"} onClick={onPageClick} value={page - 1}>{page - 1}</Button>}
-                        <Button type={"border"}>{page}</Button>
+                        <Button>{page}</Button>
                         {page < totalPages && <Button type={"border"} onClick={onPageClick} value={page + 1}>{page + 1}</Button>}
                         {page < totalPages - 2 && <Button type={"border"} onClick={onPageClick} value={Math.round((totalPages + page) / 2)}>{Math.round((totalPages + page) / 2)}</Button>}
                         {page < totalPages - 1 && <Button type={"border"} onClick={onPageClick} value={totalPages}>{totalPages}</Button>}

@@ -96,7 +96,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
                 result['$$buttonBorderWidth'] = typeof propBorderWidth === 'number' ? `${propBorderWidth}px` : propBorderWidth;
         }
         return result;
-    }, [css, color, propSize, propFontSize, propBorderWidth, propFontWeight, propGradient])
+    }, [css, color, propSize, propFontSize, propBorderWidth, propFontWeight, propGradient, type])
 
     const customIconCss = iconSize ? {'$$buttonIconSize': typeof iconSize == 'number' ? `${iconSize}px` : iconSize} : {};
     const customRightIconCss = rightIconSize ? {'$$buttonRightIconSize': typeof rightIconSize == 'number' ? `${rightIconSize}px` : rightIconSize} : {};
