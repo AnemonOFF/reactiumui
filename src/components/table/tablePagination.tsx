@@ -1,6 +1,8 @@
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode } from "react";
 import { CSS } from "../../theme";
 import { useImperativeRef } from "../../utils";
+import { Button } from "../button";
+import { Group } from "../group";
 import { Text } from "../text";
 import { StyledTableCell } from "./tableCell.styles";
 import { useTableContext } from "./tableContext";
@@ -46,15 +48,17 @@ const TablePagination = React.forwardRef<HTMLDivElement, TablePaginationProps>((
                     {...html}
                     {...props}
                 >
-                    {page > 1 && <button onClick={onPageClick} value={page - 1}>{'<'}</button>}
-                    {page > 2 && <button onClick={onPageClick} value={1}>1</button>}
-                    {page > 3 && <button onClick={onPageClick} value={Math.round(page / 2)}>{Math.round(page / 2)}</button>}
-                    {page > 1 && <button onClick={onPageClick} value={page - 1}>{page - 1}</button>}
-                    <button disabled>{page}</button>
-                    {page < totalPages && <button onClick={onPageClick} value={page + 1}>{page + 1}</button>}
-                    {page < totalPages - 2 && <button onClick={onPageClick} value={Math.round((totalPages + page) / 2)}>{Math.round((totalPages + page) / 2)}</button>}
-                    {page < totalPages - 1 && <button onClick={onPageClick} value={totalPages}>{totalPages}</button>}
-                    {page < totalPages && <button onClick={onPageClick} value={page + 1}>{'>'}</button>}
+                    <Group>
+                        {page > 1 && <Button type={"border"} onClick={onPageClick} value={page - 1}>{'<'}</Button>}
+                        {page > 2 && <Button type={"border"} onClick={onPageClick} value={1}>1</Button>}
+                        {page > 3 && <Button type={"border"} onClick={onPageClick} value={Math.round(page / 2)}>{Math.round(page / 2)}</Button>}
+                        {page > 1 && <Button type={"border"} onClick={onPageClick} value={page - 1}>{page - 1}</Button>}
+                        <Button type={"border"}>{page}</Button>
+                        {page < totalPages && <Button type={"border"} onClick={onPageClick} value={page + 1}>{page + 1}</Button>}
+                        {page < totalPages - 2 && <Button type={"border"} onClick={onPageClick} value={Math.round((totalPages + page) / 2)}>{Math.round((totalPages + page) / 2)}</Button>}
+                        {page < totalPages - 1 && <Button type={"border"} onClick={onPageClick} value={totalPages}>{totalPages}</Button>}
+                        {page < totalPages && <Button type={"border"} onClick={onPageClick} value={page + 1}>{'>'}</Button>}
+                    </Group>
                 </StyledTablePagination>
                 {children}
             </StyledTableCell>

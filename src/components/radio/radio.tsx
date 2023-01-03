@@ -15,6 +15,7 @@ interface Props {
     disabled?: boolean,
     checked?: boolean,
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    value?: string | number | readonly string[],
     initialChecked?: boolean,
     labelCss?: CSS,
     css?: CSS,
@@ -31,6 +32,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(({
     indeterminate,
     icon,
     checkedIcon,
+    value,
     labelColor: propLabelColor,
     labelGradient: propLabelGradient,
     size: propSize,
@@ -125,6 +127,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(({
                 onChange={onChange}
                 indeterminate={!checked ? indeterminate : false}
                 icon={renderIcon !== undefined}
+                value={value}
                 {...html}
                 {...props}
             />

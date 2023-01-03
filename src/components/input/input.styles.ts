@@ -54,7 +54,7 @@ export const InputGroupStyles = css({
     m: 0,
     p: 0,
     border: '$$inputBorderWidth solid $border',
-    width: 'unset',
+    width: 'max-content',
     '& > :first-child': {
         borderTopLeftRadius: '$xs',
         borderBottomLeftRadius: '$xs',
@@ -91,7 +91,7 @@ export const InputLabelStyles = css({
     $$inputBorderWidth: '1px',
     $$inputFontSize: '$fontSizes$sm',
     $$inputFontWeight: '$fontWeights$normal',
-    width: 'unset',
+    width: 'max-content',
     fontSize: '$$inputFontSize',
     fontWeight: '$$inputFontWeight',
     color: '$colors$text',

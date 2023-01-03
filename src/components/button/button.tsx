@@ -16,6 +16,7 @@ interface Props {
     fontWeight?: FontWeight | number,
     borderWidth?: BorderWidth | number | string,
     onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
+    value?: string | number | readonly string[],
     css?: CSS,
 }
 
@@ -27,6 +28,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     children,
     html,
     css,
+    value,
     type,
     icon,
     rightIcon,
@@ -105,6 +107,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
             css={customCss}
             type={type}
             onClick={onClick}
+            value={value}
             {...html}
             {...props}
         >

@@ -5,6 +5,7 @@ import { useImperativeRef } from "../../utils/hooks";
 import { StyledTableRow, TableRowVariantsProps } from "./tableRow.styles";
 import { useTableContext } from "./tableContext";
 import TableCell from "./tableCell";
+import { Checkbox } from "../checkbox";
 
 interface Props {
     children?: ReactNode,
@@ -52,7 +53,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(({
         >
             {!hideCheckboxColumn &&
             <TableCell>
-                <input type="checkbox" disabled={disableSelection} checked={isChecked} onChange={() => {}} />
+                <Checkbox disabled={disableSelection} checked={isChecked} onChange={() => {}} />
             </TableCell>
             }
             {children}
