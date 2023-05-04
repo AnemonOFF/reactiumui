@@ -50,4 +50,4 @@ Telegram: https://t.me/anemonoff
 EMail: anemon.bis@gmail.com
 
 ## License
-[License](https://github.com/AnemonOFF/BMLogger/blob/main/LICENSE)
+[License](https://github.com/AnemonOFF/reactiumui/blob/master/LICENSE)
